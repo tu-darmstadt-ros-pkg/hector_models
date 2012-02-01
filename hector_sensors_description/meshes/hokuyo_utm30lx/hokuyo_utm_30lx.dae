@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Stefan Kohlbrecher</author>
+      <authoring_tool>Blender 2.61.4 r43797</authoring_tool>
+    </contributor>
+    <created>2012-02-01T14:19:57</created>
+    <modified>2012-02-01T14:19:57</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="Hokuyo_Orange-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0.05 0.016 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.8 0.2668543 0.007142973 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.1875294 0 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="BodyDark-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0.1 0.1 0.1 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.05496641 0.05496641 0.05496641 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Hokuyo_Orange-material" name="Hokuyo_Orange">
+      <instance_effect url="#Hokuyo_Orange-effect"/>
+    </material>
+    <material id="BodyDark-material" name="BodyDark">
+      <instance_effect url="#BodyDark-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Plane-mesh">
+      <mesh>
+        <source id="Plane-mesh-positions">
+          <float_array id="Plane-mesh-positions-array" count="84">-0.24321 -0.149432 -0.2432097 -0.2789493 0.13143 -0.2789489 -0.216749 0.1250717 -0.2167486 -0.2950714 -0.1794006 -0.2950711 -0.3010078 -0.5353779 -0.3010077 -0.2789748 0.3114927 -0.2789742 -0.2789744 0.3114926 0.278975 -0.3010077 -0.5353779 0.3010079 -0.2950711 -0.1794006 0.2950715 -0.2167487 0.1250717 0.2167492 -0.278949 0.13143 0.2789495 -0.2432098 -0.1494321 0.2432101 0.2432101 -0.1494321 0.2432098 0.2789494 0.1314299 0.2789492 0.216749 0.1250717 0.2167488 0.2950714 -0.1794006 0.2950712 0.3010079 -0.5353779 0.3010077 0.2789748 0.3114926 0.2789746 0.2789744 0.3114926 -0.2789747 0.3010076 -0.5353779 -0.3010079 0.2950711 -0.1794006 -0.2950714 0.2167487 0.1250717 -0.2167489 0.2789489 0.13143 -0.2789493 0.2432097 -0.149432 -0.24321 -0.2789642 0.2364665 -0.2789637 -0.2789638 0.2364665 0.2789644 0.2789642 0.2364664 0.278964 0.2789638 0.2364665 -0.2789641</float_array>
+          <technique_common>
+            <accessor source="#Plane-mesh-positions-array" count="28" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Plane-mesh-normals">
+          <float_array id="Plane-mesh-normals-array" count="156">1 -1.41412e-4 -9.08054e-7 1 -1.41015e-4 -8.54687e-7 1 -1.41299e-4 -8.54687e-7 1 -1.41299e-4 -8.54718e-7 7.47781e-7 -1.4181e-4 1 6.94379e-7 -1.41413e-4 1 6.94379e-7 -1.41583e-4 1 6.41012e-7 -1.41299e-4 1 -1 -1.41412e-4 6.40993e-7 -1 -1.41015e-4 6.94367e-7 -1 -1.41583e-4 6.40993e-7 -1 -1.41299e-4 5.87593e-7 -8.01226e-7 -1.41412e-4 -1 -7.47825e-7 -1.41015e-4 -1 -7.47825e-7 -1.41299e-4 -1 -6.94461e-7 -1.41015e-4 -1 0 1 0 0 1 0 0 -1 0 0 -1 0 0.5003311 0.8658341 -2.41019e-7 0.5003312 0.8658342 -2.43736e-7 0.4644612 0.7539903 0.4644612 0.3705252 -0.85168 -0.3705252 0.3705252 -0.85168 0.3705252 0.4644612 0.7539903 -0.4644612 0.1016917 -0.994816 -1.92734e-7 0.1016924 -0.9948158 0 0.999861 0.01667422 -5.44471e-7 0.999861 0.01667439 -6.5492e-7 3.95979e-7 0.0166741 0.999861 5.05319e-7 0.01667428 0.999861 0 -0.9948158 0.1016926 0 -0.994816 0.1016916 -0.4644612 0.7539903 0.4644612 -0.3705252 -0.85168 0.3705252 2.52668e-7 0.8658339 0.5003315 3.07667e-7 0.8658342 0.5003311 -0.5003312 0.8658341 2.89584e-7 -0.5003309 0.8658342 3.19654e-7 -0.4644612 0.7539903 -0.4644612 -0.3705252 -0.85168 -0.3705252 -0.1016935 -0.9948158 0 -0.1016926 -0.994816 0 -0.999861 0.01667422 2.47487e-7 -0.999861 0.01667445 4.05585e-7 -3.95979e-7 0.01667451 -0.999861 -5.04211e-7 0.01667469 -0.999861 0 -0.9948158 -0.1016925 -1.76881e-7 -0.9948158 -0.1016933 -3.06546e-7 0.8658342 -0.5003308 -2.50299e-7 0.8658341 -0.5003313</float_array>
+          <technique_common>
+            <accessor source="#Plane-mesh-normals-array" count="52" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Plane-mesh-vertices">
+          <input semantic="POSITION" source="#Plane-mesh-positions"/>
+        </vertices>
+        <polylist material="Hokuyo_Orange1" count="16">
+          <input semantic="VERTEX" source="#Plane-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Plane-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>13 2 27 2 26 2 13 3 22 3 27 3 10 6 26 6 25 6 10 7 13 7 26 7 1 10 25 10 24 10 1 11 10 11 25 11 22 14 24 14 27 14 22 15 1 15 24 15 13 26 14 26 22 26 14 27 21 27 22 27 10 32 9 32 14 32 10 33 14 33 13 33 1 42 2 42 9 42 1 43 9 43 10 43 22 48 21 48 2 48 22 49 2 49 1 49</p>
+        </polylist>
+        <polylist material="BodyDark2" count="36">
+          <input semantic="VERTEX" source="#Plane-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Plane-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>26 0 18 0 17 0 26 1 27 1 18 1 25 4 17 4 6 4 25 5 26 5 17 5 24 8 25 8 5 8 5 9 25 9 6 9 27 12 5 12 18 12 27 13 24 13 5 13 5 16 6 16 17 16 5 17 17 17 18 17 4 18 19 18 16 18 4 19 16 19 7 19 12 20 15 20 20 20 12 21 20 21 23 21 12 22 21 23 14 24 12 22 23 25 21 23 15 28 16 28 19 28 15 29 19 29 20 29 8 30 7 30 16 30 8 31 16 31 15 31 11 34 12 22 9 35 9 35 12 22 14 24 11 36 8 36 15 36 11 37 15 37 12 37 0 38 3 38 8 38 0 39 8 39 11 39 0 40 11 34 2 41 2 41 11 34 9 35 3 44 4 44 7 44 3 45 7 45 8 45 20 46 19 46 4 46 20 47 4 47 3 47 21 23 0 40 2 41 0 40 21 23 23 25 3 50 0 50 23 50 3 51 23 51 20 51</p>
+        </polylist>
+      </mesh>
+      <extra><technique profile="MAYA"><double_sided>1</double_sided></technique></extra>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Plane" type="NODE">
+        <translate sid="location">0 0 0</translate>
+        <rotate sid="rotationZ">0 0 1 1.27222e-14</rotate>
+        <rotate sid="rotationY">0 1 0 1.27222e-14</rotate>
+        <rotate sid="rotationX">1 0 0 90</rotate>
+        <scale sid="scale">0.1027312 0.1027312 0.1027312</scale>
+        <instance_geometry url="#Plane-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Hokuyo_Orange1" target="#Hokuyo_Orange-material"/>
+              <instance_material symbol="BodyDark2" target="#BodyDark-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>
