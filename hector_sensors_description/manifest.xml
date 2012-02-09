@@ -8,8 +8,7 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/hector_sensors_description</url>
-  <depend package="gazebo_plugins"/>
-
+  
 </package>
 
 
