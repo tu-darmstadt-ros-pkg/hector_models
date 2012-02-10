@@ -9,9 +9,9 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
       <joint name="${name}_joint" type="fixed">
 	<insert_block name="origin" />
 	<parent link="${parent}"/>
-	<child link="${name}_link"/>
+	<child link="${name}_frame"/>
       </joint>
-      <link name="${name}_link">
+      <link name="${name}_frame">
 	<inertial>
 	  <mass value="0.001" />
 	  <origin xyz="0 0 0" rpy="0 0 0" />
@@ -26,12 +26,12 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
 	<collision>
 	  <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-          <mesh filename="package://hector_sensors_description/meshes/hokuyo_utm30lx/hokuyo_utm_30lx.dae"/>
+          <mesh filename="package://hector_sensors_description/meshes/hokuyo_utm30lx/hokuyo_utm_30lx.stl"/>
         </geometry>
 	</collision>
       </link>
       
-      <gazebo reference="${name}_link">
+      <gazebo reference="${name}_frame">
 	<sensor:ray name="${name}">
 		<rayCount>${ray_count}</rayCount>
 		<rangeCount>${ray_count}</rangeCount>
@@ -50,7 +50,7 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
 	    <alwaysOn>true</alwaysOn>
 	    <updateRate>${update_rate}</updateRate>
 	    <topicName>${ros_topic}</topicName>
-	    <frameName>/${name}_link</frameName>
+	    <frameName>/${name}_frame</frameName>
 	    <interface:laser name="gazebo_ros_${name}_iface" />
 	  </controller:gazebo_ros_laser>
 	</sensor:ray>
