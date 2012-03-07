@@ -58,7 +58,7 @@ xmlns:xacro="http://ros.org/wiki/xacro"
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
           <topicName>${ros_topic}</topicName>
-          <frameName>/${name}_link</frameName>
+          <frameId>/${name}_link</frameId>
         </controller:hector_gazebo_ros_sonar>
       </sensor:ray>
     </gazebo>
