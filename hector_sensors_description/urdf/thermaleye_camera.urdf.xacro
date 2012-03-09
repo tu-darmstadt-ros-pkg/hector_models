@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  >  
+    <include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
+    <property name="M_PI" value="3.1415926535897931" />
+  
+    <xacro:macro name="thermaleye_camera_model" params="name parent *origin">
+      <joint name="${name}_joint" type="fixed">
+        <insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_frame"/>
+      </joint>
+      
+      <link name="${name}_frame">
+        <inertial_sphere mass="0.01" diameter="0.07" />
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v1.dae"/>
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v1.stl"/>
+          </geometry>
+        </collision>
+      </link>
+      
+      <add_optical_frame name="${name}" />  
+      
+     
+      
+<!--    <gazebo reference="${name}_link">
+      <sensor:camera name="${name}_camera_sensor">
+        <imageSize>320 240</imageSize>
+        <imageFormat>R8G8B8</imageFormat>
+        <hfov>90</hfov>
+        <nearClip>0.01</nearClip>
+        <farClip>100</farClip>
+        <updateRate>${update_rate}</updateRate>
+        <controller:gazebo_ros_camera name="${name}_camera_controller" plugin="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>${update_rate}</updateRate>
+          <imageTopicName>${ros_topic}</imageTopicName>
+          <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
+          <frameName>${name}_optical_frame</frameName>
+          <interface:camera name="${name}_camera_iface" />
+        </controller:gazebo_ros_camera>
+      </sensor:camera>
+      <turnGravityOff>true</turnGravityOff>
+      <material>PR2/Blue</material>
+    </gazebo>-->
+    </xacro:macro>
+  </robot>
+  
