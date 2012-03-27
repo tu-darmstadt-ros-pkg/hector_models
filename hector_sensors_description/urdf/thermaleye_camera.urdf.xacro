@@ -20,13 +20,13 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
         <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-            <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v1.dae"/>
+            <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v2.dae"/>
           </geometry>
         </visual>
         <collision>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-            <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v1.stl"/>
+            <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v2.stl"/>
           </geometry>
         </collision>
       </link>
