@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+  xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+  xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+  xmlns:xacro="http://ros.org/wiki/xacro">
+
+<macro name="inertial_cuboid" params="mass x_length y_length z_length">
+  <inertial>
+    <mass value="${mass}" />
+    <origin xyz="0 0 0" />
+    <inertia ixx="${(1/12) * mass* (y_length*y_length+ z_length*z_length)}" ixy="0.0" ixz="0.0"
+             iyy="${(1/12) * mass* (x_length*x_length+ z_length*z_length)}" iyz="0.0"
+             izz="${(1/12) * mass* (x_length*x_length+ y_length*y_length)}" />
+  </inertial>
+</macro>
+
+<macro name="inertial_sphere" params="mass diameter">
+  <inertial>
+    <mass value="${mass}" />
+    <origin xyz="0 0 0" />
+    <inertia ixx="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" ixy="0.0" ixz="0.0"
+             iyy="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" iyz="0.0"
+             izz="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" />
+  </inertial>
+</macro>
+
+</robot>
+
+
