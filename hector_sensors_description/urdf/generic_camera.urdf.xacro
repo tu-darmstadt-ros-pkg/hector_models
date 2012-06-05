@@ -8,7 +8,7 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
   
     <property name="M_PI" value="3.1415926535897931" />
   
-    <xacro:macro name="generic_camera" params="name parent *origin ros_topic cam_info_topic update_rate">
+    <xacro:macro name="generic_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov">
       <joint name="${name}_joint" type="fixed">
         <insert_block name="origin" />
         <parent link="${parent}"/>
@@ -69,9 +69,9 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
       
     <gazebo reference="${name}_link">
       <sensor:camera name="${name}_camera_sensor">
-        <imageSize>320 240</imageSize>
-        <imageFormat>R8G8B8</imageFormat>
-        <hfov>90</hfov>
+        <imageSize>${res_x} ${res_y}</imageSize>
+        <imageFormat>${image_format}</imageFormat>
+        <hfov>${hfov}</hfov>
         <nearClip>0.01</nearClip>
         <farClip>100</farClip>
         <updateRate>${update_rate}</updateRate>
