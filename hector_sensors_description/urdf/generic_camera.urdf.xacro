@@ -75,14 +75,15 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
         <nearClip>0.01</nearClip>
         <farClip>100</farClip>
         <updateRate>${update_rate}</updateRate>
-        <controller:gazebo_ros_camera name="${name}_camera_controller" plugin="libgazebo_ros_camera.so">
+        <controller:gazebo_ros_depth_camera name="${name}_camera_controller" plugin="libgazebo_ros_depth_camera.so">
+	  <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
           <frameName>${name}_optical_frame</frameName>
           <interface:camera name="${name}_camera_iface" />
-        </controller:gazebo_ros_camera>
+        </controller:gazebo_ros_depth_camera>
       </sensor:camera>
       <turnGravityOff>true</turnGravityOff>
       <material>PR2/Blue</material>
