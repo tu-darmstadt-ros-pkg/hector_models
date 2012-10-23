@@ -38,34 +38,13 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
         </collision>
       </link>
       
-      
     <joint name="${name}_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
       <parent link="${name}_link" />
       <child link="${name}_optical_frame"/>
     </joint>
     
-    <link name="${name}_optical_frame">
-      <inertial>
-        <mass value="0.01" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.001"  ixy="0.0"  ixz="0.0"
-                 iyy="0.001"  iyz="0.0"
-                 izz="0.001" />
-      </inertial>
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.001 0.001 0.001" />
-        </geometry>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.001 0.001 0.001" />
-        </geometry>
-      </collision>
-    </link>
+    <link name="${name}_optical_frame"/>
       
     <gazebo reference="${name}_link">
       <sensor:camera name="${name}_camera_sensor">

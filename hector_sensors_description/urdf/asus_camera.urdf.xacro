@@ -8,7 +8,7 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
     <include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
     <property name="M_PI" value="3.1415926535897931" />
   
-    <xacro:macro name="kinect_camera_model" params="name parent *origin">
+    <xacro:macro name="asus_camera_model" params="name parent *origin">
       <joint name="${name}_joint" type="fixed">
         <insert_block name="origin" />
         <parent link="${parent}"/>
@@ -16,23 +16,27 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
       </joint>
       
       <link name="${name}_link">
-        <inertial_sphere mass="0.01" diameter="0.07" />
+        <inertial>
+	  <mass value="0.200" />
+	  <origin xyz="0 0 0" rpy="0 0 0" />
+		<inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4" />
+	</inertial>
         <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-            <mesh filename="package://hector_sensors_description/meshes/kinect_camera/kinect_camera_simple.dae"/>
+            <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
           </geometry>
         </visual>
         <collision>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-            <mesh filename="package://hector_sensors_description/meshes/kinect_camera/kinect_camera_simple.stl"/>
+            <box size="0.035 0.185 0.025"/>
           </geometry>
         </collision>
       </link>
 
       <joint name="${name}_depth_joint" type="fixed">
-        <origin xyz="0.0 -0.02 0.0" rpy="0 0 0" />
+        <origin xyz="0.0 0.049 0.0" rpy="0 0 0" />
         <parent link="${name}_link" />
         <child link="${name}_depth_frame"/>
       </joint>
@@ -48,7 +52,7 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
       <link name="${name}_depth_optical_frame"/>
 
       <joint name="${name}_rgb_joint" type="fixed">
-        <origin xyz="0.0 -0.045 0.0" rpy="0 0 0" />
+        <origin xyz="0.0 0.022 0.0" rpy="0 0 0" />
         <parent link="${name}_link" />
         <child link="${name}_rgb_frame"/>
       </joint>
@@ -65,46 +69,20 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
 
     </xacro:macro>
 
-    <xacro:macro name="kinect_camera" params="name parent *origin">
-      <kinect_camera_model name="${name}" parent="${parent}">
+    <xacro:macro name="asus_camera" params="name parent *origin">
+      <asus_camera_model name="${name}" parent="${parent}">
         <insert_block name="origin" />
-      </kinect_camera_model>
+      </asus_camera_model>
       
+  
       <!-- ASUS Xtion PRO camera for simulation -->
-      <!-- gazebo_ros_wge100 plugin is in kt2_gazebo_plugins package -->
-      <!-- <gazebo reference="${name}_link" >
-        <sensor:camera name="${name}" >
-          <imageSize>640 480</imageSize>
-          <imageFormat>R8G8B8</imageFormat>
-          <hfov>62.8</hfov>
-          <nearClip>0.1</nearClip>
-          <farClip>10</farClip>
-          <updateRate>2.0</updateRate>
-          <controller:gazebo_ros_wge100 name="${name}_camera_controller" plugin="libgazebo_ros_wge100.so">
-	    <alwaysOn>true</alwaysOn>
-	    <updateRate>5000.0</updateRate>
-	    <cameraName>${name}/rgb</cameraName>
-	    <frameName>${name}_rgb_optical_frame</frameName>
-	    <hackBaseline>0.0</hackBaseline>
-	    <CxPrime>320.5</CxPrime>
-	    <Cx>320.5</Cx>
-	    <Cy>240.5</Cy>
-	    <baseline>0.09</baseline>
-	    <focal_length>525</focal_length>
-	    <cameraNamespace>camera/rgb</cameraNamespace>
-	    <depthData>true</depthData>
-	    <interface:camera name="camera_iface" />
-          </controller:gazebo_ros_wge100>
-        </sensor:camera>
-      </gazebo> -->
-
       <gazebo reference="${name}_depth_frame">
         <sensor:camera name="${name}">
           <imageFormat>R8G8B8</imageFormat>
           <imageSize>640 480</imageSize>
-          <hfov>60</hfov>
-          <nearClip>0.05</nearClip>
-          <farClip>3</farClip>
+          <hfov>62.8</hfov>
+          <nearClip>0.5</nearClip>
+          <farClip>9</farClip>
           <updateRate>20</updateRate>
           <baseline>0.1</baseline>
           <controller:gazebo_ros_openni_kinect name="${name}_camera_controller" plugin="libgazebo_ros_openni_kinect.so">
