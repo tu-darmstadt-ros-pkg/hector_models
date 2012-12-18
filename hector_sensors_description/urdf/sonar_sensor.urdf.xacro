@@ -35,8 +35,6 @@ xmlns:xacro="http://ros.org/wiki/xacro"
 
     <gazebo reference="${name}_link">
       <sensor:ray name="${name}">
-        <!-- displayRays>fan</displayRays -->
-
         <rayCount>${ray_count}</rayCount>
         <rangeCount>${ray_count}</rangeCount>
         <verticalRayCount>${ray_count}</verticalRayCount>
@@ -55,10 +53,8 @@ xmlns:xacro="http://ros.org/wiki/xacro"
 
         <controller:hector_gazebo_ros_sonar name="gazebo_ros_${name}_controller" plugin="libhector_gazebo_ros_sonar.so">
           <gaussianNoise>0.005</gaussianNoise>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>${update_rate}</updateRate>
           <topicName>${ros_topic}</topicName>
-          <frameId>/${name}_link</frameId>
+          <frameId>${name}_link</frameId>
         </controller:hector_gazebo_ros_sonar>
       </sensor:ray>
     </gazebo>
