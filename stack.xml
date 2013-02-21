@@ -1,6 +1,6 @@
 <stack>
   <description brief="hector_models">hector_models contains (urdf) models of robots, sensors etc.</description>
-  <author>Maintained by Stefan Kohlbrecher</author>
+  <author>Stefan Kohlbrecher</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/hector_models</url>
