@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 
-<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-  xmlns:xacro="http://ros.org/wiki/xacro"
-  >  
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
     <include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
     <property name="M_PI" value="3.1415926535897931" />
   
@@ -75,15 +71,21 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
   
       <!-- ASUS Xtion PRO camera for simulation -->
       <gazebo reference="${name}_depth_frame">
-        <sensor:camera name="${name}">
-          <imageFormat>R8G8B8</imageFormat>
-          <imageSize>640 480</imageSize>
-          <hfov>62.8</hfov>
-          <nearClip>0.5</nearClip>
-          <farClip>9</farClip>
-          <updateRate>20</updateRate>
-          <baseline>0.1</baseline>
-          <controller:gazebo_ros_openni_kinect name="${name}_camera_controller" plugin="libgazebo_ros_openni_kinect.so">
+        <sensor type="depth" name="${name}">
+          <update_rate>20</update_rate>
+          <camera>
+            <horizontal_fov>${62.8 * M_PI/180.0}</horizontal_fov>
+            <image>
+              <format>R8G8B8</format>
+              <width>640</width>
+              <height>480</height>
+            </image>
+            <clip>
+              <near>0.5</near>
+              <far>9</far>
+            </clip>
+          </camera>
+          <plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>20</updateRate>
             <imageTopicName>${name}/rgb/image_raw</imageTopicName>
@@ -97,8 +99,8 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
             <distortion_k3>0.0</distortion_k3>
             <distortion_t1>0.0</distortion_t1>
             <distortion_t2>0.0</distortion_t2>
-          </controller:gazebo_ros_openni_kinect>
-        </sensor:camera>
+          </plugin>
+        </sensor>
       </gazebo>
     </xacro:macro>
   </robot>

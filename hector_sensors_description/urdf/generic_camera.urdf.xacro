@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 
-<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-  xmlns:xacro="http://ros.org/wiki/xacro"
-  >  
-  
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
     <property name="M_PI" value="3.1415926535897931" />
   
     <xacro:macro name="generic_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov">
@@ -47,24 +43,30 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
     <link name="${name}_optical_frame"/>
       
     <gazebo reference="${name}_link">
-      <sensor:camera name="${name}_camera_sensor">
-        <imageSize>${res_x} ${res_y}</imageSize>
-        <imageFormat>${image_format}</imageFormat>
-        <hfov>${hfov}</hfov>
-        <nearClip>0.01</nearClip>
-        <farClip>100</farClip>
-        <updateRate>${update_rate}</updateRate>
-        <controller:gazebo_ros_depth_camera name="${name}_camera_controller" plugin="libgazebo_ros_depth_camera.so">
+      <sensor type="camera" name="${name}_camera_sensor">
+        <update_rate>${update_rate}</update_rate>
+        <camera>
+          <horizontal_fov>${${hfov} * M_PI/180.0}</horizontal_fov>
+          <image>
+            <format>${image_format}</format>
+            <width>${res_x}</width>
+            <height>${res_y}</height>
+          </image>
+          <clip>
+            <near>0.01</near>
+            <far>100</far>
+          </clip>
+        </camera>
+
+        <plugin name="${name}_camera_controller" filename="libgazebo_ros_depth_camera.so">
 	  <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
           <frameName>${name}_optical_frame</frameName>
-          <interface:camera name="${name}_camera_iface" />
         </controller:gazebo_ros_depth_camera>
-      </sensor:camera>
-      <turnGravityOff>true</turnGravityOff>
+      </sensor>
       <material>PR2/Blue</material>
     </gazebo>
     </xacro:macro>
