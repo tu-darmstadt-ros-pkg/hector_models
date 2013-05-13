@@ -9,6 +9,8 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/hector_xacro_tools</url>
 
+  <depend package="xacro"/>
+
 </package>
 
 
