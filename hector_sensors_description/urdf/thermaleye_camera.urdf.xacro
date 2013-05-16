@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-    <include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
+    <xacro:include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
     <xacro:property name="M_PI" value="3.1415926535897931" />
   
     <xacro:macro name="thermaleye_camera_model" params="name parent *origin">
       <joint name="${name}_joint" type="fixed">
-        <insert_block name="origin" />
+        <xacro:insert_block name="origin" />
         <parent link="${parent}"/>
         <child link="${name}_frame"/>
       </joint>
@@ -27,7 +27,7 @@
         </collision>
       </link>
       
-      <add_optical_frame name="${name}" />  
+      <xacro:add_optical_frame name="${name}" />
     </xacro:macro>
   </robot>
   
