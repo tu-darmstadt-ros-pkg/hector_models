@@ -2,7 +2,6 @@
 
 <robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
 xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
   xmlns:xacro="http://ros.org/wiki/xacro"
   >  
     <xacro:macro name="hokuyo_utm30lx" params="name parent *origin ros_topic update_rate ray_count min_angle max_angle">
@@ -55,7 +54,6 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
             <updateRate>${update_rate}</updateRate>
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>
-            <interface:laser name="gazebo_ros_${name}_iface" />
           </controller:gazebo_ros_laser>
         </sensor:ray>
       </gazebo>
