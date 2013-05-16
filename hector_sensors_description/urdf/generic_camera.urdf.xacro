@@ -58,7 +58,7 @@
           </clip>
         </camera>
 
-        <plugin name="${name}_camera_controller" filename="libgazebo_ros_depth_camera.so">
+        <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
@@ -67,7 +67,6 @@
           <frameName>${name}_optical_frame</frameName>
         </plugin>
       </sensor>
-      <material>PR2/Blue</material>
     </gazebo>
   </xacro:macro>
 
