@@ -46,7 +46,7 @@
       <sensor type="camera" name="${name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
-          <horizontal_fov>${hfov}</horizontal_fov>
+          <horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>
           <image>
             <format>${image_format}</format>
             <width>${res_x}</width>
