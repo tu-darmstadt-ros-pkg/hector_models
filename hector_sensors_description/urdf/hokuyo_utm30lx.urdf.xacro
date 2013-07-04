@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
 
     <xacro:macro name="hokuyo_utm30lx" params="name parent *origin ros_topic update_rate ray_count min_angle max_angle">
       <joint name="${name}_joint" type="fixed">
@@ -41,8 +42,8 @@
               <horizontal>
                 <samples>${ray_count}</samples>
                 <resolution>1</resolution>
-                <min_angle>${min_angle}</min_angle>
-                <max_angle>${max_angle}</max_angle>
+                <min_angle>${min_angle * M_PI/180}</min_angle>
+                <max_angle>${max_angle * M_PI/180}</max_angle>
               </horizontal>
             </scan>
             <range>
