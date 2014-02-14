@@ -20,6 +20,5 @@
   <!-- Dependencies needed after this package is compiled. -->
   <run_depend>hector_sensors_description</run_depend>
   <run_depend>hector_xacro_tools</run_depend>
-  <run_depend>hector_sensors_gazebo</run_depend>
 
 </package>
