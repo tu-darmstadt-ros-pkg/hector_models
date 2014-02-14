@@ -4,6 +4,7 @@
   <xacro:include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/thermaleye_camera.urdf.xacro"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/kinect_camera.urdf.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/hokuyo_utm30lx.urdf.xacro" />
   
   <xacro:macro name="vision_box" params="box_type parent *origin">
       
@@ -128,6 +129,10 @@
     <xacro:kinect_camera_model name="openni" parent="mounting_link">
       <origin xyz="${kinect_x_position} 0 ${kinect_z_position}" rpy="0 0 0"/>
     </xacro:kinect_camera_model>
+    
+    <xacro:hokuyo_utm30lx name="laser1" parent="laser1_link" ros_topic="laser1/scan" update_rate="40" ray_count="1081" min_angle="135" max_angle="-135">
+      <origin xyz="${laser1_center_x_offset} 0 ${laser1_plane_height}" rpy="0 0 0"/>
+    </xacro:hokuyo_utm30lx>
     
     <!--   <xacro:include filename="$(find monstertruck_urdf)/hector/$(env ROBOT)_addons.urdf.xacro" />-->
   </xacro:macro>
