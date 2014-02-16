@@ -7,7 +7,7 @@
   <xacro:property name="x_vision_box_front" value="0.146" />
   <xacro:property name="x_pos_sensor_head_rel_to_base_link" value="${x_vision_box_front-0.052}" />
   
-  <xacro:property name="laser1RollServo_height" value="0.118" /> <!--between base_link and laser1 roll axis-->
+  <xacro:property name="laser1RollServo_height" value="0.04" /> <!--between base_link and laser1 roll axis-->
 
 
   <xacro:property name="cameraYawServo_size_z" value="0.085" /> <!--between upper edge of top and camera pitch axis-->

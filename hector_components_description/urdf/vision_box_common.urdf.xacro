@@ -41,7 +41,7 @@
     
     <joint name="laser1/x" type="revolute">
       <origin xyz="${x_vision_box_front} 0 ${laser1RollServo_height}" rpy="0 0 0"/>
-      <parent link="base_link"/>
+      <parent link="top_box_link"/>
       <child link="laser1RollServo"/>
       <axis xyz="1 0 0"/>
       <limit lower="${-M_PI/2}" upper="${M_PI/2}" effort="100" velocity="100"/>
@@ -92,8 +92,8 @@
     </link>
     
     <joint name="camera/z" type="revolute">
-      <origin xyz="${x_pos_sensor_head_rel_to_base_link} 0 0.215" rpy="0 0 0"/>
-      <parent link="base_link"/>
+      <origin xyz="${x_pos_sensor_head_rel_to_base_link} 0 0.137" rpy="0 0 0"/>
+      <parent link="top_box_link"/>
       <child link="cameraYawServo"/>
       <axis xyz="0 0 1"/>
       <limit lower="${-M_PI*3/4}" upper="${M_PI*3/4}" effort="100" velocity="100"/>
@@ -139,8 +139,7 @@
       <origin xyz="${laser1_center_x_offset} 0 ${laser1_plane_height}" rpy="0 0 0"/>
     </xacro:hokuyo_utm30lx>
     
-    <xacro:vision_box_common_gazebo_plugins>
-    </xacro:vision_box_common_gazebo_plugins>
+    <xacro:vision_box_common_gazebo_plugins/>
     
     <!--   <xacro:include filename="$(find monstertruck_urdf)/hector/$(env ROBOT)_addons.urdf.xacro" />-->
   </xacro:macro>
