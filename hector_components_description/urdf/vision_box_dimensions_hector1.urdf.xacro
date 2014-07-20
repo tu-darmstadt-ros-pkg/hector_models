@@ -25,5 +25,7 @@
   <xacro:property name="top_box_size_x" value="0.18100" />
   <xacro:property name="top_box_size_y" value="0.21" />
   <xacro:property name="top_box_size_z" value="0.133" />
-  
+
+  <xacro:property name="kinect_yaw_position" value="0.0" /> 
+
 </robot>

@@ -68,7 +68,10 @@
   <xacro:property name="kinect_size_y" value="0.28" />
   <xacro:property name="kinect_size_z" value="0.04" />
   <xacro:property name="kinect_x_position" value="0.055" /> <!--between intersection point of yaw and pitch axis and center of camera lense-->
-  <xacro:property name="kinect_y_position" value="0" />
+  <xacro:property name="kinect_y_position" value="0.0" />
   <xacro:property name="kinect_z_position" value="0.055" />
+  <xacro:property name="kinect_roll_position" value="0" />
+  <xacro:property name="kinect_pitch_position" value="0" />
+<!--   <xacro:property name="kinect_yaw_position" value="0" />/>-->
 
 </robot>
