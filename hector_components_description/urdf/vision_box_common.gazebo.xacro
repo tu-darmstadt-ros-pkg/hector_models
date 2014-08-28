@@ -13,7 +13,7 @@
         <firstServoAxis>0 0 1</firstServoAxis>
         <secondServoName>camera/y</secondServoName>
         <secondServoAxis>0 1 0</secondServoAxis>
-        <torque>0.05</torque>
+        <torque>0.5</torque>
         <robotNamespace>/</robotNamespace>
         <topicName>camera/command</topicName>
         <jointStateName>joint_states</jointStateName>
