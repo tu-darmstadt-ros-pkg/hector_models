@@ -2,6 +2,9 @@
 Changelog for package hector_models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.3.2 (2014-09-01)
+------------------
+
 0.3.1 (2014-03-30)
 ------------------
 * made hector_models a true metapackage
