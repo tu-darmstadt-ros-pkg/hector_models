@@ -22,12 +22,21 @@
             <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
           </geometry>
         </visual>
-        <collision>
+       <!--        
+       <collision>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
             <box size="0.035 0.185 0.025"/>
           </geometry>
         </collision>
+        -->
+        <collision>
+          <origin xyz="-0.017 0 0" rpy="${M_PI*0.5} 0 0" />
+          <geometry>
+            <cylinder length="0.185" radius="0.02"/>
+          </geometry>
+        </collision>
+
       </link>
 
       <joint name="${name}_depth_joint" type="fixed">
