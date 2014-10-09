@@ -1,96 +1,81 @@
 <?xml version="1.0"?>
 
-<robot
-  xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
-  <property name="flipper_base_mass" value="2.0"/>
-  <property name="flipper_x" value="0.3"/>
-  <property name="flipper_y" value="0.1"/>
-  <property name="flipper_z" value="0.1"/>
-  <property name="M_PI" value="3.14159265359" />
+<robot xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+
+  <property name="M_PI" value="3.14159265359"/>
   
   <macro name="spinning_lidar_macro" params="parent name angle_deg *origin">
     
- <!-- front is either 1 (for front flipper) or -1 (for back flipper) -->
-<joint name="${name}_spinning_lidar_base_joint" type="fixed">    
-  <insert_block name="origin"/>
-      <axis xyz="0 1 0"/>     
+    <joint name="${name}_spinning_lidar_base_joint" type="fixed">
+      <insert_block name="origin"/>
+      <axis xyz="0 1 0"/>
       <parent link="${parent}"/>
       <child link="${name}_spinning_lidar_base_link"/>
     </joint>
-
-<link name="${name}_spinning_lidar_base_link">
-<origin xyz="0 0 0" rpy="0 0 0" />
-                <inertial>
-                <mass value="1.0" />
-                <origin xyz="0.0 0.0 0.5" rpy="0 0 0" />
-                <inertia ixx="0.005" ixy="0.0" ixz="0.0"
-                         iyy="0.005" iyz="0.0" 
-                         izz="0.005" />
-            </inertial>
-            
-            <collision name='collision'>
-             <origin xyz="0.0 0.0 0" rpy="0 0 0" />
-                <geometry>
-                  <box size="0.05 0.05 0.015"/>
-                </geometry>
-            </collision>
-
-            <visual name='visual'>
-                <origin xyz="0.0 0.0 0" rpy="0 0 0" />
-                <geometry>
-                  <box size="0.05 0.05 0.015"/>
-                </geometry>
-                <material name="DarkGrey" >
-                    <color rgba="0.3 0.3 0.3 1"/>
-                </material>
-            </visual> 
-        </link>
-        
-        
-    <joint name="${name}_spinning_lidar_spin_joint" type="continuous">    
+    
+    <link name="${name}_spinning_lidar_base_link">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertial>
+        <mass value="1.0"/>
+        <origin xyz="0.0 0.0 0.5" rpy="0 0 0"/>
+        <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005"/>
+      </inertial>
+      <collision name="collision">
+        <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.05 0.05 0.015"/>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.05 0.05 0.015"/>
+        </geometry>
+        <material name="DarkGrey">
+          <color rgba="0.3 0.3 0.3 1"/>
+        </material>
+      </visual>
+    </link>
+    
+    <joint name="${name}_spinning_lidar_spin_joint" type="continuous">
       <parent link="${name}_spinning_lidar_base_link"/>
       <child link="${name}_spinning_lidar_spin_link"/>
-      <origin xyz="0 0 0.02" rpy="0 ${0 * M_PI/180.0} 0" /> 
-      <axis xyz="0 0 1" rpy="0 0 0" />
+      <origin xyz="0 0 0.02" rpy="0 ${0 * M_PI/180.0} 0"/>
+      <axis xyz="0 0 1" rpy="0 0 0"/>
       <limit effort="100" velocity="100"/>
       <joint_properties damping="0.0" friction="0.0"/>
     </joint>
     
     <link name="${name}_spinning_lidar_spin_link">
-<origin xyz="0 0 0" rpy="0 0 0" />
-                <inertial>
-                <mass value="1.0" />
-                <origin xyz="0.0 0.0 0.5" rpy="0 0 0" />
-                <inertia ixx="0.005" ixy="0.0" ixz="0.0"
-                         iyy="0.005" iyz="0.0" 
-                         izz="0.005" />
-            </inertial>
-            
-            <collision name='collision'>
-             <origin xyz="0.0 0.0 0" rpy="0 0 0" />
-                <geometry>
-                  <box size="0.05 0.05 0.015"/>
-                </geometry>
-            </collision>
-
-            <visual name='visual'>
-                <origin xyz="0.0 0.0 0" rpy="0 0 0" />
-                <geometry>
-                  <box size="0.05 0.05 0.015"/>
-                </geometry>
-                <material name="DarkGrey" >
-                    <color rgba="0.3 0.3 0.3 1"/>
-                </material>
-            </visual> 
-        </link>
-
-<gazebo reference="${name}_spinning_lidar_base_link">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertial>
+        <mass value="1.0"/>
+        <origin xyz="0.0 0.0 0.5" rpy="0 0 0"/>
+        <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005"/>
+      </inertial>
+      <collision name="collision">
+        <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.05 0.05 0.015"/>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.05 0.05 0.015"/>
+        </geometry>
+        <material name="DarkGrey">
+          <color rgba="0.3 0.3 0.3 1"/>
+        </material>
+      </visual>
+    </link>
+    
+    <gazebo reference="${name}_spinning_lidar_base_link">
       <material>Gazebo/Green</material>
     </gazebo>
     
     <gazebo reference="${name}_spinning_lidar_spin_link">
       <material>Gazebo/Green</material>
     </gazebo>
-   
-    </macro>
+  </macro>
 </robot>
