@@ -6,14 +6,14 @@
   
   <macro name="spinning_lidar_macro" params="parent name angle_deg *origin">
     
-    <joint name="${name}_spinning_lidar_base_joint" type="fixed">
+    <joint name="${name}_spinning_lidar_root_joint" type="fixed">
       <insert_block name="origin"/>
       <axis xyz="0 1 0"/>
       <parent link="${parent}"/>
-      <child link="${name}_spinning_lidar_base_link"/>
+      <child link="${name}_spinning_lidar_root_link"/>
     </joint>
     
-    <link name="${name}_spinning_lidar_base_link">
+    <link name="${name}_spinning_lidar_root_link">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertial>
         <mass value="1.0"/>
@@ -38,7 +38,7 @@
     </link>
     
     <joint name="${name}_spinning_lidar_spin_joint" type="continuous">
-      <parent link="${name}_spinning_lidar_base_link"/>
+      <parent link="${name}_spinning_lidar_root_link"/>
       <child link="${name}_spinning_lidar_spin_link"/>
       <origin xyz="0 0 0.02" rpy="0 ${0 * M_PI/180.0} 0"/>
       <axis xyz="0 0 1" rpy="0 0 0"/>
@@ -70,12 +70,22 @@
       </visual>
     </link>
     
-    <gazebo reference="${name}_spinning_lidar_base_link">
-      <material>Gazebo/Green</material>
+    <transmission name="${name}_spinning_lidar_spin_joint_transmssion">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${name}_spinning_lidar_spin_joint"/>
+      <actuator name="${name}_spinning_lidar_spin_joint_motor">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission> 
+    
+    <gazebo reference="${name}_spinning_lidar_root_link">
+      <material>Gazebo/Grey</material>
     </gazebo>
     
     <gazebo reference="${name}_spinning_lidar_spin_link">
-      <material>Gazebo/Green</material>
+      <material>Gazebo/Grey</material>
     </gazebo>
+    
   </macro>
 </robot>
