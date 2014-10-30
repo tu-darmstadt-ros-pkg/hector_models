@@ -72,7 +72,9 @@
     
     <transmission name="${name}_spinning_lidar_spin_joint_transmssion">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${name}_spinning_lidar_spin_joint"/>
+      <joint name="${name}_spinning_lidar_spin_joint">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>  
       <actuator name="${name}_spinning_lidar_spin_joint_motor">
         <hardwareInterface>EffortJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
