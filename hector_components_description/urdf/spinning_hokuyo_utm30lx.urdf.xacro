@@ -26,7 +26,7 @@
     </spinning_lidar_macro>
     
     <xacro:hokuyo_utm30lx name="${name}_hokuyo_laser" parent="${name}_spinning_lidar_spin_link" ros_topic="${name}_spinning_lidar/scan" update_rate="40" ray_count="1040" min_angle="130" max_angle="-130">
-      <origin xyz="0.03 -0.0 0.055" rpy="0 ${angle_deg * M_PI/180.0} 0"/>
+      <origin xyz=" 0.019760 -0.0  0.157466" rpy="0 ${-angle_deg * M_PI/180.0} ${M_PI}"/>
     </xacro:hokuyo_utm30lx>
     
   </macro>
