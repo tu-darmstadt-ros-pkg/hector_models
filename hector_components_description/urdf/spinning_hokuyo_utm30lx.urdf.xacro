@@ -9,7 +9,7 @@
   
   <macro name="spinning_hokuyo_utm30lx_macro" params="parent name angle_deg *origin">
     
-    <spinning_lidar_macro parent="base_link" name="${name}" angle_deg="45">
+    <spinning_lidar_macro parent="${parent}" name="${name}" angle_deg="45">
       <insert_block name="origin"/>
     </spinning_lidar_macro>
     
@@ -21,7 +21,7 @@
   
   <macro name="spinning_hokuyo_utm30lx_lidar_mount_offset_macro" params="parent name angle_deg *origin">
     
-    <spinning_lidar_macro parent="base_link" name="${name}" angle_deg="45">
+    <spinning_lidar_macro parent="${parent}" name="${name}" angle_deg="45">
       <insert_block name="origin"/>
     </spinning_lidar_macro>
     
