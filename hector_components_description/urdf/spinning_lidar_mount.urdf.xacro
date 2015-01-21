@@ -16,7 +16,7 @@
     </joint>
     
     <link name="${name}_spinning_lidar_root_link">
-      <xacro:inertial_sphere_with_pose mass="0.1" diameter="0.03">
+      <xacro:inertial_sphere_with_pose mass="0.01" diameter="0.03">
         <origin xyz="0.0 0.0 -0.0" rpy="0 0 0"/>
       </xacro:inertial_sphere_with_pose>
       <collision name="collision">
@@ -46,7 +46,7 @@
     </joint>
     
     <link name="${name}_spinning_lidar_spin_link">
-      <xacro:inertial_sphere_with_pose mass="0.1" diameter="0.03">
+      <xacro:inertial_sphere_with_pose mass="0.01" diameter="0.03">
         <origin xyz="0.0 0.0 -0.0" rpy="0 0 0"/>
       </xacro:inertial_sphere_with_pose>
       <collision name="collision">
