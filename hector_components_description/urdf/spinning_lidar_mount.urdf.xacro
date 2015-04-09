@@ -17,9 +17,9 @@
     
     <link name="${name}_spinning_lidar_root_link">
       <xacro:inertial_sphere_with_pose mass="0.01" diameter="0.03">
-        <origin xyz="0.0 0.0 -0.0" rpy="0 0 0"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
       </xacro:inertial_sphere_with_pose>
-      <collision name="collision">
+<!--      <collision name="collision">
         <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
         <geometry>
           <box size="0.05 0.05 0.015"/>
@@ -33,7 +33,7 @@
         <material name="DarkGrey">
           <color rgba="0.3 0.3 0.3 1"/>
         </material>
-      </visual>
+      </visual>-->
     </link>
     
     <joint name="${name}_spinning_lidar_spin_joint" type="continuous">
@@ -49,7 +49,7 @@
       <xacro:inertial_sphere_with_pose mass="0.01" diameter="0.03">
         <origin xyz="0.0 0.0 -0.0" rpy="0 0 0"/>
       </xacro:inertial_sphere_with_pose>
-      <collision name="collision">
+<!--      <collision name="collision">
         <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
         <geometry>
           <box size="0.05 0.05 0.015"/>
@@ -63,7 +63,7 @@
         <material name="DarkGrey">
           <color rgba="0.3 0.3 0.3 1"/>
         </material>
-      </visual>
+      </visual>-->
     </link>
     
     <transmission name="${name}_spinning_lidar_spin_joint_transmssion">
