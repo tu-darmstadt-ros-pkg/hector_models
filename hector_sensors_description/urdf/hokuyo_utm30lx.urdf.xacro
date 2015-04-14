@@ -60,6 +60,7 @@
           </ray>
           <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_laser.so">
             <gaussianNoise>0.005</gaussianNoise>
+            <hokuyoMinIntensity>2000</hokuyoMinIntensity>
             <alwaysOn>true</alwaysOn>
             <updateRate>${update_rate}</updateRate>
             <topicName>${ros_topic}</topicName>
