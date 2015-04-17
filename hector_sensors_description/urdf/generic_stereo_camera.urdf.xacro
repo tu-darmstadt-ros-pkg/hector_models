@@ -4,7 +4,7 @@
   
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="generic_stereo_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov">
+  <xacro:macro name="generic_stereo_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov baseline">
     
   <!-- Stereo Camera -->
   <joint name="${name}_left_camera_frame_joint" type="fixed">
@@ -14,12 +14,11 @@
     <child link="${name}_left_camera_frame"/>
   </joint>
   <link name="${name}_left_camera_frame">
-    <inertial>
+<!--    <inertial>
       <mass value="1e-5" />
-      <!-- collocate with parent link and remove mass from it -->
       <origin xyz="-0.075493 0.035033383 0.02574"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-    </inertial>
+    </inertial>-->
   </link>
   <joint name="${name}_left_camera_optical_frame_joint" type="fixed">
     <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
@@ -57,7 +56,7 @@
         </noise>
       </camera>
       <camera name="right">
-        <pose>0 -0.07 0 0 0 0</pose>
+        <pose>0 ${-baseline} 0 0 0 0</pose>
         <!-- Spec sheet says 80deg X 45deg @ 1024x544pix.  Based on feedback
              from teams, we're instead doing 80deg X 80deg @ 800x800pix. -->
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -90,7 +89,7 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>${name}_left_camera_optical_frame</frameName>
         <!--<rightFrameName>right_camera_optical_frame</rightFrameName>-->
-        <hackBaseline>0.07</hackBaseline>
+        <hackBaseline>${baseline}</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
         <distortionK3>0.0</distortionK3>
@@ -102,17 +101,16 @@
 
 
   <joint name="${name}_right_camera_frame_joint" type="fixed">
-    <origin xyz="0.0 -0.07 -0.0"/>
+    <origin xyz="0.0 ${-baseline} -0.0"/>
     <parent link="${name}_left_camera_frame"/>
     <child link="${name}_right_camera_frame"/>
   </joint>
   <link name="${name}_right_camera_frame">
-    <inertial>
+<!--    <inertial>
       <mass value="1e-5" />
-      <!-- collocate with parent link and remove mass from it -->
       <origin xyz="-0.075493 -0.034966617 0.02574"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-    </inertial>
+    </inertial>-->
   </link>
   <joint name="${name}_right_camera_optical_frame_joint" type="fixed">
     <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
