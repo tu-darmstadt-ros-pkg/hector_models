@@ -31,9 +31,9 @@
         </collision>
         -->
         <collision>
-          <origin xyz="-0.017 0 0" rpy="${M_PI*0.5} 0 0" />
+          <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-            <cylinder length="0.185" radius="0.02"/>
+            <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
           </geometry>
         </collision>
 
