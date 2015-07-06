@@ -135,9 +135,9 @@
       <origin xyz="${kinect_x_position} ${kinect_y_position}  ${kinect_z_position}" rpy="${kinect_roll_position} ${kinect_pitch_position} ${kinect_yaw_position}"/>
     </xacro:asus_camera_model>
     
-    <xacro:hokuyo_utm30lx name="laser1" parent="laser1_link" ros_topic="laser1/scan" update_rate="40" ray_count="1081" min_angle="135" max_angle="-135">
+    <xacro:hokuyo_utm30lx_gpu name="laser1" parent="laser1_link" ros_topic="laser1/scan" update_rate="40" ray_count="1081" min_angle="-135" max_angle="135">
       <origin xyz="${laser1_center_x_offset} 0 ${laser1_plane_height}" rpy="0 0 0"/>
-    </xacro:hokuyo_utm30lx>
+    </xacro:hokuyo_utm30lx_gpu>
     
     <xacro:vision_box_common_gazebo_plugins/>
     
