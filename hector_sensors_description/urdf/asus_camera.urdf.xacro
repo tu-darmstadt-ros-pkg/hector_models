@@ -3,6 +3,10 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:property name="M_PI" value="3.1415926535897931" />
   
+    <!--
+     The asus_camera_model macro only adds the model, it does not also add
+     the openni gazebo plugin. See the 'asus_camera' macro below for that
+    -->
     <xacro:macro name="asus_camera_model" params="name parent *origin">
       <joint name="${name}_joint" type="fixed">
         <xacro:insert_block name="origin" />
@@ -72,6 +76,10 @@
       <link name="${name}_rgb_optical_frame"/>
     </xacro:macro>
 
+    <!--
+     The asus_camera macro only adds the model, and also adds
+     the openni gazebo plugin.
+    -->
     <xacro:macro name="asus_camera" params="name parent *origin">
       <xacro:asus_camera_model name="${name}" parent="${parent}">
         <xacro:insert_block name="origin" />
