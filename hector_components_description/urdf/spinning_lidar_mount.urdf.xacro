@@ -77,6 +77,9 @@
       </actuator>
     </transmission> 
     
+    <!--
+    Remove gazebo tags for links that do not have visuals anymore.
+    See https://bitbucket.org/osrf/gazebo/issues/1728
     <gazebo reference="${name}_spinning_lidar_root_link">
       <material>Gazebo/Grey</material>
     </gazebo>
@@ -84,6 +87,7 @@
     <gazebo reference="${name}_spinning_lidar_spin_link">
       <material>Gazebo/Grey</material>
     </gazebo>
+    -->
     
   </macro>
 </robot>
