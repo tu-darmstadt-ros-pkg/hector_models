@@ -5,20 +5,20 @@
     <xacro:include filename="$(find hector_sensors_description)/urdf/hokuyo_utm30lx.urdf.xacro" />
     <xacro:include filename="$(find hector_sensors_description)/urdf/asus_camera.urdf.xacro" />
 
-    <property name="M_PI" value="3.14159265359"/>
+    <xacro:property name="M_PI" value="3.14159265359"/>
     <xacro:macro name="hector_multisensor_head_macro" params="parent name scaling *origin">
         <link name="${name}_link">
             <xacro:inertial_sphere_with_pose mass="0.1" diameter="0.03">
                 <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
             </xacro:inertial_sphere_with_pose>
             <collision name="collision">
-                 <insert_block name="origin"/>
+                 <xacro:insert_block name="origin"/>
                 <geometry>
                     <mesh filename="package://hector_components_description/meshes/hector_multisensor_head/multisensor_head_collision.stl" scale="${scaling} ${scaling} ${scaling}"/>
                 </geometry>
             </collision>
             <visual>
-                <insert_block name="origin"/>
+                <xacro:insert_block name="origin"/>
                 <geometry>
                     <mesh filename="package://hector_components_description/meshes/hector_multisensor_head/multisensor_head.stl" scale="${scaling} ${scaling} ${scaling}"/>
                 </geometry>
@@ -26,7 +26,7 @@
         </link>
         <joint name="${name}_lidar_spinning_joint" type="continuous">
             <origin xyz="0.061 0.0 0.134" rpy="0 0 0"/>
-            <insert_block name="origin"/>
+            <xacro:insert_block name="origin"/>
             <parent link="${name}_link" />
             <child link="${name}_lidar_mount_link"/>
             <axis xyz="1 0 0" rpy="0 0 0"/>

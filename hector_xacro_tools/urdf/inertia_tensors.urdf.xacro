@@ -13,7 +13,7 @@
   
   <xacro:macro name="inertial_cuboid_with_pose" params="mass x_length y_length z_length *origin">
     <inertial>
-      <insert_block name="origin"/>
+      <xacro:insert_block name="origin"/>
       <mass value="${mass}" />
       <inertia ixx="${(1/12) * mass* (y_length*y_length+ z_length*z_length)}" ixy="0.0" ixz="0.0"
                iyy="${(1/12) * mass* (x_length*x_length+ z_length*z_length)}" iyz="0.0"
@@ -33,7 +33,7 @@
   
   <xacro:macro name="inertial_sphere_with_pose" params="mass diameter *origin">
     <inertial>
-      <insert_block name="origin"/>
+      <xacro:insert_block name="origin"/>
       <mass value="${mass}" />
       <inertia ixx="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" ixy="0.0" ixz="0.0"
                iyy="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" iyz="0.0"
