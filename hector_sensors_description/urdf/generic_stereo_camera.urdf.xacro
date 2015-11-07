@@ -82,19 +82,12 @@
         </noise>
       </camera>
       <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>0.0</updateRate>
         <cameraName>${name}</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>${name}_left_camera_optical_frame</frameName>
         <!--<rightFrameName>right_camera_optical_frame</rightFrameName>-->
         <hackBaseline>${baseline}</hackBaseline>
-        <distortionK1>0.0</distortionK1>
-        <distortionK2>0.0</distortionK2>
-        <distortionK3>0.0</distortionK3>
-        <distortionT1>0.0</distortionT1>
-        <distortionT2>0.0</distortionT2>
       </plugin>
     </sensor>
   </gazebo>
@@ -121,4 +114,4 @@
   
   </xacro:macro>
 
-</robot>  
+</robot>

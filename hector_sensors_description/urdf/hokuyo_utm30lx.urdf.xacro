@@ -57,12 +57,13 @@
               <max>30.0</max>
               <resolution>0.01</resolution>
             </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.004</stddev>
+            </noise>
           </ray>
           <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_laser.so">
-            <gaussianNoise>0.005</gaussianNoise>
-            <hokuyoMinIntensity>2000</hokuyoMinIntensity>
-            <alwaysOn>true</alwaysOn>
-            <updateRate>${update_rate}</updateRate>
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>
           </plugin>
@@ -101,7 +102,6 @@
             </noise>
           </ray>
           <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_gpu_laser.so">
-            <gaussianNoise>0.005</gaussianNoise>
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>
           </plugin>

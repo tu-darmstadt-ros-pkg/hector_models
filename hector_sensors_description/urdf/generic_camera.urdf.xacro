@@ -60,8 +60,6 @@
 
         <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}</cameraName>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>${update_rate}</updateRate>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
           <frameName>${name}_optical_frame</frameName>
