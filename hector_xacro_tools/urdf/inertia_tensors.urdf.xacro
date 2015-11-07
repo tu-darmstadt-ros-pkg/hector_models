@@ -5,9 +5,9 @@
     <inertial>
       <mass value="${mass}" />
       <origin xyz="0 0 0" />
-      <inertia ixx="${(1/12) * mass* (y_length*y_length+ z_length*z_length)}" ixy="0.0" ixz="0.0"
-               iyy="${(1/12) * mass* (x_length*x_length+ z_length*z_length)}" iyz="0.0"
-               izz="${(1/12) * mass* (x_length*x_length+ y_length*y_length)}" />
+      <inertia ixx="${(1/12) * mass * (y_length*y_length + z_length*z_length)}" ixy="0.0" ixz="0.0"
+               iyy="${(1/12) * mass * (x_length*x_length + z_length*z_length)}" iyz="0.0"
+               izz="${(1/12) * mass * (x_length*x_length + y_length*y_length)}" />
     </inertial>
   </xacro:macro>
   
@@ -15,9 +15,9 @@
     <inertial>
       <xacro:insert_block name="origin"/>
       <mass value="${mass}" />
-      <inertia ixx="${(1/12) * mass* (y_length*y_length+ z_length*z_length)}" ixy="0.0" ixz="0.0"
-               iyy="${(1/12) * mass* (x_length*x_length+ z_length*z_length)}" iyz="0.0"
-               izz="${(1/12) * mass* (x_length*x_length+ y_length*y_length)}" />
+      <inertia ixx="${(1/12) * mass * (y_length*y_length + z_length*z_length)}" ixy="0.0" ixz="0.0"
+               iyy="${(1/12) * mass * (x_length*x_length + z_length*z_length)}" iyz="0.0"
+               izz="${(1/12) * mass * (x_length*x_length + y_length*y_length)}" />
     </inertial>
   </xacro:macro>
 
@@ -25,9 +25,9 @@
     <inertial>
       <mass value="${mass}" />
       <origin xyz="0 0 0" />
-      <inertia ixx="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" ixy="0.0" ixz="0.0"
-               iyy="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" iyz="0.0"
-               izz="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" />
+      <inertia ixx="${(2/5) * mass * ( (diameter*0.5) * (diameter*0.5) )}" ixy="0.0" ixz="0.0"
+               iyy="${(2/5) * mass * ( (diameter*0.5) * (diameter*0.5) )}" iyz="0.0"
+               izz="${(2/5) * mass * ( (diameter*0.5) * (diameter*0.5) )}" />
     </inertial>
   </xacro:macro>
   
@@ -35,9 +35,9 @@
     <inertial>
       <xacro:insert_block name="origin"/>
       <mass value="${mass}" />
-      <inertia ixx="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" ixy="0.0" ixz="0.0"
-               iyy="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" iyz="0.0"
-               izz="${(2/5) * mass* ( (diameter*0.5)) * (diameter*0.5))}" />
+      <inertia ixx="${(2/5) * mass * ( (diameter*0.5) * (diameter*0.5) )}" ixy="0.0" ixz="0.0"
+               iyy="${(2/5) * mass * ( (diameter*0.5) * (diameter*0.5) )}" iyz="0.0"
+               izz="${(2/5) * mass * ( (diameter*0.5) * (diameter*0.5) )}" />
     </inertial>
   </xacro:macro>  
 
