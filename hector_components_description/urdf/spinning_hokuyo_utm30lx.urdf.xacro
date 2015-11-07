@@ -9,9 +9,9 @@
   
   <xacro:macro name="spinning_hokuyo_utm30lx_macro" params="parent name angle_deg *origin">
     
-    <spinning_lidar_macro parent="${parent}" name="${name}" angle_deg="45">
+    <xacro:spinning_lidar_macro parent="${parent}" name="${name}" angle_deg="45">
       <xacro:insert_block name="origin"/>
-    </spinning_lidar_macro>
+    </xacro:spinning_lidar_macro>
     
     <xacro:hokuyo_utm30lx_gpu name="${name}_hokuyo_laser" parent="${name}_spinning_lidar_spin_link" ros_topic="${name}_spinning_lidar/scan" update_rate="40" ray_count="1040" min_angle="-130" max_angle="130">
       <origin xyz="0.00 -0.0 0.055" rpy="0 ${angle_deg * M_PI/180.0} 0"/>
@@ -21,9 +21,9 @@
   
   <xacro:macro name="spinning_hokuyo_utm30lx_lidar_mount_offset_macro" params="parent name scan_topic_in_namespace angle_deg *origin">
     
-    <spinning_lidar_macro parent="${parent}" name="${name}" angle_deg="45">
+    <xacro:spinning_lidar_macro parent="${parent}" name="${name}" angle_deg="45">
       <xacro:insert_block name="origin"/>
-    </spinning_lidar_macro>
+    </xacro:spinning_lidar_macro>
     
     <xacro:hokuyo_utm30lx_gpu name="${name}_hokuyo_laser" parent="${name}_spinning_lidar_spin_link" ros_topic="${name}_spinning_lidar/${scan_topic_in_namespace}" update_rate="40" ray_count="1040" min_angle="-130" max_angle="130">
       <origin xyz="0.021 0.0  -0.0  " rpy="0 ${-angle_deg * M_PI/180.0} ${M_PI}"/>

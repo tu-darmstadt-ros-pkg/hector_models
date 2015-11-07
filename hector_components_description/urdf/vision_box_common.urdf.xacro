@@ -20,7 +20,7 @@
     </joint>
     
     <link name="top_box_link">
-      <inertial_cuboid mass="0.1" x_length="0.3" y_length="0.15" z_length="0.2"/>
+      <xacro:inertial_cuboid mass="0.1" x_length="0.3" y_length="0.15" z_length="0.2"/>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
@@ -48,7 +48,7 @@
     </joint>
     
     <link name="laser1RollServo">
-      <inertial_sphere mass="0.1" diameter="0.07"/>
+      <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
       <visual>
         <origin xyz="${laser1RollServo_size_x/2} 0.0 0.0" rpy="0 0 0"/>
         <geometry>
@@ -73,7 +73,7 @@
     </joint>
     
     <link name="laser1_link">
-      <inertial_sphere mass="0.1" diameter="0.07"/>
+      <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
       <visual>
         <origin xyz="0.0 0.0 ${laser1_size_z/2}" rpy="0 0 0"/>
         <geometry>
@@ -100,7 +100,7 @@
     </joint>
     
     <link name="cameraYawServo">
-      <inertial_sphere mass="0.1" diameter="0.07"/>
+      <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
       <visual>
         <origin xyz="0.0 0.0 ${cameraYawServo_size_z/2}" rpy="0 0 0"/>
         <geometry>
@@ -124,7 +124,7 @@
       <limit lower="${-M_PI/2}" upper="${M_PI/2}" effort="100" velocity="100"/>
     </joint>
     <link name="mounting_link">
-      <inertial_sphere mass="0.05" diameter="0.07"/>
+      <xacro:inertial_sphere mass="0.05" diameter="0.07"/>
     </link>
     
     <xacro:thermaleye_camera_model name="infrared" parent="mounting_link">

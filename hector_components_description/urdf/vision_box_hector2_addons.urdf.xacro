@@ -9,7 +9,7 @@
   </joint>
   
   <link name="vertical_laser_frame">
-    <inertial_cuboid mass="0.1" x_length="0.1" y_length="0.1" z_length = "0.1"/>
+    <xacro:inertial_cuboid mass="0.1" x_length="0.1" y_length="0.1" z_length = "0.1"/>
 
     <visual>
       <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
