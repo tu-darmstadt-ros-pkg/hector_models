@@ -2,6 +2,13 @@
 Changelog for package hector_components_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.1 (2015-11-08)
+------------------
+* hector_components_description/hector_sensors_description: added xacro namespace prefix to macro calls
+* Cleaned up root element xmlns arguments according to http://gazebosim.org/tutorials?tut=ros_urdf#HeaderofaURDFFile
+* Added missing xacro namespace prefix to XML tags
+* Contributors: Johannes Meyer
+
 0.4.0 (2015-11-07)
 ------------------
 * Renamed LIDAR and RGBD cam for thor compatibility

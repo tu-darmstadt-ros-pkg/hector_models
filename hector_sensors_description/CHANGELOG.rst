@@ -2,6 +2,13 @@
 Changelog for package hector_sensors_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.1 (2015-11-08)
+------------------
+* hector_components_description/hector_sensors_description: added xacro namespace prefix to macro calls
+* Cleaned up root element xmlns arguments according to http://gazebosim.org/tutorials?tut=ros_urdf#HeaderofaURDFFile
+* hector_sensors_description: removed deprecated plugin parameters and added noise to the hokuyo_utm30lx_model macro (fix #1)
+* Contributors: Johannes Meyer
+
 0.4.0 (2015-11-07)
 ------------------
 * Add zoom camera xacro macro. Only works starting with Gazebo6

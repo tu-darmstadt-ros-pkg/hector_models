@@ -2,6 +2,13 @@
 Changelog for package hector_xacro_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.1 (2015-11-08)
+------------------
+* hector_xacro_tools: fixed invalid brackets in inertial_sphere* xacro macros
+* Cleaned up root element xmlns arguments according to http://gazebosim.org/tutorials?tut=ros_urdf#HeaderofaURDFFile
+* Added missing xacro namespace prefix to XML tags
+* Contributors: Johannes Meyer
+
 0.4.0 (2015-11-07)
 ------------------
 * Remove origin tag as already set via insert block
