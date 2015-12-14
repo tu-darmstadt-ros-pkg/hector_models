@@ -5,8 +5,13 @@
     <xacro:include filename="$(find hector_sensors_description)/urdf/hokuyo_utm30lx.urdf.xacro" />
     <xacro:include filename="$(find hector_sensors_description)/urdf/asus_camera.urdf.xacro" />
 
+<<<<<<< Updated upstream
     <property name="M_PI" value="3.14159265359"/>
     <xacro:macro name="hector_multisensor_head_macro" params="parent name scaling *origin">
+=======
+    <xacro:property name="M_PI" value="3.14159265359"/>
+    <xacro:macro name="hector_multisensor_head_macro" params="parent name scaling *origin *calibration">
+>>>>>>> Stashed changes
         <link name="${name}_link">
             <xacro:inertial_sphere_with_pose mass="0.1" diameter="0.03">
                 <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
@@ -26,7 +31,10 @@
         </link>
         <joint name="${name}_lidar_spinning_joint" type="continuous">
             <origin xyz="0.061 0.0 0.134" rpy="0 0 0"/>
+<<<<<<< Updated upstream
             <insert_block name="origin"/>
+=======
+>>>>>>> Stashed changes
             <parent link="${name}_link" />
             <child link="${name}_lidar_mount_link"/>
             <axis xyz="1 0 0" rpy="0 0 0"/>
@@ -38,8 +46,13 @@
                 <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
             </xacro:inertial_sphere_with_pose_macro>
         </link>
+<<<<<<< Updated upstream
         <xacro:hokuyo_utm30lx name="${name}_hokuyo_laser" parent="${name}_lidar_mount_link" ros_topic="/head_lidar/scan" update_rate="40" ray_count="1040" min_angle="130" max_angle="-130">
             <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+=======
+        <xacro:hokuyo_utm30lx name="${name}_link_hokuyo_laser" parent="${name}_lidar_mount_link" ros_topic="/head_lidar/scan" update_rate="40" ray_count="1040" min_angle="130" max_angle="-130">
+	    <xacro:insert_block name="calibration"/>
+>>>>>>> Stashed changes
         </xacro:hokuyo_utm30lx>
 	
         <transmission name="${name}_lidar_spinning_joint_transmission">
