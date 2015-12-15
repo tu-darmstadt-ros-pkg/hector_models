@@ -2,6 +2,35 @@
 Changelog for package hector_components_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.1 (2015-11-08)
+------------------
+* hector_components_description/hector_sensors_description: added xacro namespace prefix to macro calls
+* Cleaned up root element xmlns arguments according to http://gazebosim.org/tutorials?tut=ros_urdf#HeaderofaURDFFile
+* Added missing xacro namespace prefix to XML tags
+* Contributors: Johannes Meyer
+
+0.4.0 (2015-11-07)
+------------------
+* Renamed LIDAR and RGBD cam for thor compatibility
+* Remove gazebo tags for links without visuals
+* First version of the new head, the hector multisensor head
+* Add addons xacro files
+* Update how spinning hokuyo is set up
+* Update spinning lidar mount properties
+* Fix stupid mixup of min and max lidar angle
+* Reduce spinning lidar mount mass
+* Fix parent not used correctly in spinning lidar mount
+* Update rotating hokuyo transform
+* Refactor spinning lidar mount
+* Update LIDAR mount with reasonable inertia
+* URDF hardware interface changes for new gazebo ros control style (#185)
+* Add second spinning hokuyo variant
+* Fix origin block not getting used correctly
+* Add gazebo_ros_control required tags to spinning lidar macros
+* Formatting
+* Add spinning lidar mount and hokuyo example
+* Contributors: Marius Schnaubelt, Stefan Kohlbrecher
+
 0.3.2 (2014-09-01)
 ------------------
 * increased maximum torque for camera servos in vision_box_common.gazebo.xacro

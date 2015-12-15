@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
   
   <xacro:macro name="generic_thermal_camera" params="name parent *origin">
@@ -11,7 +11,7 @@
     </joint>
     
     <link name="${name}_frame">
-      <!--        <inertial_sphere mass="0.01" diameter="0.07" />
+      <!--        <xacro:inertial_sphere mass="0.01" diameter="0.07" />
       <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
