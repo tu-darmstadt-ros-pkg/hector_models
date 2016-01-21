@@ -40,7 +40,7 @@
       </collision>
     </link>
 
-    <hector_multisensor_head_macro parent="top_box"  name="head1" scaling="0.001">
+    <hector_multisensor_head_macro parent="top_box"  name="head" scaling="0.001">
       <origin xyz="0.0 0.0 -0.006" rpy="${M_PI*0.5} 0.0 ${M_PI*0.5}"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </hector_multisensor_head_macro>
