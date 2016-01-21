@@ -45,9 +45,9 @@
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </hector_multisensor_head_macro>
 
-    <joint name="multisensor_head1_joint" type="fixed" >
+    <joint name="multisensor_head_joint" type="fixed" >
       <parent link="top_box_link" />
-      <child link="head1_link" />
+      <child link="head_link" />
       <origin xyz="${x_vision_box_front + 0.097} 0 0.231" rpy="0 ${-M_PI*0.5} 0" />
     </joint>
 
