@@ -18,12 +18,12 @@
             <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v2.dae"/>
           </geometry>
         </visual>
-        <collision>
+<!--        <collision>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
             <mesh filename="package://hector_sensors_description/meshes/thermaleye_camera/thermaleye_camera_hector_v2.stl"/>
           </geometry>
-        </collision>
+        </collision>-->
       </link>
       
       <xacro:add_optical_frame name="${name}" />
