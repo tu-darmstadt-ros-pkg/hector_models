@@ -14,26 +14,26 @@
   <!--    <xacro:property name="z_translation" value="${checkerbox_side_length}" />-->
   
   
-  <xacro:macro name="checkerboard" params="parent name origin scaling">
+  <xacro:macro name="checkerboard" params="parent name scaling *origin">
     
     <link name="${name}_checkerboard_link">
       <inertial>
-	<mass value="0.5" />
-	<origin xyz="0 0 0" rpy="0 -0 0" />
-	<inertia ixx="0.00265" ixy="0" ixz="0" iyy="0.00446" iyz="0" izz="0.00446" />
+	      <mass value="0.5" />
+	      <origin xyz="0 0 0" rpy="0 -0 0" />
+	      <inertia ixx="0.00265" ixy="0" ixz="0" iyy="0.00446" iyz="0" izz="0.00446" />
       </inertial>
       <visual>
-	<origin xyz="0 0 0" rpy="0 -0 0" />
-	<geometry>
-	  <mesh filename="package://hector_components_description/meshes/checkerboard/checkerboard.dae" scale="${scaling} ${scaling} ${scaling}" />
-	</geometry>
+	      <origin xyz="0 0 0" rpy="0 -0 0" />
+	      <geometry>
+	        <mesh filename="package://hector_components_description/meshes/checkerboard/checkerboard.dae" scale="${scaling} ${scaling} ${scaling}" />
+	      </geometry>
       </visual>
       <collision>
-	<origin xyz="0 0 0" rpy="0 -0 0" />
-	<geometry>
-	  <mesh filename="package://hector_components_description/meshes/checkerboard/checkerboard.dae" scale="${scaling} ${scaling} ${scaling}" />
-	</geometry>
-      </collision>
+	      <origin xyz="0 0 0" rpy="0 -0 0" />
+	      <geometry>
+	        <mesh filename="package://hector_components_description/meshes/checkerboard/checkerboard.dae" scale="${scaling} ${scaling} ${scaling}" />
+	      </geometry>
+       </collision>
     </link>
     
     <joint name="${name}_checkerboard_joint" type="fixed">

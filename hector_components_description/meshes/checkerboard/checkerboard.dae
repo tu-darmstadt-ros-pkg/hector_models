@@ -123,10 +123,10 @@
         <technique sid="common">
           <phong>
             <emission>
-              <color sid="emission">0 0 0 1</color>
+              <color sid="emission">1 1 1 1</color>
             </emission>
             <ambient>
-              <color sid="ambient">0 0 0 1</color>
+              <color sid="ambient">1 1 1 1</color>
             </ambient>
             <diffuse>
               <texture texture="checkerboard_png-sampler" texcoord="UVMap"/>
