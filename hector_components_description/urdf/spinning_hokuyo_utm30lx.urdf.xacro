@@ -25,7 +25,7 @@
   </xacro:macro>
   
   
-    <xacro:macro name="spinning_hokuyo_utm30lx_lidar_calibration_offset_macro" params="parent name scan_topic_in_namespace angle_deg *origin *calibration">
+  <xacro:macro name="spinning_hokuyo_utm30lx_lidar_calibration_offset_macro" params="parent name scan_topic_in_namespace angle_deg *origin *calibration">
     <xacro:spinning_lidar_macro parent="${parent}" name="${name}" angle_deg="45">
       <xacro:insert_block name="origin"/>
     </xacro:spinning_lidar_macro>
