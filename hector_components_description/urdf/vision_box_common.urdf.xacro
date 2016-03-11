@@ -10,7 +10,8 @@
   <xacro:include filename="$(find hector_components_description)/urdf/vision_box_common.gazebo.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vision_box_common_dimensions.urdf.xacro" />
   
-  <!--<xacro:include filename="$(find hector_components_description)/urdf/vision_box_dimensions_hector2.urdf.xacro" />-->
+  <xacro:include filename="$(find hector_components_description)/urdf/vision_box_dimensions_hector2.urdf.xacro" />
+
   <xacro:macro name="vision_box" params="box_type parent *origin">
     
     <joint name="top_box_joint" type="fixed">
