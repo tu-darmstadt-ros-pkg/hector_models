@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="wireless_receiver" params="name parent *origin ros_topic update_rate ">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <!--<box size="0.01 0.01 0.01" /> -->
+          <mesh filename="package://hector_sensors_description/meshes/sonar_sensor/max_sonar_ez4.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+      </collision>
+    </link>
+
+
+
+    <gazebo reference="${name}_link">
+      <sensor type="wireless_receiver" name="${name}">
+        <always_on>1</always_on>
+        <visualize>0</visualize>
+        <update_rate>100.0</update_rate>
+         <transceiver>
+           <min_frequency>2412.0</min_frequency>
+           <max_frequency>2484.0</max_frequency>
+           <power>14.5</power>
+           <gain>2.5</gain>
+           <sensitivity>-90.0</sensitivity>`
+        </transceiver>
+
+        <plugin name="gazebo_ros_${name}_controller" filename="libhector_gazebo_ros_wireless_receiver.so">
+          <topicName>${ros_topic}</topicName>
+          <frameId>${name}_link</frameId>
+          <rssDrift>0</rssDrift>
+          <rssGaussianNoise>0.5</rssGaussianNoise>
+          <AoADrift>0 0 0</AoADrift>
+          <AoAGaussianNoise>0.01 0.01 0.01</AoAGaussianNoise>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>
