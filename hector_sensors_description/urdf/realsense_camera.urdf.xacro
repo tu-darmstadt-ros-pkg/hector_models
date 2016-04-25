@@ -79,6 +79,10 @@
       </joint>
 
       <link name="${name}_rgb_optical_frame"/>
+      
+      <gazebo reference="${name}_link">
+        <material>Gazebo/Grey</material>
+      </gazebo> 
     </xacro:macro>
 
     <!--

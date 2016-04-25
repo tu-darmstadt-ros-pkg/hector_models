@@ -32,6 +32,11 @@
     </link>
     
     <xacro:add_optical_frame name="${name}" />
+    
+    <gazebo reference="${name}_frame">
+      <material>Gazebo/Grey</material>
+    </gazebo>   
+    
   </xacro:macro>
 </robot>
 
