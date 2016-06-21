@@ -87,6 +87,8 @@
             <depthImageCameraInfoTopicName>${name}/depth/camera_info</depthImageCameraInfoTopicName>
             <pointCloudTopicName>${name}/depth/points</pointCloudTopicName>
             <frameName>${name}_depth_optical_frame</frameName>
+            <pointCloudCutoff>0.05</pointCloudCutoff>
+            <pointCloudCutoffMax>20</pointCloudCutoffMax>
           </plugin>
         </sensor>
       </gazebo>
