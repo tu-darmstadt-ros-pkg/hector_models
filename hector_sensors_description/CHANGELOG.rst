@@ -2,6 +2,14 @@
 Changelog for package hector_sensors_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.2 (2016-06-24)
+------------------
+* Update flir a35 camera macro
+* Add gazebo material for flir and realsense models
+* Add models for flir a35 and realsense r200 cameras
+* Formatting of thermaleye_camera macro
+* Contributors: Stefan Kohlbrecher, kohlbrecher
+
 0.4.1 (2015-11-08)
 ------------------
 * hector_components_description/hector_sensors_description: added xacro namespace prefix to macro calls

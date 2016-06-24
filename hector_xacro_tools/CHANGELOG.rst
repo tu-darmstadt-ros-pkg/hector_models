@@ -2,6 +2,11 @@
 Changelog for package hector_xacro_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.2 (2016-06-24)
+------------------
+* Add joint macros (contains transmission macro for the moment)
+* Contributors: Stefan Kohlbrecher
+
 0.4.1 (2015-11-08)
 ------------------
 * hector_xacro_tools: fixed invalid brackets in inertial_sphere* xacro macros

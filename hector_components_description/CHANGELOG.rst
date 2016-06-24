@@ -2,6 +2,14 @@
 Changelog for package hector_components_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.2 (2016-06-24)
+------------------
+* fixed for checkerboard
+* Add checkerboard with associated macro.
+* Added calibration and fixed an origin bug at the spinnning joint of the lidar
+* Added realistic inertias and masses. Moved RGB-D Cam according to reality
+* Contributors: Marius Schnaubelt, Martin Oehler, Stefan Kohlbrecher
+
 0.4.1 (2015-11-08)
 ------------------
 * hector_components_description/hector_sensors_description: added xacro namespace prefix to macro calls
