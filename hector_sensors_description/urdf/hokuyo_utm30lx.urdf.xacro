@@ -23,9 +23,9 @@
         </geometry>
         </visual>
         <collision>
-          <origin xyz="0 0 -0.0115" rpy="0 0 0" />
+          <origin xyz="0.00 0 0.0" rpy="0 ${0.5 * M_PI} 0" />
           <geometry>
-          <box size="0.058 0.058 0.087" />
+	    <cylinder length="0.079" radius="0.0735"/>
           <!--<mesh filename="package://hector_sensors_description/meshes/hokuyo_utm30lx/hokuyo_utm_30lx.stl"/>-->
         </geometry>
         </collision>
