@@ -49,7 +49,7 @@
       </link>
 
       <joint name="${name}_depth_joint" type="fixed">
-        <origin xyz="0.0 0.049 0.0" rpy="0 0 0" />
+        <origin xyz="0 -0.051 0.004" rpy="0 0 0" />
         <parent link="${name}_link" />
         <child link="${name}_depth_frame"/>
       </joint>
@@ -64,8 +64,26 @@
 
       <link name="${name}_depth_optical_frame"/>
 
+
+      <joint name="${name}_depth_joint_aux" type="fixed">
+        <origin xyz="0 0.032 0.004" rpy="0 0 0" />
+        <parent link="${name}_link" />
+        <child link="${name}_depth_frame_aux"/>
+      </joint>
+
+      <link name="${name}_depth_frame_aux"/>
+
+      <joint name="${name}_depth_optical_joint_aux" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <parent link="${name}_depth_frame_aux" />
+        <child link="${name}_depth_optical_frame_aux"/>
+      </joint>
+
+      <link name="${name}_depth_optical_frame_aux"/>
+
+
       <joint name="${name}_rgb_joint" type="fixed">
-        <origin xyz="0.0 0.022 0.0" rpy="0 0 0" />
+        <origin xyz="0 -0.045 0.004" rpy="0 0 0" />
         <parent link="${name}_link" />
         <child link="${name}_rgb_frame"/>
       </joint>
