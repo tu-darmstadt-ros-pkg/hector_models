@@ -62,7 +62,7 @@
             <gaussianNoise>0.005</gaussianNoise>
             <hokuyoMinIntensity>2000</hokuyoMinIntensity>
             <alwaysOn>true</alwaysOn>
-	    <robotNamespace>/</robotNamespace>
+	    <robotNamespace>$(arg robot_name)/sensor/</robotNamespace>
             <updateRate>${update_rate}</updateRate>
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>
@@ -103,7 +103,6 @@
           </ray>
           <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_gpu_laser.so">
             <gaussianNoise>0.005</gaussianNoise>
-	    <robotNamespace></robotNamespace>
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>
           </plugin>

@@ -96,7 +96,7 @@
           <plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>20</updateRate>
-	    <robotNamespace>/</robotNamespace>
+	    <robotNamespace>$(arg robot_name)/sensor/</robotNamespace>
             <imageTopicName>${name}/rgb/image_raw</imageTopicName>
             <cameraInfoTopicName>${name}/rgb/camera_info</cameraInfoTopicName>
             <depthImageTopicName>${name}/depth/image_raw</depthImageTopicName>
