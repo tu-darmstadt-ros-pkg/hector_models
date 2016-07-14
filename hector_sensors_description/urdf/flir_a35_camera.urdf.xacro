@@ -65,7 +65,7 @@
         <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera.so">
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
-          <imageTopicName>/${name}/image</imageTopicName>
+          <imageTopicName>/${name}/image_raw</imageTopicName>
           <cameraInfoTopicName>/${name}/camera_info</cameraInfoTopicName>
           <frameName>${name}_optical_frame</frameName>
         </plugin>
