@@ -21,6 +21,7 @@
             <geometry>
                <mesh filename="package://hector_components_description/meshes/hector_multisensor_head/multisensor_head.stl" scale="${scaling} ${scaling} ${scaling}" />
             </geometry>
+	    <material name="grey"/>
          </visual>
       </link>
       <joint name="${name}_lidar_spinning_joint" type="continuous">
