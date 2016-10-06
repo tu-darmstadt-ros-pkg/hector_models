@@ -12,7 +12,7 @@ Note:
     <xacro:property name="M_PI" value="3.1415926535897931" />
   
     <!--
-     The asus_camera_model macro only adds the model, it does not also add
+     This macro only adds the model, it does not also add
      the openni gazebo plugin. See the 'asus_camera' macro below for that
     -->
     <xacro:macro name="realsense_camera_model" params="name parent *origin">
@@ -38,14 +38,6 @@ Note:
             <color rgba="0.3 0.3 0.3 1"/>
           </material>    
         </visual>
-       <!--        
-       <collision>
-          <origin xyz="0 0 0" rpy="0 0 0" />
-          <geometry>
-            <box size="0.035 0.185 0.025"/>
-          </geometry>
-        </collision>
-        -->
         <collision>
           <origin xyz="0 0.051 0" rpy="0 0 0" />
           <geometry>
@@ -53,10 +45,10 @@ Note:
             <box size="0.007 0.130 0.02" />
           </geometry>
         </collision>
-
       </link>
 
-<!--      <joint name="${name}_depth_joint" type="fixed">
+      <!--      
+      <joint name="${name}_depth_joint" type="fixed">
         <origin xyz="0 -0.051 0.004" rpy="0 0 0" />
         <parent link="${name}_link" />
         <child link="${name}_depth_frame"/>
@@ -104,23 +96,28 @@ Note:
         <child link="${name}_rgb_optical_frame"/>
       </joint>
 
-      <link name="${name}_rgb_optical_frame"/>-->
+      <link name="${name}_rgb_optical_frame"/>
+      -->
       
       <gazebo reference="${name}_link">
         <material>Gazebo/Grey</material>
       </gazebo> 
     </xacro:macro>
-
-    <!--
-     The asus_camera macro only adds the model, and also adds
-     the openni gazebo plugin.
-    -->
-    <xacro:macro name="realsense_camera" params="name parent *origin">
-      <xacro:realsense_camera_model name="${name}" parent="${parent}">
-        <xacro:insert_block name="origin" />
-      </xacro:realsense_camera_model>
+    
   
-      <!-- ASUS Xtion PRO camera for simulation -->
+    <xacro:macro name="realsense_camera_model_no_geom" params="name parent *origin">
+      <joint name="${name}_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_link"/>
+      </joint>
+      
+      <link name="${name}_link">
+      </link>
+    </xacro:macro>
+    
+    
+    <xacro:macro name="realsense_camera_gazebo_plugin_macro" params="name parent">
       <gazebo reference="${name}_link">
         <sensor type="depth" name="${name}">
           <update_rate>20</update_rate>
@@ -147,5 +144,29 @@ Note:
         </sensor>
       </gazebo>
     </xacro:macro>
+      
+    <!--
+      Use the macro below for adding the realsense model with link geometry
+    -->
+    <xacro:macro name="realsense_camera" params="name parent *origin">
+      <xacro:realsense_camera_model name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_camera_model>
+  
+      <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}"/>
+    </xacro:macro>
+    
+    <!--
+      Use the macro below for adding the realsense model without link geometry,
+      e.g. if the sensor is added into preexisting geometry
+    -->
+    <xacro:macro name="realsense_camera_no_geom" params="name parent *origin">
+      <xacro:realsense_camera_model_no_geom name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_camera_model_no_geom>
+  
+      <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}"/>
+    </xacro:macro>
+     
   </robot>
   
