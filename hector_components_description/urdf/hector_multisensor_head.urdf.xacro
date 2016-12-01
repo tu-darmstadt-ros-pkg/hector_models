@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="hector_multisensor_head">
    <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro" />
    <xacro:include filename="$(find hector_sensors_description)/urdf/hokuyo_utm30lx.urdf.xacro" />
-   <xacro:include filename="$(find hector_sensors_description)/urdf/asus_camera.urdf.xacro" />
+   <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_camera.urdf.xacro" />
    <xacro:property name="M_PI" value="3.14159265359" />
    <xacro:macro name="hector_multisensor_head_macro" params="parent name scaling *origin *calibration">
       <link name="${name}_link">
@@ -54,9 +54,9 @@
       <gazebo reference="${name}_lidar_spinning_joint">
          <implicitSpringDamper>1</implicitSpringDamper>
       </gazebo>
-      <xacro:asus_camera name="${name}_cam" parent="${name}_link">
-         <origin xyz="0.065 0.0 0.179" rpy="0 0 0" />
-      </xacro:asus_camera>
+      <xacro:realsense_camera name="${name}_cam" parent="${name}_link">
+         <origin xyz="0.015 -0.05 0.181" rpy="0 0.261799 0" />
+      </xacro:realsense_camera>
       <!-- <gazebo reference="${name}_spinning_lidar_root_link"><material>Gazebo/Grey</material></gazebo><gazebo reference="${name}_spinning_lidar_spin_link"><material>Gazebo/Grey</material></gazebo> -->
    </xacro:macro>
 </robot>

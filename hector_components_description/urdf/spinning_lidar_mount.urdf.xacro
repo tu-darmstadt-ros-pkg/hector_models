@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro" />
 
-  <property name="M_PI" value="3.14159265359"/>
+  <xacro:property name="M_PI" value="3.14159265359"/>
   
-  <macro name="spinning_lidar_macro" params="parent name angle_deg *origin">
+  <xacro:macro name="spinning_lidar_macro" params="parent name angle_deg *origin">
     
     <joint name="${name}_spinning_lidar_root_joint" type="fixed">
-      <insert_block name="origin"/>
+      <xacro:insert_block name="origin"/>
       <axis xyz="0 1 0"/>
       <parent link="${parent}"/>
       <child link="${name}_spinning_lidar_root_link"/>
@@ -77,6 +77,9 @@
       </actuator>
     </transmission> 
     
+    <!--
+    Remove gazebo tags for links that do not have visuals anymore.
+    See https://bitbucket.org/osrf/gazebo/issues/1728
     <gazebo reference="${name}_spinning_lidar_root_link">
       <material>Gazebo/Grey</material>
     </gazebo>
@@ -84,6 +87,7 @@
     <gazebo reference="${name}_spinning_lidar_spin_link">
       <material>Gazebo/Grey</material>
     </gazebo>
+    -->
     
-  </macro>
+  </xacro:macro>
 </robot>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:property name="M_PI" value="3.1415926535897931" />
 
     <xacro:macro name="hokuyo_utm30lx_model" params="name parent *origin">
@@ -57,6 +57,11 @@
               <max>30.0</max>
               <resolution>0.01</resolution>
             </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.004</stddev>
+            </noise>
           </ray>
           <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_laser.so">
             <gaussianNoise>0.005</gaussianNoise>
@@ -102,7 +107,6 @@
             </noise>
           </ray>
           <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_gpu_laser.so">
-            <gaussianNoise>0.005</gaussianNoise>
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>
           </plugin>
