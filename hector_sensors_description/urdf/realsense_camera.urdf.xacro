@@ -80,24 +80,23 @@ Note:
       </joint>
 
       <link name="${name}_depth_optical_frame_aux"/>
-
+-->
 
       <joint name="${name}_rgb_joint" type="fixed">
-        <origin xyz="0 -0.045 0.004" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <parent link="${name}_link" />
         <child link="${name}_rgb_frame"/>
       </joint>
 
-      <link name="${name}_rgbd_cam_link"/>
+      <link name="${name}_rgb_frame"/>
 
       <joint name="${name}_rgb_optical_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <origin xyz="0 0 0" rpy="-1.571, 0.000, -1.571" />
         <parent link="${name}_rgb_frame" />
         <child link="${name}_rgb_optical_frame"/>
       </joint>
 
       <link name="${name}_rgb_optical_frame"/>
-      -->
       
       <gazebo reference="${name}_link">
         <material>Gazebo/Grey</material>
@@ -114,6 +113,22 @@ Note:
       
       <link name="${name}_link">
       </link>
+      
+            <joint name="${name}_rgb_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="${name}_link" />
+        <child link="${name}_rgb_frame"/>
+      </joint>
+
+      <link name="${name}_rgb_frame"/>
+
+      <joint name="${name}_rgb_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.571 0.000 -1.571" />
+        <parent link="${name}_rgb_frame" />
+        <child link="${name}_rgb_optical_frame"/>
+      </joint>
+
+      <link name="${name}_rgb_optical_frame"/>
     </xacro:macro>
     
     
@@ -129,7 +144,7 @@ Note:
               <height>480</height>
             </image>
             <clip>
-              <near>0.5</near>
+              <near>0.1</near>
               <far>9</far>
             </clip>
           </camera>
@@ -139,7 +154,7 @@ Note:
             <depthImageTopicName>${name}/depth/image_raw</depthImageTopicName>
             <depthImageCameraInfoTopicName>${name}/depth/camera_info</depthImageCameraInfoTopicName>
             <pointCloudTopicName>${name}/depth/points</pointCloudTopicName>
-            <frameName>${name}_depth_optical_frame</frameName>
+            <frameName>${name}_rgb_optical_frame</frameName>
           </plugin>
         </sensor>
       </gazebo>
