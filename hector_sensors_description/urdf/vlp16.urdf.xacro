@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+
+    <xacro:macro name="vlp16_model" params="name parent *origin">
+      <joint name="${name}_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_frame"/>
+      </joint>
+
+      <link name="${name}_frame">
+        <xacro:inertial_sphere mass="0.8" diameter="0.1033" />
+        <visual>        -->
+          <origin rpy="0 0 0" xyz="0 0 0.0018500"/>
+          <geometry>
+            <cylinder radius="0.0516" length="0.0717"/>
+          </geometry>
+        </visual>
+        <collision>
+          <origin rpy="0 0 0" xyz="0 0 0.0018500"/>
+          <geometry>
+            <cylinder radius="0.0516" length="0.0717"/>
+          </geometry>
+        </collision>
+      </link>
+    </xacro:macro>
+
+    <xacro:macro name="vlp16" params="name parent *origin ros_topic update_rate ray_count min_angle max_angle">
+      <xacro:vlp16_model name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:vlp16_model>
+
+      <gazebo reference="${name}_frame">
+        <sensor type="ray" name="${name}">
+          <always_on>true</always_on>
+          <update_rate>${update_rate}</update_rate>
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>false</visualize>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>${ray_count}</samples>
+                <resolution>1</resolution>
+                <min_angle>${min_angle * M_PI/180}</min_angle>
+                <max_angle>${max_angle * M_PI/180}</max_angle>
+              </horizontal>
+            </scan>
+            <range>
+              <min>0.2</min>
+              <max>30.0</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.004</stddev>
+            </noise>
+          </ray>
+          <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_laser.so">
+            <topicName>${ros_topic}</topicName>
+            <frameName>${name}_frame</frameName>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:macro>
+  
+    <xacro:macro name="vlp16_gpu" params="name parent *origin ros_topic update_rate ray_count min_angle max_angle">
+      <xacro:vlp16_model name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:vlp16_model>
+
+      <gazebo reference="${name}_frame">
+        <sensor type="gpu_ray" name="${name}">          
+          <update_rate>${update_rate}</update_rate>
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>false</visualize>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>${ray_count}</samples>
+                <resolution>1</resolution>
+                <min_angle>${min_angle * M_PI/180}</min_angle>
+                <max_angle>${max_angle * M_PI/180}</max_angle>
+              </horizontal>
+            </scan>
+            <range>
+              <min>0.2</min>
+              <max>30.0</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.004</stddev>
+            </noise>
+          </ray>
+          <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_gpu_laser.so">
+            <topicName>${ros_topic}</topicName>
+            <frameName>${name}_frame</frameName>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:macro>
+</robot>
+  
