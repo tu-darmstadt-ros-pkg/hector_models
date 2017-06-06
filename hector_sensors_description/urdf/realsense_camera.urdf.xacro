@@ -126,13 +126,14 @@ Note:
           <update_rate>20</update_rate>
           <camera>
             <horizontal_fov>${62.8 * M_PI/180.0}</horizontal_fov>
+            <vertical_fov>${62.8 * M_PI/180.0}</vertical_fov>
             <image>
               <format>R8G8B8</format>
               <width>640</width>
               <height>480</height>
             </image>
             <clip>
-              <near>0.5</near>
+              <near>0.05</near>
               <far>9</far>
             </clip>
           </camera>
