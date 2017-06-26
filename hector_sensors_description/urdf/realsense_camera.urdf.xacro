@@ -157,7 +157,7 @@ Note:
             <depthImageTopicName>${name}/depth/image_raw</depthImageTopicName>
             <depthImageCameraInfoTopicName>${name}/depth/camera_info</depthImageCameraInfoTopicName>
             <pointCloudTopicName>${name}/depth/points</pointCloudTopicName>
-            <frameName>${name}_depth_optical_frame</frameName>
+            <frameName>${name}_rgb_optical_frame</frameName>
           </plugin>
         </sensor>
       </gazebo>
