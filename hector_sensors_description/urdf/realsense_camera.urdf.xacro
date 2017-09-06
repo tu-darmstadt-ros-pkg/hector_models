@@ -107,7 +107,7 @@ Note:
       <link name="${name}_rgb_optical_frame"/>-->
       
       <gazebo reference="${name}_link">
-        <material>Gazebo/Grey</material>
+        <material>Gazebo/Blue</material>
       </gazebo> 
     </xacro:macro>
 
