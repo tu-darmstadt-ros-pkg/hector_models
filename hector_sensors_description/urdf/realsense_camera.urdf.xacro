@@ -8,9 +8,7 @@ Note:
   <node pkg="tf" type="static_transform_publisher" name="kinect_base_link" args="0 0 0 0 0 0  /arm_rgbd_cam_link /arm_rgbd_cam_depth_frame 100" />
   <node pkg="tf" type="static_transform_publisher" name="kinect_base_link2" args="0 0 0 -1.57 0 -1.57 /arm_rgbd_cam_depth_frame /arm_rgbd_cam_depth_optical_frame  100" />
 -->
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
-    <xacro:property name="M_PI" value="3.1415926535897931" />
-  
+<robot xmlns:xacro="http://ros.org/wiki/xacro">  
     <!--
      The asus_camera_model macro only adds the model, it does not also add
      the openni gazebo plugin. See the 'asus_camera' macro below for that
@@ -65,7 +63,7 @@ Note:
       <link name="${name}_depth_frame"/>
 
       <joint name="${name}_depth_optical_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <origin xyz="0 0 0" rpy="${-pi/2} 0.0 ${-pi/2}" />
         <parent link="${name}_depth_frame" />
         <child link="${name}_depth_optical_frame"/>
       </joint>
@@ -82,7 +80,7 @@ Note:
       <link name="${name}_depth_frame_aux"/>
 
       <joint name="${name}_depth_optical_joint_aux" type="fixed">
-        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <origin xyz="0 0 0" rpy="${-pi/2} 0.0 ${-pi/2}" />
         <parent link="${name}_depth_frame_aux" />
         <child link="${name}_depth_optical_frame_aux"/>
       </joint>
@@ -99,7 +97,7 @@ Note:
       <link name="${name}_rgbd_cam_link"/>
 
       <joint name="${name}_rgb_optical_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <origin xyz="0 0 0" rpy="${-pi/2} 0.0 ${-pi/2}" />
         <parent link="${name}_rgb_frame" />
         <child link="${name}_rgb_optical_frame"/>
       </joint>
@@ -115,38 +113,69 @@ Note:
      The asus_camera macro only adds the model, and also adds
      the openni gazebo plugin.
     -->
-    <xacro:macro name="realsense_camera" params="name parent *origin">
-      <xacro:realsense_camera_model name="${name}" parent="${parent}">
-        <xacro:insert_block name="origin" />
-      </xacro:realsense_camera_model>
-  
-      <!-- ASUS Xtion PRO camera for simulation -->
-      <gazebo reference="${name}_link">
-        <sensor type="depth" name="${name}">
-          <update_rate>20</update_rate>
-          <camera>
-            <horizontal_fov>${62.8 * M_PI/180.0}</horizontal_fov>
-            <image>
-              <format>R8G8B8</format>
-              <width>640</width>
-              <height>480</height>
-            </image>
-            <clip>
-              <near>0.5</near>
-              <far>9</far>
-            </clip>
-          </camera>
-          <plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
-            <robotNamespace>$(arg robot_name)/sensor/</robotNamespace>
-            <imageTopicName>${name}/rgb/image_raw</imageTopicName>
-            <cameraInfoTopicName>${name}/rgb/camera_info</cameraInfoTopicName>
-            <depthImageTopicName>${name}/depth/image_raw</depthImageTopicName>
-            <depthImageCameraInfoTopicName>${name}/depth/camera_info</depthImageCameraInfoTopicName>
-            <pointCloudTopicName>${name}/depth/points</pointCloudTopicName>
-            <frameName>${name}_depth_optical_frame</frameName>
-          </plugin>
-        </sensor>
-      </gazebo>
-    </xacro:macro>
-  </robot>
+  <xacro:macro name="realsense_camera" params="name parent *origin">
+    <xacro:realsense_camera_model name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin" />
+    </xacro:realsense_camera_model>
+
+    <gazebo reference="${name}_link">
+      <sensor type="camera" name="${name}_color">
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <camera>
+          <horizontal_fov>${70.0 * pi/180.0}</horizontal_fov>
+          <image>
+            <format>B8G8R8</format>
+            <width>1920</width>
+            <height>1080</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <distortion>
+            <k1>0.0</k1>
+            <k2>0.0</k2>
+            <k3>0.0</k3>
+            <p1>-0.0</p1>
+            <p2>-0.00</p2>
+            <center>0.5 0.5</center>
+          </distortion>
+        </camera>
+        <plugin name="${name}_camera_depth_controller" filename="libgazebo_ros_camera.so">
+          <robotNamespace>$(arg robot_name)/sensor/${name}/color</robotNamespace>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>${name}_color_optical_frame</frameName>
+        </plugin>
+      </sensor>
+
+      <sensor type="depth" name="${name}_depth">
+        <update_rate>20</update_rate>
+        <camera>
+          <horizontal_fov>${59.0 * pi/180.0}</horizontal_fov>
+          <image>
+            <format>B8G8R8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.5</near>
+            <far>10.0</far>
+          </clip>
+        </camera>
+        <plugin name="${name}_camera_rgb_controller" filename="libgazebo_ros_openni_kinect.so">
+          <robotNamespace>$(arg robot_name)/sensor/${name}</robotNamespace>
+          <imageTopicName>ir/image_raw</imageTopicName>
+          <cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <frameName>${name}_depth_optical_frame</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>
   
