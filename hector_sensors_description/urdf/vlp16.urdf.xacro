@@ -73,13 +73,13 @@
         <ray>
           <scan>
             <horizontal>
-              <samples>1875</samples>
+              <samples>512</samples>
               <resolution>1</resolution>
               <min_angle>-${M_PI}</min_angle>
               <max_angle> ${M_PI}</max_angle>
             </horizontal>
             <vertical>
-              <samples>16</samples>
+              <samples>8</samples>
               <resolution>1</resolution>
               <min_angle>-${15.0*M_PI/180.0}</min_angle>
               <max_angle> ${15.0*M_PI/180.0}</max_angle>
