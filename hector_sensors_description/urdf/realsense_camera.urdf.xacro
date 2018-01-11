@@ -121,7 +121,7 @@ Note:
     </xacro:realsense_camera_model>
 
     <gazebo reference="${name}_link">
-      <sensor type="camera" name="${name}_color">
+      <sensor type="camera" name="${name}_rgb">
         <always_on>1</always_on>
         <update_rate>30</update_rate>
         <camera>
@@ -145,10 +145,10 @@ Note:
           </distortion>
         </camera>
         <plugin name="${name}_camera_depth_controller" filename="libgazebo_ros_camera.so">
-          <robotNamespace>$(arg robot_name)/sensor/${name}/color</robotNamespace>
+          <robotNamespace>$(arg robot_name)/sensor/${name}/rgb</robotNamespace>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${name}_color_optical_frame</frameName>
+          <frameName>${name}_rgb_optical_frame</frameName>
         </plugin>
       </sensor>
 
