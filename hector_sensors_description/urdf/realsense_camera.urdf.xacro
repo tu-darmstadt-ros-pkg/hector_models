@@ -132,7 +132,7 @@ Note:
             <height>1080</height>
           </image>
           <clip>
-            <near>0.1</near>
+            <near>0.001</near>
             <far>100</far>
           </clip>
           <distortion>
