@@ -29,11 +29,9 @@
     </link>-->
     <joint name="${name}_spin_joint_fixed" type="fixed">
       <!--<origin xyz="0.061 0.0 0.134" rpy="0 0 0"/>-->
-      <!--<xacro:insert_block name="origin"/>-->
-      <origin xyz="${+0.12- 0.442 } 0.1345 ${0.185+0.2739 + 0.12}" rpy="0.0052159 -0.00553223 ${M_PI*0.64}"/>
+      <xacro:insert_block name="origin"/>
       <parent link="${parent}" />
       <child link="${name}_lidar_mount_link_fixed"/>
-      <axis xyz="1 0 0" rpy="0 0 0"/>
     </joint>
 
     <link name="${name}_lidar_mount_link_fixed">
@@ -100,6 +98,14 @@
     </transmission>
     <gazebo reference="${name}_spin_joint">
       <implicitSpringDamper>1</implicitSpringDamper>
+    </gazebo>
+    
+    <gazebo>
+      <!-- ros_control plugin -->
+      <plugin name="gazebo_ros_control_select_joints" filename="libgazebo_ros_control_select_joints.so">
+        <robotNamespace>spin_lidar_control</robotNamespace>
+        <joints>spin_lidar_spin_joint</joints>
+      </plugin>
     </gazebo>
 
     <!--  <xacro:asus_camera name="${name}_cam" parent="${name}_link">

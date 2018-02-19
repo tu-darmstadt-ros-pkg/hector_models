@@ -103,6 +103,14 @@
     <gazebo reference="${name}_spin_joint">
       <implicitSpringDamper>1</implicitSpringDamper>
     </gazebo>
+    
+    <gazebo>
+      <!-- ros_control plugin -->
+      <plugin name="gazebo_ros_control_select_joints" filename="libgazebo_ros_control_select_joints.so">
+        <robotNamespace>spin_lidar_control</robotNamespace>
+        <joints>spin_lidar_spin_joint</joints>
+      </plugin>
+    </gazebo>
 
     <!--  <xacro:asus_camera name="${name}_cam" parent="${name}_link">
     <origin xyz="0.065 0.0 0.23" rpy="0 0 0"/>
