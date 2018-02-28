@@ -8,10 +8,27 @@
   <xacro:include filename="$(find hector_xacro_tools)/urdf/joint_macros.urdf.xacro" />
   <xacro:include filename="$(find hector_sensors_description)/urdf/flir_a35_camera.urdf.xacro"/>  
   <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_camera.urdf.xacro"/>
+  
+  <!--  
   <xacro:include filename="$(find hector_components_description)/urdf/vision_box_common.gazebo.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vision_box_common_dimensions.urdf.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vision_box_dimensions_hector2.urdf.xacro" />
-      
+  -->
+  
+  
+  <!--Properties below copied from vision box, should be renamed-->  
+  <xacro:property name="cameraYawServo_size_z" value="0.082" /> <!--between upper edge of top and camera pitch axis-->
+  <xacro:property name="cameraYawServo_x_position" value="-0.027" /> <!--between front edge of top and camera yaw axis-->
+  <xacro:property name="cameraYawServo_size_x" value="0.04" />
+  <xacro:property name="cameraYawServo_size_y" value="0.03" />
+
+  <xacro:property name="camera_size_x" value="0.05" />
+  <xacro:property name="camera_x_position" value="0.02" /> <!--between intersection point of yaw and pitch axis and center of camera lense-->
+  <xacro:property name="camera_z_position" value="0.001" />
+  
+  <xacro:property name="kinect_pitch_position" value="0" />
+  <xacro:property name="kinect_yaw_position" value="0.0" />
+  
   <xacro:macro name="tracker_sensor_head_macro" params="parent *origin">  
     
     <joint name="sensor_head_yaw_joint" type="revolute">
