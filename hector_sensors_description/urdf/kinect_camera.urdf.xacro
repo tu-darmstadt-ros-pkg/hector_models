@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
     <xacro:property name="M_PI" value="3.1415926535897931" />
-  
+
     <xacro:macro name="kinect_camera_model" params="name parent *origin">
       <joint name="${name}_joint" type="fixed">
         <xacro:insert_block name="origin" />
         <parent link="${parent}"/>
         <child link="${name}_link"/>
       </joint>
-      
+
       <link name="${name}_link">
         <xacro:inertial_sphere mass="0.01" diameter="0.07" />
         <visual>
@@ -64,7 +65,7 @@
       <xacro:kinect_camera_model name="${name}" parent="${parent}">
         <xacro:insert_block name="origin" />
       </xacro:kinect_camera_model>
-      
+
       <gazebo reference="${name}_depth_frame">
         <sensor type="depth" name="${name}">
           <update_rate>20</update_rate>
@@ -92,4 +93,3 @@
       </gazebo>
     </xacro:macro>
   </robot>
-  
