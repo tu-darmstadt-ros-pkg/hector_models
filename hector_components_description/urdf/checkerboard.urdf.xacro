@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot name="checkerboard" xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+<robot name="checkerboard" xmlns:xacro="http://ros.org/wiki/xacro">
   
   <xacro:property name="checkerbox_side_length" value="0.025" />
   <xacro:property name="dist_from_hand_joint" value="0.13" />
