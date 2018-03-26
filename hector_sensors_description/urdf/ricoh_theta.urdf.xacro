@@ -55,9 +55,9 @@
         </camera>
 
         <plugin name="${name}_${cam_front_name}_camera_controller" filename="libgazebo_ros_camera.so">
-          <cameraName>${name}_${cam_front_name}</cameraName>
-          <imageTopicName>/${name}/${cam_front_name}/${ros_topic}</imageTopicName>
-          <cameraInfoTopicName>/${name}/${cam_front_name}/${cam_info_topic}</cameraInfoTopicName>
+          <cameraName>${name}/${cam_front_name}</cameraName>
+          <imageTopicName>${ros_topic}</imageTopicName>
+          <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
           <frameName>${name}_${cam_front_name}_optical_frame</frameName>
         </plugin>
       </sensor>
@@ -104,9 +104,9 @@
         </camera>
 
         <plugin name="${name}_${cam_rear_name}_camera_controller" filename="libgazebo_ros_camera.so">
-          <cameraName>${name}_${cam_rear_name}</cameraName>
-          <imageTopicName>/${name}/${cam_rear_name}/${ros_topic}</imageTopicName>
-          <cameraInfoTopicName>/${name}/${cam_rear_name}/${cam_info_topic}</cameraInfoTopicName>
+          <cameraName>${name}/${cam_rear_name}</cameraName>
+          <imageTopicName>${ros_topic}</imageTopicName>
+          <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
           <frameName>${name}_${cam_rear_name}_optical_frame</frameName>
         </plugin>
       </sensor>
