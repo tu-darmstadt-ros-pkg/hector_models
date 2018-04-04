@@ -71,17 +71,22 @@
       </visual>
       -->
       
-      <collision>
+<!--      <collision>
         <origin xyz="0.0 0 0.08" rpy="0 0 0"/>
         <geometry>
           <cylinder radius="0.1" length="0.185" />
         </geometry>
-      </collision>
+      </collision>-->
     </link>
-
-    <xacro:vlp16 name="${name}_pitch_hokuyo_laser" parent="${name}_lidar_mount_link" ros_topic="/spin_laser/vlp16" update_rate="40" ray_count="1040" min_angle="-130" max_angle="130">
+    
+    <!--
+    <xacro:vlp16 name="${name}_pitch_hokuyo_laser" parent="${name}_lidar_mount_link" ros_topic="/spin_laser/vlp16">
       <xacro:insert_block name="vlp16_calibration" />
     </xacro:vlp16>
+    -->
+    <xacro:vlp16_advanced_parameters name="${name}_pitch_hokuyo_laser"  parent="${name}_lidar_mount_link" ros_topic="/spin_laser/vlp16" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.1" max_range="100">
+      <xacro:insert_block name="vlp16_calibration" />
+    </xacro:vlp16_advanced_parameters>  
     
     <xacro:joint_standard_transmission name="${name}_spin_joint"/>
   
