@@ -26,8 +26,15 @@
         </collision>
       </link>
     </xacro:macro>
+    
+    <xacro:macro name="vlp16" params="name parent *origin ros_topic">
+      <xacro:vlp16_advanced_parameters name="${name}" parent="${parent}" ros_topic="${ros_topic}" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.45" max_range="100">
+        <xacro:insert_block name="origin" />
+      </xacro:vlp16_advanced_parameters>    
+    </xacro:macro>
 
-    <xacro:macro name="vlp16" params="name parent *origin ros_topic update_rate ray_count min_angle max_angle">
+    <xacro:macro name="vlp16_advanced_parameters" params="name parent *origin ros_topic update_rate horizontal_samples vertical_samples min_range max_range">
+        
       <xacro:vlp16_model name="${name}" parent="${parent}">
         <xacro:insert_block name="origin" />
       </xacro:vlp16_model>
@@ -66,28 +73,28 @@
         
         
         
-              <sensor type="ray" name="${name}-VLP16">
+      <sensor type="ray" name="${name}-VLP16">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
-        <update_rate>10</update_rate>
+        <update_rate>${update_rate}</update_rate>
         <ray>
           <scan>
             <horizontal>
-              <samples>512</samples>
+              <samples>${horizontal_samples}</samples>
               <resolution>1</resolution>
               <min_angle>-${M_PI}</min_angle>
               <max_angle> ${M_PI}</max_angle>
             </horizontal>
             <vertical>
-              <samples>8</samples>
+              <samples>${vertical_samples}</samples>
               <resolution>1</resolution>
               <min_angle>-${15.0*M_PI/180.0}</min_angle>
               <max_angle> ${15.0*M_PI/180.0}</max_angle>
             </vertical>
           </scan>
           <range>
-            <min>0.2</min>
-            <max>140.0</max>
+            <min>${min_range}</min>
+            <max>${max_range}</max>
             <resolution>0.001</resolution>
           </range>
           <noise>
@@ -99,8 +106,8 @@
         <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_laser.so">
           <topicName>${ros_topic}</topicName>
           <frameName>${name}_frame</frameName>
-          <min_range>0.45</min_range>
-          <max_range>130.0</max_range>
+          <min_range>${min_range}</min_range>
+          <max_range>${max_range}</max_range>
           <gaussianNoise>0.008</gaussianNoise>
         </plugin>
       </sensor>
