@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="theta_dist_between_cameras" value="0.01602869966119076" />
+
+  <xacro:macro name="ricoh_theta_camera" params="name cam_front_name cam_rear_name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format fov">
+      
+    <joint name="ricoh_theta_center_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="ricoh_theta_center_link"/>      
+    </joint>
+    
+    <link name="${name}_center_link" />  
+      
+    <joint name="${name}_${cam_front_name}_joint" type="fixed">
+      <origin xyz="${0} ${theta_dist_between_cameras/2} 0" rpy="${M_PI*0.5} 0 ${-M_PI*0.5}"/>
+      <parent link="${name}_center_link"/>
+      <child link="${name}_${cam_front_name}_link"/>
+    </joint>
+    
+    <link name="${name}_${cam_front_name}_link"/>
+        
+    <joint name="${name}_${cam_front_name}_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+      <parent link="${name}_${cam_front_name}_link" />
+      <child link="${name}_${cam_front_name}_optical_frame"/>
+    </joint>
+    
+    <link name="${name}_${cam_front_name}_optical_frame"/>
+    
+    <gazebo reference="${name}_${cam_front_name}_link">
+      <sensor type="wideanglecamera" name="${name}_${cam_front_name}_camera_sensor">
+        <update_rate>${update_rate}</update_rate>
+        <camera>
+          <!--<horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>-->
+          <horizontal_fov>${fov}</horizontal_fov>
+          <image>
+            <format>${image_format}</format>
+            <width>${res_x}</width>
+            <height>${res_y}</height>
+          </image>
+          <clip>
+            <near>0.01</near>
+            <far>100</far>
+          </clip>
+          <lens>
+            <type>stereographic</type>
+            <scale_to_hfov>true</scale_to_hfov>
+            <cutoff_angle>1.5707</cutoff_angle>
+            <env_texture_size>512</env_texture_size>
+          </lens>
+        </camera>
+
+        <plugin name="${name}_${cam_front_name}_camera_controller" filename="libgazebo_ros_camera.so">
+          <cameraName>${name}/${cam_front_name}</cameraName>
+          <imageTopicName>${ros_topic}</imageTopicName>
+          <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
+          <frameName>${name}_${cam_front_name}_optical_frame</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+    
+       
+    <joint name="${name}_${cam_rear_name}_joint" type="fixed">
+      <origin xyz="${-theta_dist_between_cameras} 0 0" rpy="0 0 ${M_PI}"/>
+      <parent link="${name}_${cam_front_name}_link"/>
+      <child link="${name}_${cam_rear_name}_link"/>
+    </joint>
+    
+    <link name="${name}_${cam_rear_name}_link"/>
+        
+    <joint name="${name}_${cam_rear_name}_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+      <parent link="${name}_${cam_rear_name}_link" />
+      <child link="${name}_${cam_rear_name}_optical_frame"/>
+    </joint>
+    
+    <link name="${name}_${cam_rear_name}_optical_frame"/>
+    
+    <gazebo reference="${name}_${cam_rear_name}_link">
+      <sensor type="wideanglecamera" name="${name}_${cam_rear_name}_camera_sensor">
+        <update_rate>${update_rate}</update_rate>
+        <camera>
+          <!--<horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>-->
+          <horizontal_fov>${fov}</horizontal_fov>
+          <image>
+            <format>${image_format}</format>
+            <width>${res_x}</width>
+            <height>${res_y}</height>
+          </image>
+          <clip>
+            <near>0.01</near>
+            <far>100</far>
+          </clip>
+          <lens>
+            <type>stereographic</type>
+            <scale_to_hfov>true</scale_to_hfov>
+            <cutoff_angle>1.5707</cutoff_angle>
+            <env_texture_size>512</env_texture_size>
+          </lens>
+        </camera>
+
+        <plugin name="${name}_${cam_rear_name}_camera_controller" filename="libgazebo_ros_camera.so">
+          <cameraName>${name}/${cam_rear_name}</cameraName>
+          <imageTopicName>${ros_topic}</imageTopicName>
+          <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
+          <frameName>${name}_${cam_rear_name}_optical_frame</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+</robot>
+
