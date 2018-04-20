@@ -177,6 +177,14 @@ Note:
   
       <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_points_topic="${depth_points_topic}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
     </xacro:macro>
+    
+    <xacro:macro name="realsense_camera_comprehensive_params" params="name parent *origin image_topic depth_points_topic min_range max_range update_rate">
+      <xacro:realsense_camera_model name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_camera_model>
+  
+      <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_points_topic="${depth_points_topic}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
+    </xacro:macro>
      
   </robot>
   
