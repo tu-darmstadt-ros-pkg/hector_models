@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+
+<!--
+Note:
+ The real sensor publshes tf data based on internally stored intrinsics. To support this, only the mounting link is
+ used in this macro. The corresponding frames can be added by running static_transform_publishers like so in the
+ Gazebo startup somewhere:
+ 
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link" args="0 0 0 0 0 0  /arm_rgbd_cam_link /arm_rgbd_cam_depth_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link2" args="0 0 0 -1.57 0 -1.57 /arm_rgbd_cam_depth_frame /arm_rgbd_cam_depth_optical_frame  100" />
+-->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+    <!--
+     This macro only adds the model, it does not also add
+     the openni gazebo plugin. See the 'asus_camera' macro below for that
+    -->
+    <xacro:macro name="realsense_d435_camera_model" params="name parent *origin">
+      <joint name="${name}_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_link"/>
+      </joint>
+      
+      <link name="${name}_link">
+        <inertial>
+          <mass value="0.072" />
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0.0115 0" rpy="0 0 0" />
+          <geometry>
+            <!--Dimensions taken from https://click.intel.com/intelr-realsensetm-depth-camera-d435.html-->
+            <box size="0.025 0.09 0.025" />
+          </geometry>
+          <material name="DarkGrey">
+            <color rgba="0.3 0.3 0.3 1"/>
+          </material>    
+        </visual>
+        <collision>
+          <origin xyz="0 0.0115 0" rpy="0 0 0" />
+          <geometry>
+            <!--Dimensions taken from https://click.intel.com/intelr-realsensetm-depth-camera-d435.html-->
+            <box size="0.025 0.09 0.025" />
+          </geometry>update_rate
+        </collision>
+      </link>
+      
+      <gazebo reference="${name}_link">
+        <material>Gazebo/Grey</material>
+      </gazebo> 
+    </xacro:macro>
+    
+  
+    <xacro:macro name="realsense_d435_camera_model_no_geom" params="name parent *origin">
+      <joint name="${name}_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_link"/>
+      </joint>
+      
+      <link name="${name}_link">
+      </link>
+    </xacro:macro>
+    
+    
+    <xacro:macro name="realsense_d435_camera_gazebo_plugin_macro" params="name parent image_topic depth_points_topic min_range max_range update_rate">
+      <gazebo reference="${name}_link">
+        <sensor type="depth" name="${name}">
+          <update_rate>${update_rate}</update_rate>
+          <camera>
+            <horizontal_fov>${69.4 * M_PI/180.0}</horizontal_fov>
+            <image>
+              <format>B8G8R8</format>
+              <width>848</width>
+              <height>480</height>
+            </image>
+            <clip>
+              <near>${min_range}</near>
+              <far>${max_range}</far>
+            </clip>
+          </camera>
+          <plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+            <cameraName>${name}</cameraName>  
+            <imageTopicName>rgb/${image_topic}</imageTopicName>
+            <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+            <depthImageTopicName>depth/image_raw</depthImageTopicName>
+            <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudTopicName>${depth_points_topic}</pointCloudTopicName>
+            <frameName>${name}_depth_optical_frame</frameName>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:macro>
+      
+    <!--
+      Use the macro below for adding the realsense model with link geometry
+    -->
+    <xacro:macro name="realsense_d435_camera" params="name parent *origin">
+      <xacro:realsense_d435_camera_model name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_d435_camera_model>
+  
+      <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="rgb/image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
+    </xacro:macro>
+    
+    <!--
+      Use the macro below for adding the realsense model without link geometry,
+      e.g. if the sensor is added into preexisting geometry
+    -->
+    <xacro:macro name="realsense_camera_no_geom" params="name parent *origin">
+      <xacro:realsense_d435_camera_model_no_geom name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_d435_camera_model_no_geom>
+  
+      <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="rgb/image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
+    </xacro:macro>
+    
+    <xacro:macro name="realsense_d435_camera_no_geom_comprehensive_params" params="name parent *origin image_topic depth_points_topic min_range max_range update_rate">
+      <xacro:realsense_d435_camera_model_no_geom name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_d435_camera_model_no_geom>
+  
+      <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_points_topic="${depth_points_topic}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
+    </xacro:macro>
+    
+    <xacro:macro name="realsense_d435_camera_comprehensive_params" params="name parent *origin image_topic depth_points_topic min_range max_range update_rate">
+      <xacro:realsense_d435_camera_model name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_d435_camera_model>
+  
+      <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_points_topic="${depth_points_topic}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
+    </xacro:macro>
+     
+  </robot>
+  
