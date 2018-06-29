@@ -1,6 +1,6 @@
 <package>
   <name>hector_models</name>
-  <version>0.4.2</version>
+  <version>0.5.0</version>
   <description>hector_models contains (urdf) models of robots, sensors etc.</description>
   <maintainer email="johannes@intermodalics.eu">Johannes Meyer</maintainer>
 

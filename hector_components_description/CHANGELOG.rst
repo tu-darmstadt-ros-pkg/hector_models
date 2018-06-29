@@ -2,6 +2,24 @@
 Changelog for package hector_components_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.0 (2018-06-29)
+------------------
+* Update raycast self filter config for head
+* Increase realsense self filter collision size
+* Add cylinder geoms for raycast self filtering
+* Add macro for being able to set realsense params in more detail
+* Update vlp16 mount macro
+* Merge branch 'update_transmissions' into kinetic-devel
+  Fix xmlns for all xacro files
+* Update to transmissions, prepending "hardware_interface/"
+* Make tracker sensor head macro independent of vision box properties
+* Add plugin for using spinning sensors with gazebo
+* Add additional macros of components
+* Fix xacro tag
+* Merge commit '57d7a25756af77265cfd73298fa5d32' into indigo-devel
+* added makro that allows you to define a calibration transformation
+* Contributors: Martin Oehler, Stefan Kohlbrecher
+
 0.4.2 (2016-06-24)
 ------------------
 * fixed for checkerboard

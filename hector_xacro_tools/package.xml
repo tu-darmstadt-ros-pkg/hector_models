@@ -1,6 +1,6 @@
 <package>
   <name>hector_xacro_tools</name>
-  <version>0.4.2</version>
+  <version>0.5.0</version>
   <description>hector_xacro_tools</description>
   <maintainer email="johannes@intermodalics.eu">Johannes Meyer</maintainer>
 
