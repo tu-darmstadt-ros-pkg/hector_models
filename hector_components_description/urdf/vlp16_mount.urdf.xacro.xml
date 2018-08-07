@@ -3,6 +3,7 @@
   xmlns:xacro="http://ros.org/wiki/xacro" name="hector_multisensor_head">
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/vlp16.urdf.xacro" />
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/joint_macros.urdf.xacro" />
 
   <xacro:property name="M_PI" value="3.14159265359"/>
 
