@@ -30,7 +30,7 @@ Note:
           <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4" />
         </inertial>
         <visual>
-          <origin xyz="0 0.0115 0" rpy="0 0 0" />
+          <origin xyz="-0.02 -0.0325 0" rpy="0 0 0" />
           <geometry>
             <!--Dimensions taken from https://click.intel.com/intelr-realsensetm-depth-camera-d435.html-->
             <box size="0.025 0.09 0.025" />
@@ -40,11 +40,11 @@ Note:
           </material>    
         </visual>
         <collision>
-          <origin xyz="0 0.0115 0" rpy="0 0 0" />
+          <origin xyz="-0.02 -0.0325 0" rpy="0 0 0" />
           <geometry>
             <!--Dimensions taken from https://click.intel.com/intelr-realsensetm-depth-camera-d435.html-->
             <box size="0.025 0.09 0.025" />
-          </geometry>update_rate
+          </geometry>
         </collision>
       </link>
       
@@ -74,7 +74,7 @@ Note:
             <horizontal_fov>${69.4 * M_PI/180.0}</horizontal_fov>
             <image>
               <format>B8G8R8</format>
-              <width>848</width>
+              <width>640</width>
               <height>480</height>
             </image>
             <clip>
