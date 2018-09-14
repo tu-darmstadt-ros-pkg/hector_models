@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="argo_tracker_structure_addons">
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
+  <xacro:include filename="$(find hector_components_description)/urdf/vlp16_mount.urdf.xacro.xml"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
+  
+  
+<!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
+  <!--<xacro:property name="add_self_filter_geom" value="${arg add_self_filter_geom}"/>-->
+  
+  <xacro:property name="M_PI" value="3.14159265359"/>
+  
+  <xacro:property name="alu_profile_side_length" value="0.02"/>
+  <xacro:property name="computer_box_height" value="0.15"/>
+  <xacro:property name="computer_box_width" value="0.191"/>
+  <xacro:property name="computer_box_length" value="0.191"/>
+  <xacro:property name="top_protection_bottom" value="0.47"/>
+  <xacro:property name="handle_width" value="0.07"/>
+  <xacro:property name="handle_length" value="0.135"/>
+  <xacro:property name="handle_height" value="0.016"/>
+  <xacro:property name="handle_y" value="0.138"/>  
+    
+  
+  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box'">
+      
+    <xacro:arg name="add_containment_self_filter_geom" default="false"/>
+    
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}" />
+      <child link="${name}_link"/>      
+    </joint>
+    
+    <!-- Computer box and cage -->
+    <link name="${name}_link">
+      <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
+      
+      <!-- Computer box-->
+      <visual>
+        <origin xyz="0 0 ${computer_box_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${computer_box_length} ${computer_box_width} ${computer_box_height}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+
+      <!--Protection vertical profiles-->
+      <visual>
+        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>  
+      </visual>
+
+      <visual>
+        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>  
+      </visual>
+      
+      <visual>
+        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+      
+      <visual>
+        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+      
+      <!--Top geom-->      
+      <visual>
+        <origin xyz="0 ${ (computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+      
+      <visual>
+        <origin xyz="0 ${-(computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+
+      <visual>
+        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+      
+      <visual>
+        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>      
+      
+      <!-- Computer box-->
+      <xacro:unless value="$(arg add_containment_self_filter_geom)">
+      <collision>
+        <origin xyz="0 0 ${computer_box_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${computer_box_length} ${computer_box_width} ${computer_box_height}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+
+      <!--Protection vertical profiles-->
+      <collision>
+        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <!--<box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>-->
+          <cylinder length="${top_protection_bottom-computer_box_height}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>  
+      </collision>
+
+      <collision>
+        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <!--<box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>-->
+          <cylinder length="${top_protection_bottom-computer_box_height}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>  
+      </collision>
+      
+      <collision>
+        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <!--<box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>-->
+          <cylinder length="${top_protection_bottom-computer_box_height}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+      
+      <collision>
+        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <!--<box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>-->
+          <cylinder length="${top_protection_bottom-computer_box_height}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>  
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+      
+      <!--Top geom-->      
+      <collision>
+        <origin xyz="0 ${ (computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 ${M_PI*0.5} 0"/>
+        <geometry>
+          <!--<box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>-->
+          <cylinder length="${computer_box_length}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>             
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+      
+      <collision>
+        <origin xyz="0 ${-(computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 ${M_PI*0.5} 0"/>
+        <geometry>
+          <!--<box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>-->
+          <cylinder length="${computer_box_length}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+
+      <collision>
+        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="${M_PI*0.5} ${M_PI*0.5} 0"/>
+        <geometry>
+          <!--<box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>-->
+          <cylinder length="${computer_box_width}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>  
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+      
+      <collision>
+        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="${M_PI*0.5} ${M_PI*0.5} 0"/>
+        <geometry>
+          <!--<box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>-->
+          <cylinder length="${computer_box_width}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>      
+      </xacro:unless>
+      
+      
+      <xacro:if value="$(arg add_containment_self_filter_geom)">
+      <collision>
+        <origin xyz="0 0 ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${computer_box_length} ${computer_box_width} ${top_protection_bottom}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+      <collision>
+        <origin xyz="-0.18 0 ${computer_box_height/2+0.07}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${computer_box_length} ${computer_box_width*1.95} ${0.3}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+      
+      </xacro:if>
+    </link>
+    
+    <!-- IMU -->
+    <joint name="imu_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${name}_link" />
+      <child link="imu_link"/>      
+    </joint>
+    
+    <link name="imu_link">     
+    </link>
+    
+    <!-- Spinning VLP16 -->
+    <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
+      <origin xyz="0 0 ${0.27 + 0.0944673}" rpy="0.0 0.0 ${M_PI}"/>
+    </xacro:spinning_sensor_mount_macro>
+      
+    <!-- 360 camera -->
+    <xacro:camera360 name="camera360" right_cam_name="right" left_cam_name="left" parent="${name}_link" dist_between_cameras="-0.03850784" ros_topic="image_raw" update_rate="10" res_x="1504" res_y="1504" image_format="R8G8B8" fov="${M_PI}">
+      <origin xyz="0 0 0.58" rpy="0.0 0 0"/> <!-- base_link to camera mount transform -->
+      <origin xyz="0.00009742  0.00061696 -0.03850784" rpy="3.1373499 -0.0021358 -3.1279404"/> <!-- cam to cam transform (calibration by kalibr) -->
+    </xacro:camera360>
+    
+    <gazebo reference="structure_addons_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    
+  </xacro:macro>
+</robot>
