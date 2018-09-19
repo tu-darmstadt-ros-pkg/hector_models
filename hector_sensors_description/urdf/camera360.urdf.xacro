@@ -3,8 +3,10 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+  <xacro:property name="default_collision_radius" value="0.25" />
 
-  <xacro:macro name="camera360" params="name right_cam_name left_cam_name parent *origin *calibration dist_between_cameras ros_topic update_rate res_x res_y image_format fov">
+  <xacro:macro name="camera360" params="name right_cam_name left_cam_name parent collision_radius:=${default_collision_radius} *origin *calibration dist_between_cameras ros_topic update_rate res_x res_y image_format fov">
       
     <joint name="${name}_center_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -12,7 +14,27 @@
       <child link="${name}_center_link"/>      
     </joint>
     
-    <link name="${name}_center_link" />  
+    <link name="${name}_center_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.011"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+      
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${collision_radius}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+    </link>
       
     <joint name="${name}_${right_cam_name}_joint" type="fixed">
       <origin xyz="0 ${dist_between_cameras/2} 0" rpy="${M_PI*0.5} 0 ${-M_PI*0.5}"/>

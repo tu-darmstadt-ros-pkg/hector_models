@@ -20,6 +20,12 @@
   <xacro:property name="handle_length" value="0.135"/>
   <xacro:property name="handle_height" value="0.016"/>
   <xacro:property name="handle_y" value="0.138"/>  
+  
+  <xacro:property name="insta360_mounting_height" value="0.58"/>
+  <xacro:property name="insta360_radius" value="0.011"/>
+  <xacro:property name="insta360_collision_radius" value="0.015"/>
+
+  
     
   
   <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box'">
@@ -129,6 +135,17 @@
         </material> 
       </visual>      
       
+      <!-- 360 cam mount -->
+      <visual>
+        <origin xyz="0 0 ${0.5 * (top_protection_bottom + alu_profile_side_length + insta360_mounting_height - insta360_radius)}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${insta360_mounting_height - top_protection_bottom - alu_profile_side_length - insta360_radius}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>  
+      </visual>
+      
       <!-- Computer box-->
       <xacro:unless value="$(arg add_containment_self_filter_geom)">
       <collision>
@@ -229,7 +246,19 @@
         <material name="Grey">
           <color rgba="0.5 0.5 0.5 1"/>
         </material> 
-      </collision>      
+      </collision>    
+      
+      <!-- 360 cam mount -->      
+      <collision>
+        <origin xyz="0 0 ${0.5 * (top_protection_bottom + alu_profile_side_length + insta360_mounting_height - insta360_radius)}" rpy="0 0 0"/>
+        <geometry>
+          <!--<box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>-->
+          <cylinder length="${insta360_mounting_height - top_protection_bottom - alu_profile_side_length - insta360_radius}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
       </xacro:unless>
       
       
@@ -272,8 +301,8 @@
     </xacro:spinning_sensor_mount_macro>
       
     <!-- 360 camera -->
-    <xacro:camera360 name="camera360" right_cam_name="right" left_cam_name="left" parent="${name}_link" dist_between_cameras="-0.03850784" ros_topic="image_raw" update_rate="10" res_x="1504" res_y="1504" image_format="R8G8B8" fov="${M_PI}">
-      <origin xyz="0 0 0.58" rpy="0.0 0 0"/> <!-- base_link to camera mount transform -->
+    <xacro:camera360 name="camera360" right_cam_name="right" left_cam_name="left" parent="${name}_link" collision_radius="${insta360_collision_radius}" dist_between_cameras="-0.03850784" ros_topic="image_raw" update_rate="10" res_x="1504" res_y="1504" image_format="R8G8B8" fov="${M_PI}">
+      <origin xyz="0 0 ${insta360_mounting_height}" rpy="0.0 0 0"/> <!-- base_link to camera mount transform -->
       <origin xyz="0.00009742  0.00061696 -0.03850784" rpy="3.1373499 -0.0021358 -3.1279404"/> <!-- cam to cam transform (calibration by kalibr) -->
     </xacro:camera360>
     
