@@ -24,6 +24,11 @@
   <xacro:property name="insta360_mounting_height" value="0.58"/>
   <xacro:property name="insta360_radius" value="0.011"/>
   <xacro:property name="insta360_collision_radius" value="0.015"/>
+  
+  <xacro:property name="chilitag_white_border" value="0.005"/>
+  <xacro:property name="chilitag_28_x" value="${computer_box_width/2 - chilitag_white_border - chilitag_size/2}"/>
+  <xacro:property name="chilitag_28_y" value="${computer_box_width/2 - chilitag_white_border - chilitag_size/2}"/>
+  <xacro:property name="chilitag_28_z" value="${top_protection_bottom + alu_profile_side_length + 0.001}"/>
 
   
     
@@ -145,6 +150,11 @@
           <color rgba="0.5 0.5 0.5 1"/>
         </material>  
       </visual>
+      
+      <!-- Chilitags visual -->
+      <xacro:chilitag_visual_sized name="chilitag28" size="${chilitag_size}">
+        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="0 ${-M_PI/2} 0"/>
+      </xacro:chilitag_visual_sized>
       
       <!-- Computer box-->
       <xacro:unless value="$(arg add_containment_self_filter_geom)">
@@ -284,6 +294,11 @@
       
       </xacro:if>
     </link>
+    
+        <!-- Chilitags -->
+    <xacro:chilitag_no_geom name="chilitag28" size="${chilitag_size}" parent="${name}_link">
+      <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="${0} 0 ${0}" />
+    </xacro:chilitag_no_geom> 
     
     <!-- IMU -->
     <joint name="imu_link_joint" type="fixed">
