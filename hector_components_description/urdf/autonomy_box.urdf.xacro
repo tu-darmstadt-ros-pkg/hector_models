@@ -12,10 +12,10 @@
   <xacro:property name="M_PI" value="3.14159265359"/>
   
   <xacro:property name="alu_profile_side_length" value="0.02"/>
-  <xacro:property name="computer_box_height" value="0.15"/>
-  <xacro:property name="computer_box_width" value="0.191"/>
-  <xacro:property name="computer_box_length" value="0.191"/>
-  <xacro:property name="top_protection_bottom" value="0.47"/>
+  <xacro:property name="computer_box_height" value="0.121"/>
+  <xacro:property name="computer_box_width" value="0.19"/>
+  <xacro:property name="computer_box_length" value="0.19"/>
+  <xacro:property name="top_protection_bottom" value="0.4425"/>
   <xacro:property name="handle_width" value="0.07"/>
   <xacro:property name="handle_length" value="0.135"/>
   <xacro:property name="handle_height" value="0.016"/>
