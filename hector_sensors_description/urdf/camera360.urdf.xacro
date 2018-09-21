@@ -5,6 +5,9 @@
   <xacro:property name="M_PI" value="3.1415926535897931" />
   
   <xacro:property name="default_collision_radius" value="0.25" />
+  
+  <xacro:property name="visual_radius" value="0.011" />
+  <xacro:property name="cable_collision_length" value="0.05" />
 
   <xacro:macro name="camera360" params="name right_cam_name left_cam_name parent collision_radius:=${default_collision_radius} *origin *calibration dist_between_cameras ros_topic update_rate res_x res_y image_format fov">
       
@@ -15,10 +18,11 @@
     </joint>
     
     <link name="${name}_center_link">
+      <!-- Sphere body -->
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="0.011"/>
+          <sphere radius="${visual_radius}"/>
         </geometry>
         <material name="Grey">
           <color rgba="0.5 0.5 0.5 1"/>
@@ -34,6 +38,28 @@
           <color rgba="0.5 0.5 0.5 1"/>
         </material> 
       </collision>
+      
+      <!-- Cable -->
+<!--      <visual>
+        <origin xyz="${visual_radius + cable_collision_length/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${cable_collision_length} 0.03 0.03"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>-->
+      
+      <collision>
+        <origin xyz="${0.011 + cable_collision_length/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${cable_collision_length} 0.03 0.03"/>
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </collision>
+      
     </link>
       
     <joint name="${name}_${right_cam_name}_joint" type="fixed">
