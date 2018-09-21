@@ -51,6 +51,14 @@ Note:
       <gazebo reference="${name}_link">
         <material>Gazebo/Grey</material>
       </gazebo> 
+      
+      <joint name="${name}_rgb_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <parent link="${name}_link" />
+        <child link="${name}_rgb_optical_frame"/>
+      </joint>
+
+      <link name="${name}_rgb_optical_frame"/>
     </xacro:macro>
     
   
