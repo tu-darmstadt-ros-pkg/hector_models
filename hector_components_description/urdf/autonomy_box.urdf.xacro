@@ -153,7 +153,8 @@
       
       <!-- Chilitags visual -->
       <xacro:chilitag_visual_sized name="chilitag28" size="${chilitag_size}">
-        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="0 ${-M_PI/2} 0"/>
+<!--        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="0 ${-M_PI/2} 0"/>-->
+        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="${M_PI} ${0} ${M_PI/2}"/>
       </xacro:chilitag_visual_sized>
       
       <!-- Computer box-->
@@ -297,7 +298,7 @@
     
         <!-- Chilitags -->
     <xacro:chilitag_no_geom name="chilitag28" size="${chilitag_size}" parent="${name}_link">
-      <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="${0} 0 ${0}" />
+        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="${M_PI} ${0} ${M_PI/2}"/>
     </xacro:chilitag_no_geom> 
     
     <!-- IMU -->
