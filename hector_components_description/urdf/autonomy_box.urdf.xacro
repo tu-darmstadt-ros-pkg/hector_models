@@ -26,9 +26,10 @@
   <xacro:property name="insta360_collision_radius" value="0.04"/>
   
   <xacro:property name="chilitag_white_border" value="0.005"/>
+  <xacro:property name="chilitag_thickness" value="0.003"/>
   <xacro:property name="chilitag_28_x" value="${computer_box_width/2 - chilitag_white_border - chilitag_size/2}"/>
   <xacro:property name="chilitag_28_y" value="${computer_box_width/2 - chilitag_white_border - chilitag_size/2}"/>
-  <xacro:property name="chilitag_28_z" value="${top_protection_bottom + alu_profile_side_length + 0.001}"/>
+  <xacro:property name="chilitag_28_z" value="${top_protection_bottom + alu_profile_side_length + chilitag_thickness}"/>
 
   
     
