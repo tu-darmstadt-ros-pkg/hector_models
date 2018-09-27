@@ -4,7 +4,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
   
-  <xacro:property name="default_collision_radius" value="0.25" />
+  <xacro:property name="default_collision_radius" value="0.025" />
   
   <xacro:property name="visual_radius" value="0.011" />
   <xacro:property name="cable_collision_length" value="0.05" />
