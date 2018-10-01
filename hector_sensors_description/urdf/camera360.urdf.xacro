@@ -94,10 +94,15 @@
             <far>100</far>
           </clip>
           <lens>
-            <type>stereographic</type>
-            <scale_to_hfov>true</scale_to_hfov>
-            <cutoff_angle>1.5707</cutoff_angle>
-            <env_texture_size>512</env_texture_size>
+            <type>custom</type>
+            <custom_function>
+              <c1>2</c1>
+              <c2>2</c2>
+              <f>1.0</f>
+              <fun>sin</fun>
+            </custom_function>
+            <cutoff_angle>${fov/2}</cutoff_angle>
+            <env_texture_size>1024</env_texture_size>
           </lens>
         </camera>
 
@@ -143,10 +148,15 @@
             <far>100</far>
           </clip>
           <lens>
-            <type>stereographic</type>
-            <scale_to_hfov>true</scale_to_hfov>
-            <cutoff_angle>1.5707</cutoff_angle>
-            <env_texture_size>512</env_texture_size>
+            <type>custom</type>
+            <custom_function>
+              <c1>2</c1>
+              <c2>2</c2>
+              <f>1.0</f>
+              <fun>sin</fun>
+            </custom_function>
+            <cutoff_angle>${fov/2}</cutoff_angle>
+            <env_texture_size>1024</env_texture_size>
           </lens>
         </camera>
 
