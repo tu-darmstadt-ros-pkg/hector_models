@@ -7,10 +7,10 @@
 
   <xacro:macro name="ricoh_theta_camera" params="name cam_front_name cam_rear_name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format fov">
       
-    <joint name="ricoh_theta_center_joint" type="fixed">
+    <joint name="${name}_center_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="ricoh_theta_center_link"/>      
+      <child link="${name}_center_link"/>      
     </joint>
     
     <link name="${name}_center_link" />  
