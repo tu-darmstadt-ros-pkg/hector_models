@@ -119,7 +119,7 @@
     <link name="${name}_${left_cam_name}_optical_frame"/>
 
     <joint name="${name}_${left_cam_name}_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${M_PI/2} 0.0 ${M_PI/2}" />
+      <origin xyz="0 0 0" rpy="0 ${-M_PI/2} ${M_PI/2}" />
       <parent link="${name}_${left_cam_name}_optical_frame"/>
       <child link="${name}_${left_cam_name}_link" />
     </joint>
