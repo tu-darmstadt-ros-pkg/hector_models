@@ -100,7 +100,7 @@
         <collision>
           <origin xyz="0.01 -0.048  ${0.01373-0.01}" rpy="0 0 0"/>
           <geometry>
-            <cylinder length="${0.16}" radius="${0.04}"/>  
+            <cylinder length="${0.17}" radius="${0.05}"/>  
                   <!--<box size="${t_base_size_x*2+t_flipper_offset_x*2} ${t_track_width} ${t_wheel_radius_big*2}"/>-->
           </geometry>
         </collision>
