@@ -76,7 +76,7 @@
     </link>
     
     <joint name="sensor_head_pitch_joint" type="revolute">
-      <origin xyz="0 -0.0235 0.0921" rpy="${-M_PI/2} -0.349240383 0"/>
+      <origin xyz="0 -0.0235 0.0921" rpy="${-M_PI/2} 0 0"/>
       <parent link="sensor_head_yaw_link"/>
       <child link="sensor_head_mount_link"/>
       <axis xyz="0 0 1"/>
