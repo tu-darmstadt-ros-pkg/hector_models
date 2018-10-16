@@ -27,9 +27,9 @@
   
   <xacro:property name="chilitag_white_border" value="0.005"/>
   <xacro:property name="chilitag_thickness" value="0.003"/>
-  <xacro:property name="chilitag_28_x" value="${-computer_box_width/2 + 0.01 + chilitag_size/2}"/> <!-- border is bigger on this side -->
-  <xacro:property name="chilitag_28_y" value="${computer_box_width/2 - chilitag_white_border - chilitag_size/2}"/>
-  <xacro:property name="chilitag_28_z" value="${top_protection_bottom + alu_profile_side_length + chilitag_thickness}"/>
+  <xacro:property name="chilitag_29_x" value="${-computer_box_width/2 + 0.01 + chilitag_size/2}"/> <!-- border is bigger on this side -->
+  <xacro:property name="chilitag_29_y" value="${-computer_box_width/2 + 2*chilitag_white_border + chilitag_size/2}"/>
+  <xacro:property name="chilitag_29_z" value="${top_protection_bottom + alu_profile_side_length + chilitag_thickness}"/>
 
   
     
@@ -153,9 +153,9 @@
       </visual>
       
       <!-- Chilitags visual -->
-      <xacro:chilitag_visual_sized name="chilitag28" size="${chilitag_size}">
+      <xacro:chilitag_visual_sized name="chilitag29" size="${chilitag_size}">
 <!--        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="0 ${-M_PI/2} 0"/>-->
-        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="${M_PI} ${0} ${M_PI/2}"/>
+        <origin xyz="${chilitag_29_x} ${chilitag_29_y} ${chilitag_29_z}" rpy="${M_PI} ${0} ${-M_PI/2}"/>
       </xacro:chilitag_visual_sized>
       
       <!-- Computer box-->
@@ -297,9 +297,9 @@
       </xacro:if>
     </link>
     
-        <!-- Chilitags -->
-    <xacro:chilitag_no_geom name="chilitag28" size="${chilitag_size}" parent="${name}_link">
-        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="${M_PI} ${0} ${M_PI/2}"/>
+    <!-- Chilitags -->
+    <xacro:chilitag_no_geom name="chilitag29" size="${chilitag_size}" parent="${name}_link">
+      <origin xyz="${chilitag_29_x} ${chilitag_29_y} ${chilitag_29_z}" rpy="${M_PI} ${0} ${-M_PI/2}"/>
     </xacro:chilitag_no_geom> 
     
     <!-- IMU -->
