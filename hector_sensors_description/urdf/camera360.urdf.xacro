@@ -4,7 +4,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
   
-  <xacro:property name="default_collision_radius" value="0.25" />
+  <xacro:property name="default_collision_radius" value="0.025" />
   
   <xacro:property name="visual_radius" value="0.011" />
   <xacro:property name="cable_collision_length" value="0.05" />
@@ -93,7 +93,19 @@
             <near>0.01</near>
             <far>100</far>
           </clip>
-          <lens>
+          <lens>            
+            <!--
+            Crashes gazebo on some machines, so revert for now
+            <type>custom</type>
+            <custom_function>
+              <c1>2</c1>
+              <c2>2</c2>
+              <f>1.0</f>
+              <fun>sin</fun>
+            </custom_function>
+            <cutoff_angle>${fov/2}</cutoff_angle>
+            <env_texture_size>1024</env_texture_size>
+            -->
             <type>stereographic</type>
             <scale_to_hfov>true</scale_to_hfov>
             <cutoff_angle>1.5707</cutoff_angle>
@@ -119,7 +131,7 @@
     <link name="${name}_${left_cam_name}_optical_frame"/>
 
     <joint name="${name}_${left_cam_name}_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${M_PI/2} 0.0 ${M_PI/2}" />
+      <origin xyz="0 0 0" rpy="0 ${-M_PI/2} ${M_PI/2}" />
       <parent link="${name}_${left_cam_name}_optical_frame"/>
       <child link="${name}_${left_cam_name}_link" />
     </joint>
@@ -143,6 +155,18 @@
             <far>100</far>
           </clip>
           <lens>
+            <!--
+            Crashes gazebo on some machines, so revert for now
+            <type>custom</type>
+            <custom_function>
+              <c1>2</c1>
+              <c2>2</c2>
+              <f>1.0</f>
+              <fun>sin</fun>
+            </custom_function>
+            <cutoff_angle>${fov/2}</cutoff_angle>
+            <env_texture_size>1024</env_texture_size>
+            -->
             <type>stereographic</type>
             <scale_to_hfov>true</scale_to_hfov>
             <cutoff_angle>1.5707</cutoff_angle>
