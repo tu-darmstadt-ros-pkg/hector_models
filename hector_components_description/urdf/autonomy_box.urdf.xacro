@@ -320,7 +320,9 @@
     <!-- 360 camera -->
     <xacro:camera360 name="camera360" right_cam_name="right" left_cam_name="left" parent="${name}_link" collision_radius="${insta360_collision_radius}" dist_between_cameras="-0.03850784" ros_topic="image_raw" update_rate="10" res_x="1504" res_y="1504" image_format="R8G8B8" fov="${M_PI}">
       <origin xyz="0 0 ${insta360_mounting_height}" rpy="0.0 0 0"/> <!-- base_link to camera mount transform -->
-      <origin xyz="0.00009742  0.00061696 -0.03850784" rpy="3.1373499 -0.0021358 -3.1279404"/> <!-- cam to cam transform (calibration by kalibr) -->
+      <!-- cam to cam transform (calibration by kalibr) -->
+      <!--<origin xyz="0.00009742  0.00061696 -0.03850784" rpy="3.1373499 -0.0021358 -3.1279404"/>--> <!-- insta #1 -->
+      <origin xyz="0.002862424041614364  -0.00013127655875068252 -0.03724378451297336" rpy="-3.1402707 0.0036289 -3.1175768"/> <!-- insta #3 -->
     </xacro:camera360>
     
     <gazebo reference="structure_addons_link">
