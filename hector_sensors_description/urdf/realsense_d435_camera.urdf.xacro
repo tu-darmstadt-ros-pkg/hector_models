@@ -103,7 +103,7 @@ Note:
         <xacro:insert_block name="origin" />
       </xacro:realsense_d435_camera_model>
   
-      <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="rgb/image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
+      <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
     </xacro:macro>
     
     <!--
@@ -115,7 +115,7 @@ Note:
         <xacro:insert_block name="origin" />
       </xacro:realsense_d435_camera_model_no_geom>
   
-      <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="rgb/image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
+      <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
     </xacro:macro>
     
     <xacro:macro name="realsense_d435_camera_no_geom_comprehensive_params" params="name parent *origin image_topic depth_points_topic min_range max_range update_rate">
