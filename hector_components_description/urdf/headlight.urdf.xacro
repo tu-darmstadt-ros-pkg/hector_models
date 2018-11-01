@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="headlight">
+
+  <xacro:macro name="headlight" params="parent headlight_prefix xyz rpy">
+<!--    <link name="${headlight_prefix}_headlight_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.000001" />
+        <inertia
+          ixx="0.001"
+          ixy="0.0" iyy="0.001"
+          ixz="0.0" iyz="0.0" izz="0.001"
+        />
+      </inertial>
+
+    </link>
+
+    <joint name="${headlight_prefix}_headlight" type="fixed">
+      <parent link="base_link"/>
+      <child link="${headlight_prefix}_headlight_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>-->
+
+    <gazebo>
+      <model name="${headlight_prefix}_headlight">
+        <pose>${xyz} ${rpy}</pose>
+        <link name="body">
+          <pose>0.0 0 0 0 0 0</pose>
+          <light name="light_source" type="spot">
+            <!--<pose>-0.025 0 0.0 0 1.573 0</pose>-->
+            <pose>0.0 0 0.0 0 -1.573 0</pose>
+            <attenuation>
+              <range>50</range>
+              <linear>0.0</linear>
+              <constant>0.1</constant>
+              <quadratic>0.0</quadratic>
+            </attenuation>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+            <spot>
+              <inner_angle>1</inner_angle>
+              <outer_angle>1.1</outer_angle>
+              <falloff>1</falloff>
+            </spot>
+            <direction>0 0 -1</direction>
+          </light>
+
+<!--          <visual name="light_source_visual">
+            <geometry>
+              <box>
+                
+              </box>
+            </geometry>
+            <transparency>1</transparency>
+            <material>
+              <ambient>1 1 1 1</ambient>
+              <diffuse>1 1 1 1</diffuse>
+              <specular>1 1 1 1</specular>
+              <emissive>0 0 0 1</emissive>
+            </material>
+
+          </visual>-->
+<!--          <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass>0.000001</mass>
+            <inertia>
+              <ixx>0.001</ixx>
+              <ixy>0.0</ixy><iyy>0.001</iyy>
+              <ixz>0.0</ixz><iyz>0.0</iyz><izz>0.001</izz>
+            </inertia>
+          </inertial>-->
+        </link>
+
+<!--        <plugin name='light_control' filename='libRosFlashLightPlugin.so'>
+          <service_name>enable</service_name>
+          <light>
+            <id>body/light_source</id>
+            <enable>true</enable>
+            <duration>1</duration>
+            <interval>0</interval>
+            <color>1 1 1</color>
+          </light>
+        </plugin>-->
+      </model>
+    </gazebo>
+
+    <gazebo>
+      <joint name="${headlight_prefix}_headlight" type="fixed">
+        <parent>${parent}</parent>
+        <child>${headlight_prefix}_headlight::body</child>
+      </joint>
+    </gazebo>
+
+  </xacro:macro>
+</robot>
