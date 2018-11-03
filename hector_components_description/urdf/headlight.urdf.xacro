@@ -51,7 +51,7 @@
             <direction>0 0 -1</direction>
           </light>
 
-<!--          <visual name="light_source_visual">
+          <visual name="light_source_visual">
             <geometry>
               <box>
                 
@@ -64,8 +64,14 @@
               <specular>1 1 1 1</specular>
               <emissive>0 0 0 1</emissive>
             </material>
+            <plugin name='light_source_visualize' filename='libLightVisualPlugin.so'>
+              <light>
+                <id>light_source</id>
+                <visualize>false</visualize>
+              </light>
+            </plugin>
 
-          </visual>-->
+          </visual>
 <!--          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass>0.000001</mass>
@@ -77,7 +83,7 @@
           </inertial>-->
         </link>
 
-<!--        <plugin name='light_control' filename='libRosFlashLightPlugin.so'>
+        <plugin name='light_control' filename='libRosFlashLightPlugin.so'>
           <service_name>enable</service_name>
           <light>
             <id>body/light_source</id>
@@ -86,7 +92,7 @@
             <interval>0</interval>
             <color>1 1 1</color>
           </light>
-        </plugin>-->
+        </plugin>
       </model>
     </gazebo>
 
