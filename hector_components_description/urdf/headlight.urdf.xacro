@@ -2,30 +2,6 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="headlight">
 
   <xacro:macro name="headlight" params="parent headlight_prefix xyz rpy">
-<!--    <link name="${headlight_prefix}_headlight_link">
-    <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <box size="0.01 0.01 0.01"/>
-        </geometry>
-      </visual>
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="0.000001" />
-        <inertia
-          ixx="0.001"
-          ixy="0.0" iyy="0.001"
-          ixz="0.0" iyz="0.0" izz="0.001"
-        />
-      </inertial>
-
-    </link>
-
-    <joint name="${headlight_prefix}_headlight" type="fixed">
-      <parent link="base_link"/>
-      <child link="${headlight_prefix}_headlight_link"/>
-      <origin xyz="${xyz}" rpy="${rpy}"/>
-    </joint>-->
 
     <gazebo>
       <model name="${headlight_prefix}_headlight">
@@ -36,16 +12,16 @@
             <!--<pose>-0.025 0 0.0 0 1.573 0</pose>-->
             <pose>0.0 0 0.0 0 -1.573 0</pose>
             <attenuation>
-              <range>50</range>
+              <range>25</range>
               <linear>0.0</linear>
               <constant>0.1</constant>
-              <quadratic>0.0</quadratic>
+              <quadratic>0.01</quadratic>
             </attenuation>
-            <diffuse>0.8 0.8 0.8 1</diffuse>
-            <specular>0.8 0.8 0.8 1</specular>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
             <spot>
-              <inner_angle>1</inner_angle>
-              <outer_angle>1.1</outer_angle>
+              <inner_angle>0.8</inner_angle>
+              <outer_angle>1.9</outer_angle>
               <falloff>1</falloff>
             </spot>
             <direction>0 0 -1</direction>
@@ -53,9 +29,7 @@
 
           <visual name="light_source_visual">
             <geometry>
-              <box>
-                
-              </box>
+              <box size="0.001 0.001 0.001"/>
             </geometry>
             <transparency>1</transparency>
             <material>
@@ -72,15 +46,6 @@
             </plugin>
 
           </visual>
-<!--          <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <mass>0.000001</mass>
-            <inertia>
-              <ixx>0.001</ixx>
-              <ixy>0.0</ixy><iyy>0.001</iyy>
-              <ixz>0.0</ixz><iyz>0.0</iyz><izz>0.001</izz>
-            </inertia>
-          </inertial>-->
         </link>
 
         <plugin name='light_control' filename='libRosFlashLightPlugin.so'>
