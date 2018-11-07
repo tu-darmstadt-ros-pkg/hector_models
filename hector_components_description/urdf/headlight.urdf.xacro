@@ -29,7 +29,10 @@
 
           <visual name="light_source_visual">
             <geometry>
-              <box size="0.001 0.001 0.001"/>
+              <!--<box size="10.001 0.001 0.001"/>-->
+              <sphere>
+                <radius>0.01</radius>
+              </sphere>
             </geometry>
             <transparency>1</transparency>
             <material>
