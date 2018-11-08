@@ -4,6 +4,7 @@
   <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vlp16_mount.urdf.xacro.xml"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
+  <xacro:include filename="$(find hector_chilitag_description)/urdf/chilitag.urdf.xacro"/>
   
   
 <!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
@@ -34,7 +35,7 @@
   
     
   
-  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box'">
+  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link'">
       
     <xacro:arg name="add_containment_self_filter_geom" default="false"/>
     
@@ -306,10 +307,10 @@
     <joint name="imu_link_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${name}_link" />
-      <child link="imu_link"/>      
+      <child link="${imu_link}"/>      
     </joint>
     
-    <link name="imu_link">     
+    <link name="${imu_link}">     
     </link>
     
     <!-- Spinning VLP16 -->
