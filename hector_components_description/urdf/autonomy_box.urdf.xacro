@@ -326,8 +326,15 @@
       <origin xyz="0.002862424041614364  -0.00013127655875068252 -0.03724378451297336" rpy="-3.1402707 0.0036289 -3.1175768"/> <!-- insta #3 -->
     </xacro:camera360>
     
-    <gazebo reference="structure_addons_link">
-      <material>Gazebo/Grey</material>
+    <gazebo reference="${name}_link">
+      <visual>
+      <material>
+        <ambient>0.1 0.1 0.1 1</ambient>
+        <diffuse>0.48 0.48 0.48 1</diffuse>
+        <emissive>0.237 0.237 0.237 1</emissive>
+        <specular>0.8 0.8 0.8 1</specular>
+      </material>
+    </visual>
     </gazebo>
     
   </xacro:macro>
