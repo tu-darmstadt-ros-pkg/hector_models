@@ -26,6 +26,10 @@
             </spot>
             <direction>0 0 -1</direction>
           </light>
+          
+          <inertial>
+            <mass>0.00001</mass>
+          </inertial>
 
           <visual name="light_source_visual">
             <geometry>
