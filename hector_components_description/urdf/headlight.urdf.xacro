@@ -29,6 +29,11 @@
           
           <inertial>
             <mass>0.00001</mass>
+            <inertia>
+              <ixx>0.00000001</ixx>
+              <iyy>0.00000001</iyy>
+              <izz>0.00000001</izz>
+            </inertia>
           </inertial>
 
           <visual name="light_source_visual">
