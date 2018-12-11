@@ -315,7 +315,7 @@
     
     <!-- Spinning VLP16 -->
     <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
-      <origin xyz="0 0 ${0.27 + 0.0944673}" rpy="0.0 0.0 ${M_PI}"/>
+      <origin xyz="0 0 ${0.27 + 0.0944673}" rpy="0.0 0.0 0.0"/>
     </xacro:spinning_sensor_mount_macro>
       
     <!-- 360 camera -->
