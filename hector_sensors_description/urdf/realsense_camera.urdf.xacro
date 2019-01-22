@@ -145,9 +145,9 @@ Note:
           </distortion>
         </camera>
         <plugin name="${name}_camera_depth_controller" filename="libgazebo_ros_camera.so">
-          <robotNamespace>$(arg robot_name)/sensor/${name}/rgb</robotNamespace>
-          <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <robotNamespace>/</robotNamespace>
+          <imageTopicName>$(arg robot_name)/sensor/${name}/rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>$(arg robot_name)/sensor/${name}/rgb/camera_info</cameraInfoTopicName>
           <frameName>${name}_rgb_optical_frame</frameName>
         </plugin>
       </sensor>
@@ -167,12 +167,12 @@ Note:
           </clip>
         </camera>
         <plugin name="${name}_camera_rgb_controller" filename="libgazebo_ros_openni_kinect.so">
-          <robotNamespace>$(arg robot_name)/sensor/${name}</robotNamespace>
-          <imageTopicName>ir/image_raw</imageTopicName>
-          <cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <robotNamespace>/</robotNamespace>
+          <imageTopicName>$(arg robot_name)/sensor/${name}/ir/image_raw</imageTopicName>
+          <cameraInfoTopicName>$(arg robot_name)/sensor/${name}/ir/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>$(arg robot_name)/sensor/${name}/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>$(arg robot_name)/sensor/${name}/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>$(arg robot_name)/sensor/${name}/depth/points</pointCloudTopicName>
           <frameName>${name}_depth_optical_frame</frameName>
         </plugin>
       </sensor>
