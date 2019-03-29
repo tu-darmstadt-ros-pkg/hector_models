@@ -5,6 +5,7 @@
   <xacro:include filename="$(find hector_components_description)/urdf/vlp16_mount.urdf.xacro.xml"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
   <xacro:include filename="$(find hector_chilitag_description)/urdf/chilitag.urdf.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_t265.urdf.xacro"/>
   
   
 <!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
@@ -325,6 +326,11 @@
       <!--<origin xyz="0.00009742  0.00061696 -0.03850784" rpy="3.1373499 -0.0021358 -3.1279404"/>--> <!-- insta #1 -->
       <origin xyz="0.002862424041614364  -0.00013127655875068252 -0.03724378451297336" rpy="-3.1402707 0.0036289 -3.1175768"/> <!-- insta #3 -->
     </xacro:camera360>
+    
+    <!-- Realsense T265 Tracking camera -->
+    <xacro:realsense_t265_tracking_camera_housing name="tracking_camera" parent="${name}_link">
+      <origin xyz="${computer_box_width/2.0 - alu_profile_side_length + realsense_t265_depth/2.0} ${computer_box_width/2.0 - alu_profile_side_length - realsense_t265_width/2.0} ${top_protection_bottom - realsense_t265_height/2.0}" rpy="0 0 0"/>
+    </xacro:realsense_t265_tracking_camera_housing>
     
     <gazebo reference="${name}_link">
       <visual>
