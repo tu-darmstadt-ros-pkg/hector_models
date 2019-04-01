@@ -8,7 +8,7 @@
     <xacro:property name="realsense_t265_depth"  value="0.0125"/>
     
     
-    <xacro:macro name="realsense_t265_tracking_camera_housing" params="name parent *origin">
+    <xacro:macro name="realsense_t265_tracking_camera" params="name parent *origin">
       <joint name="${name}_housing_joint" type="fixed">
         <xacro:insert_block name="origin" />
         <parent link="${parent}"/>
@@ -61,12 +61,12 @@
         </visual>
       </link>
       
-      <xacro:realsense_t265_tracking_camera name="${name}" parent="${name}_housing_link">
+      <xacro:realsense_t265_tracking_camera_no_geom name="${name}" parent="${name}_housing_link">
         <origin xyz="-0.0003 0.0091 0" rpy="0 0 0" />  
-      </xacro:realsense_t265_tracking_camera>
+      </xacro:realsense_t265_tracking_camera_no_geom>
     </xacro:macro>
   
-    <xacro:macro name="realsense_t265_tracking_camera" params="name parent *origin">
+    <xacro:macro name="realsense_t265_tracking_camera_no_geom" params="name parent *origin">
       <joint name="${name}_joint" type="fixed">
         <xacro:insert_block name="origin" />
         <parent link="${parent}"/>
