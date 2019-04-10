@@ -10,6 +10,16 @@
 <!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
   <!--<xacro:property name="add_self_filter_geom" value="${arg add_self_filter_geom}"/>-->
   
+  <xacro:property name="alu_profile_side_length" value="0.02"/>
+  <xacro:property name="computer_box_height" value="0.121"/>
+  <xacro:property name="computer_box_width" value="0.19"/>
+  <xacro:property name="computer_box_length" value="0.19"/>
+  <xacro:property name="top_protection_bottom" value="0.4425"/>
+  
+  <xacro:property name="insta360_mounting_height" value="0.58"/>
+  <xacro:property name="insta360_radius" value="0.011"/>
+  <xacro:property name="insta360_collision_radius" value="0.04"/>
+  
   <xacro:property name="M_PI" value="3.14159265359"/>
   
   <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true'">
@@ -23,20 +33,6 @@
       <xacro:property name="chilitag_29_y" value="${-computer_box_width/2 + 2*chilitag_white_border + chilitag_size/2}"/>
       <xacro:property name="chilitag_29_z" value="${top_protection_bottom + alu_profile_side_length + chilitag_thickness}"/>
     </xacro:if>
-    
-    <xacro:property name="alu_profile_side_length" value="0.02"/>
-    <xacro:property name="computer_box_height" value="0.121"/>
-    <xacro:property name="computer_box_width" value="0.19"/>
-    <xacro:property name="computer_box_length" value="0.19"/>
-    <xacro:property name="top_protection_bottom" value="0.4425"/>
-    <xacro:property name="handle_width" value="0.07"/>
-    <xacro:property name="handle_length" value="0.135"/>
-    <xacro:property name="handle_height" value="0.016"/>
-    <xacro:property name="handle_y" value="0.138"/>  
-    
-    <xacro:property name="insta360_mounting_height" value="0.58"/>
-    <xacro:property name="insta360_radius" value="0.011"/>
-    <xacro:property name="insta360_collision_radius" value="0.04"/>
     
     <xacro:arg name="add_containment_self_filter_geom" default="false"/>
     
