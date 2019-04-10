@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="argo_tracker_structure_addons">
+  
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vlp16_mount.urdf.xacro.xml"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
-  <xacro:include filename="$(find hector_chilitag_description)/urdf/chilitag.urdf.xacro"/>
   
   
 <!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
@@ -12,31 +12,32 @@
   
   <xacro:property name="M_PI" value="3.14159265359"/>
   
-  <xacro:property name="alu_profile_side_length" value="0.02"/>
-  <xacro:property name="computer_box_height" value="0.121"/>
-  <xacro:property name="computer_box_width" value="0.19"/>
-  <xacro:property name="computer_box_length" value="0.19"/>
-  <xacro:property name="top_protection_bottom" value="0.4425"/>
-  <xacro:property name="handle_width" value="0.07"/>
-  <xacro:property name="handle_length" value="0.135"/>
-  <xacro:property name="handle_height" value="0.016"/>
-  <xacro:property name="handle_y" value="0.138"/>  
-  
-  <xacro:property name="insta360_mounting_height" value="0.58"/>
-  <xacro:property name="insta360_radius" value="0.011"/>
-  <xacro:property name="insta360_collision_radius" value="0.04"/>
-  
-  <xacro:property name="chilitag_white_border" value="0.005"/>
-  <xacro:property name="chilitag_thickness" value="0.003"/>
-  <xacro:property name="chilitag_29_x" value="${-computer_box_width/2 + chilitag_white_border + chilitag_size/2}"/> <!-- border is bigger on this side -->
-  <xacro:property name="chilitag_29_y" value="${-computer_box_width/2 + 2*chilitag_white_border + chilitag_size/2}"/>
-  <xacro:property name="chilitag_29_z" value="${top_protection_bottom + alu_profile_side_length + chilitag_thickness}"/>
-
-  
+  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true'">
     
-  
-  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link'">
+    <xacro:if value="${add_chilitags}">
+      <xacro:include filename="$(find hector_chilitag_description)/urdf/chilitag.urdf.xacro"/>
       
+      <xacro:property name="chilitag_white_border" value="0.005"/>
+      <xacro:property name="chilitag_thickness" value="0.003"/>
+      <xacro:property name="chilitag_29_x" value="${-computer_box_width/2 + chilitag_white_border + chilitag_size/2}"/> <!-- border is bigger on this side -->
+      <xacro:property name="chilitag_29_y" value="${-computer_box_width/2 + 2*chilitag_white_border + chilitag_size/2}"/>
+      <xacro:property name="chilitag_29_z" value="${top_protection_bottom + alu_profile_side_length + chilitag_thickness}"/>
+    </xacro:if>
+    
+    <xacro:property name="alu_profile_side_length" value="0.02"/>
+    <xacro:property name="computer_box_height" value="0.121"/>
+    <xacro:property name="computer_box_width" value="0.19"/>
+    <xacro:property name="computer_box_length" value="0.19"/>
+    <xacro:property name="top_protection_bottom" value="0.4425"/>
+    <xacro:property name="handle_width" value="0.07"/>
+    <xacro:property name="handle_length" value="0.135"/>
+    <xacro:property name="handle_height" value="0.016"/>
+    <xacro:property name="handle_y" value="0.138"/>  
+    
+    <xacro:property name="insta360_mounting_height" value="0.58"/>
+    <xacro:property name="insta360_radius" value="0.011"/>
+    <xacro:property name="insta360_collision_radius" value="0.04"/>
+    
     <xacro:arg name="add_containment_self_filter_geom" default="false"/>
     
     <joint name="${name}_joint" type="fixed">
@@ -154,10 +155,12 @@
       </visual>
       
       <!-- Chilitags visual -->
-      <xacro:chilitag_visual_sized name="chilitag29" size="${chilitag_size}">
-<!--        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="0 ${-M_PI/2} 0"/>-->
-        <origin xyz="${chilitag_29_x} ${chilitag_29_y} ${chilitag_29_z}" rpy="${M_PI} ${0} ${-M_PI/2}"/>
-      </xacro:chilitag_visual_sized>
+      <xacro:if value="${add_chilitags}">
+        <xacro:chilitag_visual_sized name="chilitag29" size="${chilitag_size}">
+  <!--        <origin xyz="${chilitag_28_x} ${chilitag_28_y} ${chilitag_28_z}" rpy="0 ${-M_PI/2} 0"/>-->
+          <origin xyz="${chilitag_29_x} ${chilitag_29_y} ${chilitag_29_z}" rpy="${M_PI} ${0} ${-M_PI/2}"/>
+        </xacro:chilitag_visual_sized>
+      </xacro:if>
       
       <!-- Computer box-->
       <xacro:unless value="$(arg add_containment_self_filter_geom)">
@@ -299,9 +302,11 @@
     </link>
     
     <!-- Chilitags -->
-    <xacro:chilitag_no_geom name="chilitag29" size="${chilitag_size}" parent="${name}_link">
-      <origin xyz="${chilitag_29_x} ${chilitag_29_y} ${chilitag_29_z}" rpy="${M_PI} ${0} ${-M_PI/2}"/>
-    </xacro:chilitag_no_geom> 
+    <xacro:if value="${add_chilitags}">
+      <xacro:chilitag_no_geom name="chilitag29" size="${chilitag_size}" parent="${name}_link">
+        <origin xyz="${chilitag_29_x} ${chilitag_29_y} ${chilitag_29_z}" rpy="${M_PI} ${0} ${-M_PI/2}"/>
+      </xacro:chilitag_no_geom> 
+    </xacro:if>
     
     <!-- IMU -->
     <joint name="imu_link_joint" type="fixed">
