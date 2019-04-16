@@ -284,7 +284,7 @@
           <color rgba="0.5 0.5 0.5 1"/>
         </material> 
       </collision>
-      <collision>
+<!--      <collision>
         <origin xyz="-0.18 0 ${computer_box_height/2+0.07}" rpy="0 0 0"/>
         <geometry>
           <box size="${computer_box_length} ${computer_box_width*1.95} ${0.3}"/>
@@ -292,7 +292,7 @@
         <material name="Grey">
           <color rgba="0.5 0.5 0.5 1"/>
         </material> 
-      </collision>
+      </collision>-->
       
       </xacro:if>
     </link>
