@@ -8,13 +8,19 @@ Note:
  
   <node pkg="tf" type="static_transform_publisher" name="kinect_base_link" args="0 0 0 0 0 0  /arm_rgbd_cam_link /arm_rgbd_cam_depth_frame 100" />
   <node pkg="tf" type="static_transform_publisher" name="kinect_base_link2" args="0 0 0 -1.57 0 -1.57 /arm_rgbd_cam_depth_frame /arm_rgbd_cam_depth_optical_frame  100" />
+  
 -->
+
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:property name="realsense_d435_width" value="0.09"/>
+  <xacro:property name="realsense_d435_height" value="0.025"/>
+  <xacro:property name="realsense_d435_depth" value="0.025"/>
   
     <!--
      This macro only adds the model, it does not also add
-     the openni gazebo plugin. See the 'asus_camera' macro below for that
+     the openni gazebo plugin.
     -->
     <xacro:macro name="realsense_d435_camera_model" params="name parent *origin">
       <joint name="${name}_joint" type="fixed">
@@ -33,7 +39,7 @@ Note:
           <origin xyz="-0.02 -0.0325 0" rpy="0 0 0" />
           <geometry>
             <!--Dimensions taken from https://click.intel.com/intelr-realsensetm-depth-camera-d435.html-->
-            <box size="0.025 0.09 0.025" />
+            <box size="${realsense_d435_depth} ${realsense_d435_width} ${realsense_d435_height}" />
           </geometry>
           <material name="DarkGrey">
             <color rgba="0.3 0.3 0.3 1"/>
@@ -43,7 +49,7 @@ Note:
           <origin xyz="-0.02 -0.0325 0" rpy="0 0 0" />
           <geometry>
             <!--Dimensions taken from https://click.intel.com/intelr-realsensetm-depth-camera-d435.html-->
-            <box size="0.025 0.09 0.025" />
+            <box size="${realsense_d435_depth} ${realsense_d435_width} ${realsense_d435_height}" />
           </geometry>
         </collision>
       </link>
