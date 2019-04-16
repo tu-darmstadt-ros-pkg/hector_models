@@ -16,7 +16,7 @@
   <xacro:property name="computer_box_length" value="0.19"/>
   <xacro:property name="top_protection_bottom" value="0.4425"/>
   
-  <xacro:property name="insta360_mounting_height" value="0.58"/>
+  <xacro:property name="insta360_mounting_height" value="${top_protection_bottom + alu_profile_side_length + 0.12}"/>
   <xacro:property name="insta360_radius" value="0.011"/>
   <xacro:property name="insta360_collision_radius" value="0.04"/>
   
@@ -316,7 +316,7 @@
     
     <!-- Spinning VLP16 -->
     <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
-      <origin xyz="0 0 ${0.27 + 0.0944673}" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0 0 ${0.27 + 0.0944673 - 0.029}" rpy="0.0 0.0 0.0"/>
     </xacro:spinning_sensor_mount_macro>
       
     <!-- 360 camera -->
