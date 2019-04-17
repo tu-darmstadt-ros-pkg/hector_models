@@ -11,10 +11,10 @@
   <!--<xacro:property name="add_self_filter_geom" value="${arg add_self_filter_geom}"/>-->
   
   <xacro:property name="alu_profile_side_length" value="0.02"/>
-  <xacro:property name="computer_box_height" value="0.121"/>
+  <xacro:property name="computer_box_height" value="0.119"/>
   <xacro:property name="computer_box_width" value="0.19"/>
   <xacro:property name="computer_box_length" value="0.19"/>
-  <xacro:property name="top_protection_bottom" value="0.4425"/>
+  <xacro:property name="top_protection_bottom" value="${computer_box_height + 0.32}"/>
   
   <xacro:property name="insta360_mounting_height" value="${top_protection_bottom + alu_profile_side_length + 0.12}"/>
   <xacro:property name="insta360_radius" value="0.011"/>
@@ -316,7 +316,7 @@
     
     <!-- Spinning VLP16 -->
     <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
-      <origin xyz="0 0 ${0.27 + 0.0944673 - 0.029}" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0 0 ${0.27 + 0.0944673 - 0.025}" rpy="0.0 0.0 0.0"/>
     </xacro:spinning_sensor_mount_macro>
       
     <!-- 360 camera -->
@@ -328,14 +328,15 @@
     </xacro:camera360>
     
     <!-- +++++ Cage Realsenses +++++ -->
-    <xacro:property name="autonomy_box_realsense_x_offset" value="0.1"/>
-    <xacro:property name="autonomy_box_realsense_y_offset" value="0.0"/>
-    <xacro:property name="autonomy_box_realsense_z_offset" value="0.01"/>
+    <xacro:property name="autonomy_box_realsense_x_offset" value="0.08743"/>
+    <xacro:property name="autonomy_box_realsense_y_offset" value="0.015"/>
+    <xacro:property name="autonomy_box_realsense_z_offset" value="0.00995"/>
+<!--     <xacro:property name="autonomy_box_realsense_z_offset" value="0.46895"/> -->
     <xacro:property name="autonomy_box_realsense_pitch" value="${25*M_PI/180.0}"/>
     
     <!-- Realsense D435 front -->
     <xacro:realsense_d435_camera_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20">
-      <origin xyz="${autonomy_box_realsense_x_offset} ${autonomy_box_realsense_y_offset} ${top_protection_bottom + alu_profile_side_length + autonomy_box_realsense_z_offset}" rpy="0.0 ${autonomy_box_realsense_pitch} 0"/>
+      <origin xyz="${autonomy_box_realsense_x_offset} ${-1 * autonomy_box_realsense_y_offset} ${top_protection_bottom + alu_profile_side_length + autonomy_box_realsense_z_offset}" rpy="0.0 ${autonomy_box_realsense_pitch} 0"/>
     </xacro:realsense_d435_camera_comprehensive_params>
     
     <!-- Realsense D435 back -->
