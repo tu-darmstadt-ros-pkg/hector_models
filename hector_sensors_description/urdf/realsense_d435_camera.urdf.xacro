@@ -18,8 +18,9 @@ Note:
   <xacro:property name="realsense_d435_height" value="0.025"/>
   <xacro:property name="realsense_d435_depth" value="0.025"/>
   
-<!--   <xacro:property name="realsense_d435_case_offset_x" value="-0.02"/> -->
-  <xacro:property name="realsense_d435_case_offset_x" value="-0.0083"/>
+  <xacro:property name="realsense_d435_front_to_depth" value="0.0042" />
+  
+  <xacro:property name="realsense_d435_case_offset_x" value="${realsense_d435_front_to_depth - realsense_d435_depth/2.0}"/>
   <xacro:property name="realsense_d435_case_offset_y" value="-0.0175"/>
   <xacro:property name="realsense_d435_case_offset_z" value="0.0"/>
   
@@ -43,13 +44,18 @@ Note:
         <visual>
           <origin xyz="${realsense_d435_case_offset_x} ${realsense_d435_case_offset_y} ${realsense_d435_case_offset_z}" rpy="0 0 0" />
           <geometry>
-            <!--Dimensions taken from https://click.intel.com/intelr-realsensetm-depth-camera-d435.html-->
             <box size="${realsense_d435_depth} ${realsense_d435_width} ${realsense_d435_height}" />
           </geometry>
           <material name="DarkGrey">
             <color rgba="0.3 0.3 0.3 1"/>
           </material>    
         </visual>
+<!--        <visual>
+          <origin xyz="${realsense_d435_front_to_depth} ${realsense_d435_case_offset_y} 0.0" rpy="${M_PI/2} 0 ${M_PI/2}" />
+          <geometry>
+            <mesh filename="package://realsense2_camera/meshes/d435.dae" />
+          </geometry>  
+        </visual>-->
         <collision>
           <origin xyz="${realsense_d435_case_offset_x} ${realsense_d435_case_offset_y} ${realsense_d435_case_offset_z}" rpy="0 0 0" />
           <geometry>
