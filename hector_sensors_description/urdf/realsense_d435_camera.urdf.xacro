@@ -18,10 +18,11 @@ Note:
   <xacro:property name="realsense_d435_height" value="0.025"/>
   <xacro:property name="realsense_d435_depth" value="0.025"/>
   
-  <xacro:property name="realsense_d435_front_to_depth" value="0.0042" />
+  <xacro:property name="realsense_d435_front_to_depth" value="0.0042" /> <!-- Intel_RealSense_D400_Family_Datasheet_Jan2019.pdf, page 64 -->
+  <xacro:property name="realsense_d435_mount_hole_to_front" value="0.0149" /> <!-- Measured from CAD file -->
   
   <xacro:property name="realsense_d435_case_offset_x" value="${realsense_d435_front_to_depth - realsense_d435_depth/2.0}"/>
-  <xacro:property name="realsense_d435_case_offset_y" value="-0.0175"/>
+  <xacro:property name="realsense_d435_case_offset_y" value="-0.0175"/> <!-- mounting hole to depth frame, Intel_RealSense_D400_Family_Datasheet_Jan2019.pdf, page 66 -->
   <xacro:property name="realsense_d435_case_offset_z" value="0.0"/>
   
     <!--
@@ -68,6 +69,21 @@ Note:
       <gazebo reference="${name}_link">
         <material>Gazebo/Grey</material>
       </gazebo> 
+    </xacro:macro>
+    
+    <xacro:macro name="realsense_d435_camera_model_with_mount" params="name parent *origin">
+      <joint name="${name}_mount_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_mount_link"/>
+      </joint>
+      
+      <link name="${name}_mount_link">
+      </link>
+      
+      <xacro:realsense_d435_camera_model name="${name}" parent="${name}_mount_link">
+        <origin xyz="${realsense_d435_mount_hole_to_front - realsense_d435_front_to_depth} ${-realsense_d435_case_offset_y} ${realsense_d435_height/2.0}" rpy="0 0 0"/>
+      </xacro:realsense_d435_camera_model>
     </xacro:macro>
     
   
@@ -147,6 +163,14 @@ Note:
       <xacro:realsense_d435_camera_model name="${name}" parent="${parent}">
         <xacro:insert_block name="origin" />
       </xacro:realsense_d435_camera_model>
+  
+      <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_points_topic="${depth_points_topic}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
+    </xacro:macro>
+    
+    <xacro:macro name="realsense_d435_camera_with_mount_comprehensive_params" params="name parent *origin image_topic depth_points_topic min_range max_range update_rate">
+      <xacro:realsense_d435_camera_model_with_mount name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_d435_camera_model_with_mount>
   
       <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_points_topic="${depth_points_topic}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
     </xacro:macro>
