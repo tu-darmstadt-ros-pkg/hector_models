@@ -316,7 +316,7 @@
     
     <!-- Spinning VLP16 -->
     <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
-      <origin xyz="0 0 ${0.27 + 0.0944673 - 0.025}" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0 0 0.34708" rpy="0.0 0.0 0.0"/>
     </xacro:spinning_sensor_mount_macro>
       
     <!-- 360 camera -->
@@ -328,21 +328,21 @@
     </xacro:camera360>
     
     <!-- +++++ Cage Realsenses +++++ -->
-    <xacro:property name="autonomy_box_realsense_x_offset" value="0.08743"/>
-    <xacro:property name="autonomy_box_realsense_y_offset" value="0.015"/>
-    <xacro:property name="autonomy_box_realsense_z_offset" value="0.00995"/>
+    <xacro:property name="autonomy_box_realsense_x_offset" value="0.07187"/>
+    <xacro:property name="autonomy_box_realsense_y_offset" value="0.03"/>
+    <xacro:property name="autonomy_box_realsense_z_offset" value="0.00395"/>
 <!--     <xacro:property name="autonomy_box_realsense_z_offset" value="0.46895"/> -->
     <xacro:property name="autonomy_box_realsense_pitch" value="${25*M_PI/180.0}"/>
     
     <!-- Realsense D435 front -->
-    <xacro:realsense_d435_camera_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20">
+    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_points_topic="depth/color/points" min_range="0.3" max_range="9.0" update_rate="20">
       <origin xyz="${autonomy_box_realsense_x_offset} ${-1 * autonomy_box_realsense_y_offset} ${top_protection_bottom + alu_profile_side_length + autonomy_box_realsense_z_offset}" rpy="0.0 ${autonomy_box_realsense_pitch} 0"/>
-    </xacro:realsense_d435_camera_comprehensive_params>
+    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
     
     <!-- Realsense D435 back -->
-    <xacro:realsense_d435_camera_comprehensive_params name="back_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20">
+    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="back_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_points_topic="depth/color/points" min_range="0.3" max_range="9.0" update_rate="20">
       <origin xyz="${-1 * autonomy_box_realsense_x_offset} ${autonomy_box_realsense_y_offset} ${top_protection_bottom + alu_profile_side_length + autonomy_box_realsense_z_offset}" rpy="0.0 ${autonomy_box_realsense_pitch} ${M_PI}"/>
-    </xacro:realsense_d435_camera_comprehensive_params>
+    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
     
     <gazebo reference="${name}_link">
       <visual>
