@@ -24,6 +24,13 @@
         </geometry>
         <material name="DarkGrey" />
       </visual>
+      
+      <collision>
+        <origin xyz="0.0 -0.01 0.017" rpy="0 0 0" />
+        <geometry>
+          <box size="0.0285 0.07 0.034" />
+        </geometry>
+      </collision>
     </link>
     
     <joint name="sensor_head_yaw_joint" type="revolute">
@@ -43,6 +50,13 @@
         </geometry>
         <material name="DarkGrey" />
       </visual>
+      
+      <collision>
+        <origin xyz="0.0 0.0 0.0625" rpy="0 0 0" />
+        <geometry>
+          <box size="0.0285 0.034 0.055" />
+        </geometry>
+      </collision>
     </link>
     
     <joint name="sensor_head_pitch_joint" type="revolute">
@@ -76,6 +90,13 @@
         </geometry>
         <material name="DarkGrey" />
       </visual>
+      
+      <collision>
+        <origin xyz="0.0 -0.0075 0.0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.025 0.035 0.045" />
+        </geometry>
+      </collision>
     </link>
 
     <gazebo reference="sensor_head_yaw_link">

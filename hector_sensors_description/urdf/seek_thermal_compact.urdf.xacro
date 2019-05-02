@@ -37,6 +37,13 @@
         </geometry>
         <material name="DarkGrey" />
       </visual>
+      
+      <collision>
+        <origin xyz="0.0055 0 -0.013375" rpy="0 0 0" />
+        <geometry>
+          <box size="0.031 0.034 0.06075" />
+        </geometry>
+      </collision>
     </link>
     
     <xacro:add_optical_frame name="${name}" />
