@@ -64,6 +64,15 @@ Note:
             <box size="${realsense_d435_depth} ${realsense_d435_width} ${realsense_d435_height}" />
           </geometry>
         </collision>
+        
+      <xacro:if value="$(arg add_raycast_self_filter_geom)">
+        <collision>
+          <origin xyz="${realsense_d435_case_offset_x} ${realsense_d435_case_offset_y} ${realsense_d435_case_offset_z}" rpy="${M_PI*0.5} 0 0" />
+          <geometry>
+            <cylinder length="0.09" radius="0.0177"/>
+          </geometry>
+        </collision>
+      </xacro:if>
       </link>
       
       <gazebo reference="${name}_link">
