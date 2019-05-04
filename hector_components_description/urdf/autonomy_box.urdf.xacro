@@ -24,6 +24,9 @@
   
   <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true'">
     
+    <xacro:arg name="add_containment_self_filter_geom" default="false"/>
+    <xacro:arg name="add_manipulation_geom" default="false"/>
+    
     <xacro:if value="${add_chilitags}">
       <xacro:include filename="$(find hector_chilitag_description)/urdf/chilitag.urdf.xacro"/>
       
@@ -33,9 +36,7 @@
       <xacro:property name="chilitag_29_y" value="${-computer_box_width/2 + 2*chilitag_white_border + chilitag_size/2}"/>
       <xacro:property name="chilitag_29_z" value="${top_protection_bottom + alu_profile_side_length + chilitag_thickness}"/>
     </xacro:if>
-    
-    <xacro:arg name="add_containment_self_filter_geom" default="false"/>
-    
+        
     <joint name="${name}_joint" type="fixed">
       <xacro:insert_block name="origin"/>
       <parent link="${parent}" />
@@ -271,6 +272,19 @@
           <color rgba="0.5 0.5 0.5 1"/>
         </material> 
       </collision>
+      
+      <xacro:if value="$(arg add_manipulation_geom)">
+        <!-- Lidar protection geom -->
+        <collision>
+          <origin xyz="0 0 ${computer_box_height + 0.5*(top_protection_bottom - computer_box_height)}" rpy="0 0 0"/>
+          <geometry>
+            <cylinder length="${top_protection_bottom - computer_box_height}" radius="${computer_box_width / 2.0}"/>
+          </geometry>
+          <material name="Grey">
+            <color rgba="0.5 0.5 0.5 1"/>
+          </material> 
+        </collision>
+      </xacro:if>
       </xacro:unless>
       
       
