@@ -344,7 +344,7 @@
     
     <!-- Realsense T265 Tracking camera -->
     <xacro:realsense_t265_tracking_camera name="tracking_camera" parent="${name}_link">
-      <origin xyz="${computer_box_width/2.0 - alu_profile_side_length + realsense_t265_depth/2.0} ${computer_box_width/2.0 - alu_profile_side_length - realsense_t265_width/2.0} ${top_protection_bottom - realsense_t265_height/2.0}" rpy="0 0 0"/>
+      <origin xyz="${computer_box_width/2.0 - realsense_t265_depth/2.0} ${computer_box_width/2.0 - alu_profile_side_length - realsense_t265_width/2.0} ${top_protection_bottom - realsense_t265_height/2.0}" rpy="0 0 0"/>
     </xacro:realsense_t265_tracking_camera>
 
     <!-- +++++ Cage Realsenses +++++ -->
