@@ -67,13 +67,13 @@
     </xacro:macro>
   
     <xacro:macro name="realsense_t265_tracking_camera_no_geom" params="name parent *origin">
-      <joint name="${name}_joint" type="fixed">
+      <joint name="${name}_pose_joint" type="fixed">
         <xacro:insert_block name="origin" />
         <parent link="${parent}"/>
-        <child link="${name}_link"/>
+        <child link="${name}_pose_frame"/>
       </joint>
       
-      <link name="${name}_link"/>
+      <link name="${name}_pose_frame"/>
     </xacro:macro>
   </robot>
   
