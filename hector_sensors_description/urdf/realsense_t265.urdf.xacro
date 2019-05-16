@@ -74,6 +74,14 @@
       </joint>
       
       <link name="${name}_pose_frame"/>
+      
+      <joint name="${name}_pose_joint2" type="fixed">
+        <origin rpy="${M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_pose_frame"/>
+        <child link="${name}_pose_frame_alt"/>
+      </joint>
+      
+      <link name="${name}_pose_frame_alt"/>
     </xacro:macro>
   </robot>
   
