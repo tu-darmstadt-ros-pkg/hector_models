@@ -30,6 +30,8 @@ Note:
      The origin is the left infrared (depth) camera, which is also the origin of the depth image
     -->
     <xacro:macro name="realsense_d435_camera_model" params="name parent *origin">
+      <xacro:arg name="add_raycast_self_filter_geom" default="false"/>
+      
       <joint name="${name}_joint" type="fixed">
         <xacro:insert_block name="origin" />
         <parent link="${parent}"/>
