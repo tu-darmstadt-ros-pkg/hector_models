@@ -4,7 +4,7 @@
     
   <xacro:include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
   
-  <xacro:macro name="seek_thermal_compact_camera_model" params="name parent *origin">
+  <xacro:macro name="seek_thermal_compact_camera_model" params="name parent *origin add_geometry">
       
     <joint name="${name}_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -14,45 +14,50 @@
     
     <link name="${name}_frame">
       <xacro:inertial_sphere mass="0.03" diameter="0.02" />
-      <visual>
-        <origin xyz="0 0.0 -0.025" rpy="0 0 0" />
-        <geometry>
-          <box size="0.02 0.03 0.0375" />
-        </geometry>
-        <material name="DarkGrey">
-          <color rgba="0.3 0.3 0.3 1" />
-        </material>
-      </visual>
-      <visual>
-        <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
-        <geometry>
-          <cylinder length="0.02" radius="0.017" />
-        </geometry>
-        <material name="DarkGrey" />
-      </visual>
-      <visual>
-        <origin xyz="0.01 0 0" rpy="0 ${M_PI/2} 0" />
-        <geometry>
-          <cylinder length="0.018" radius="0.011" />
-        </geometry>
-        <material name="DarkGrey" />
-      </visual>
       
-      <collision>
-        <origin xyz="0.0055 0 -0.013375" rpy="0 0 0" />
-        <geometry>
-          <box size="0.031 0.034 0.06075" />
-        </geometry>
-      </collision>
-            
-      <xacro:if value="$(arg add_raycast_self_filter_geom)">
+      <xacro:if value="${add_geometry}">
+
+        <visual>
+            <origin xyz="0 0.0 -0.025" rpy="0 0 0" />
+            <geometry>
+            <box size="0.02 0.03 0.0375" />
+            </geometry>
+            <material name="DarkGrey">
+            <color rgba="0.3 0.3 0.3 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
+            <geometry>
+            <cylinder length="0.02" radius="0.017" />
+            </geometry>
+            <material name="DarkGrey" />
+        </visual>
+        <visual>
+            <origin xyz="0.01 0 0" rpy="0 ${M_PI/2} 0" />
+            <geometry>
+            <cylinder length="0.018" radius="0.011" />
+            </geometry>
+            <material name="DarkGrey" />
+        </visual>
+        
         <collision>
-          <origin xyz="0.0055 0 -0.013375" rpy="0 0 0" />
-          <geometry>
-            <cylinder length="0.06075" radius="0.023"/>
-          </geometry>
+            <origin xyz="0.0055 0 -0.013375" rpy="0 0 0" />
+            <geometry>
+            <box size="0.031 0.034 0.06075" />
+            </geometry>
         </collision>
+                
+        <xacro:if value="$(arg add_raycast_self_filter_geom)">
+            <collision>
+            <origin xyz="0.0055 0 -0.013375" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.06075" radius="0.023"/>
+            </geometry>
+            </collision>
+        </xacro:if>
       </xacro:if>
+
     </link>
     
     <xacro:add_optical_frame name="${name}" />
@@ -63,12 +68,8 @@
     
   </xacro:macro>
   
-  <xacro:macro name="seek_thermal_compact_camera" params="name parent *origin">
-      
-    <xacro:seek_thermal_compact_camera_model name="${name}" parent="${parent}">
-      <xacro:insert_block name="origin" />
-    </xacro:seek_thermal_compact_camera_model>
-    
+  <xacro:macro name="seek_thermal_compact_gazebo_plugin_macro" params="name parent *origin">
+
     <gazebo reference="${name}_frame">
       <sensor type="camera" name="thermal_camera_sensor">
         <update_rate>10</update_rate>
@@ -96,4 +97,36 @@
     </gazebo>
     
   </xacro:macro>
+  
+  <xacro:macro name="seek_thermal_compact_camera" params="name parent *origin">
+      
+    <xacro:seek_thermal_compact_camera_model name="${name}" parent="${parent}" add_geometry="true">
+      <xacro:insert_block name="origin" />
+    </xacro:seek_thermal_compact_camera_model>
+    
+    <xacro:seek_thermal_compact_gazebo_plugin_macro name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin" />
+    </xacro:seek_thermal_compact_gazebo_plugin_macro>
+    
+  </xacro:macro>
+  
+  <xacro:macro name="seek_thermal_compact_camera_no_geom" params="name parent *origin">
+      
+    <xacro:seek_thermal_compact_camera_model name="${name}" parent="${parent}" add_geometry="false">
+      <xacro:insert_block name="origin" />
+    </xacro:seek_thermal_compact_camera_model>
+    
+    <xacro:seek_thermal_compact_gazebo_plugin_macro name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin" />
+    </xacro:seek_thermal_compact_gazebo_plugin_macro>
+    
+  </xacro:macro>
+  
+  <xacro:macro name="realsense_camera_no_geom" params="name parent *origin">
+    <xacro:realsense_d435_camera_model_no_geom name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin" />
+    </xacro:realsense_d435_camera_model_no_geom>
+  
+    <xacro:seek_thermal_compact_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
+    </xacro:macro>
 </robot>
