@@ -11,11 +11,24 @@
       </joint>
 
       <link name="${name}_frame">
-        <xacro:inertial_sphere mass="0.8" diameter="0.1033" />
-        <visual>        -->
-          <origin rpy="0 0 0" xyz="0 0 0.0018500"/>
+        <xacro:inertial_sphere mass="0.83" diameter="0.1033" />
+        <!-- Visual geometry by velodyne_simulator https://bitbucket.org/DataspeedInc/velodyne_simulator -->
+        <visual>
+          <origin xyz="0 0 -0.0377" />
           <geometry>
-            <cylinder radius="0.0516" length="0.0717"/>
+            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_base_1.dae" />
+          </geometry>
+        </visual>
+        <visual>
+          <origin xyz="0 0 -0.0377" />
+          <geometry>
+            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_base_2.dae" />
+          </geometry>
+        </visual>
+        <visual>
+          <origin xyz="0 0 -0.0377" />
+          <geometry>
+            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_scan.dae" />
           </geometry>
         </visual>
         <collision>
