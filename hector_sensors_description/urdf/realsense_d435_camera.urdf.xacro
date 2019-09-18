@@ -141,12 +141,24 @@ Note:
       
     <!--
       Use the macro below for adding the realsense model with link geometry
+      The origin is the left infrared (depth) camera, which is also the origin of the depth image
     -->
     <xacro:macro name="realsense_d435_camera" params="name parent *origin">
       <xacro:realsense_d435_camera_model name="${name}" parent="${parent}">
         <xacro:insert_block name="origin" />
       </xacro:realsense_d435_camera_model>
   
+      <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
+    </xacro:macro>
+    
+    <!--
+      Insert the realsense with link geometry. Origin is the mounting hole at the back of the camera.
+    -->
+    <xacro:macro name="realsense_d435_camera_with_mount" params="name parent *origin">
+      <xacro:realsense_d435_camera_model_with_mount name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:realsense_d435_camera_model_with_mount>
+      
       <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
     </xacro:macro>
     
