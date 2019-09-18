@@ -6,7 +6,7 @@
   
   <xacro:property name="default_collision_radius" value="0.025" />
   
-  <xacro:property name="visual_radius" value="0.011" />
+  <xacro:property name="visual_radius" value="0.02" />
   <xacro:property name="cable_collision_length" value="0.05" />
 
   <xacro:macro name="camera360" params="name right_cam_name left_cam_name parent collision_radius:=${default_collision_radius} *origin *calibration dist_between_cameras ros_topic update_rate res_x res_y image_format fov">
