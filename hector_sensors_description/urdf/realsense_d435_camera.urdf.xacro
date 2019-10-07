@@ -44,21 +44,12 @@ Note:
           <origin xyz="0 0 0" rpy="0 0 0" />
           <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4" />
         </inertial>
-        <visual>
-          <origin xyz="${realsense_d435_case_offset_x} ${realsense_d435_case_offset_y} ${realsense_d435_case_offset_z}" rpy="0 0 0" />
-          <geometry>
-            <box size="${realsense_d435_depth} ${realsense_d435_width} ${realsense_d435_height}" />
-          </geometry>
-          <material name="DarkGrey">
-            <color rgba="0.3 0.3 0.3 1"/>
-          </material>    
-        </visual>
-<!--        <visual>
+	<visual>
           <origin xyz="${realsense_d435_front_to_depth} ${realsense_d435_case_offset_y} 0.0" rpy="${M_PI/2} 0 ${M_PI/2}" />
           <geometry>
-            <mesh filename="package://realsense2_camera/meshes/d435.dae" />
+            <mesh filename="package://hector_sensors_description/meshes/intel_realsense_d435/D435.dae" scale="0.001 0.001 0.001" />
           </geometry>  
-        </visual>-->
+        </visual>
         <collision>
           <origin xyz="${realsense_d435_case_offset_x} ${realsense_d435_case_offset_y} ${realsense_d435_case_offset_z}" rpy="0 0 0" />
           <geometry>
