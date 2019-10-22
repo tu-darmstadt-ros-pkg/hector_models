@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:macro name="inertial_cuboid" params="mass x_length y_length z_length">
     <inertial>
