@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot name="april_50x50cm_A0_1024px" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="april_50x50cm_A0_1024px" xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   
   <!--    <xacro:property name="z_translation" value="${scale/2.6042}" />-->

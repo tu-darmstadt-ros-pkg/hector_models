@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot name="vision_box_plugins" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="vision_box_plugins" xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   <xacro:macro name="vision_box_common_gazebo_plugins">
     

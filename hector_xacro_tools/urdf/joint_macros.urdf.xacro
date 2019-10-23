@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   <xacro:macro name="joint_standard_transmission" params="name">
     <transmission name="${name}_joint_transmission">

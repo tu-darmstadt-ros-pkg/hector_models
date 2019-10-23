@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro" name="headlight">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="headlight">
 
   <xacro:macro name="headlight" params="parent headlight_prefix xyz rpy">
 

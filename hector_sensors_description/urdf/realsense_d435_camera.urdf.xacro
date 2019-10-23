@@ -11,7 +11,7 @@ Note:
   
 -->
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:property name="realsense_d435_width" value="0.09"/>
