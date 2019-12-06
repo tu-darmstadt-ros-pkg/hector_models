@@ -121,12 +121,4 @@
     </xacro:seek_thermal_compact_gazebo_plugin_macro>
     
   </xacro:macro>
-  
-  <xacro:macro name="realsense_camera_no_geom" params="name parent *origin">
-    <xacro:realsense_d435_camera_model_no_geom name="${name}" parent="${parent}">
-      <xacro:insert_block name="origin" />
-    </xacro:realsense_d435_camera_model_no_geom>
-  
-    <xacro:seek_thermal_compact_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="image_raw" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20"/>
-    </xacro:macro>
 </robot>
