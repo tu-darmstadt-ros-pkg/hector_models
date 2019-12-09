@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="argo_tracker_structure_addons">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autonomy_box">
   
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vlp16_mount.urdf.xacro.xml"/>
-  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
-  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_t265.urdf.xacro"/>
-  
+  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>  
   
 <!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
   <!--<xacro:property name="add_self_filter_geom" value="${arg add_self_filter_geom}"/>-->
@@ -48,108 +46,14 @@
     <link name="${name}_link">
       <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
       
-      <!-- Computer box-->
       <visual>
-        <origin xyz="0 0 ${computer_box_height/2}" rpy="0 0 0"/>
+        <origin rpy="0 0 0" xyz="-0.095 -0.095 0"/>
         <geometry>
-          <box size="${computer_box_length} ${computer_box_width} ${computer_box_height}"/>
+          <mesh filename="package://hector_components_description/meshes/autonomy_box/visionbox_no_lidar.stl" scale="0.001 0.001 0.001" />
         </geometry>
         <material name="Grey">
           <color rgba="0.5 0.5 0.5 1"/>
         </material> 
-      </visual>
-
-      <!--Protection vertical profiles-->
-      <visual>
-        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>  
-      </visual>
-
-      <visual>
-        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>  
-      </visual>
-      
-      <visual>
-        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <visual>
-        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <!--Top geom-->      
-      <visual>
-        <origin xyz="0 ${ (computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <visual>
-        <origin xyz="0 ${-(computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-
-      <visual>
-        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <visual>
-        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>      
-      
-      <!-- 360 cam mount -->
-      <visual>
-        <origin xyz="0 0 ${0.5 * (top_protection_bottom + alu_profile_side_length + insta360_mounting_height - insta360_radius)}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${insta360_mounting_height - top_protection_bottom - alu_profile_side_length - insta360_radius}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>  
       </visual>
       
       <!-- Chilitags visual -->
@@ -331,7 +235,7 @@
     
     <!-- Spinning VLP16 -->
     <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
-      <origin xyz="0 0 0.34708" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0 0 0.33865" rpy="0.0 0.0 0.0"/>
     </xacro:spinning_sensor_mount_macro>
       
     <!-- 360 camera -->

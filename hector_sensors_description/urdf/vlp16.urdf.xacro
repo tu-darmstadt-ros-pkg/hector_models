@@ -12,31 +12,32 @@
 
       <link name="${name}_frame">
         <xacro:inertial_sphere mass="0.83" diameter="0.1033" />
-        <!-- Visual geometry by velodyne_simulator https://bitbucket.org/DataspeedInc/velodyne_simulator -->
         <visual>
-          <origin xyz="0 0 -0.0377" />
+          <origin xyz="0 0 -0.0378" rpy="${M_PI/2} 0 ${M_PI}" />
           <geometry>
-            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_base_1.dae" />
+            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_base_1.dae" scale="0.001 0.001 0.001"/>
           </geometry>
         </visual>
         <visual>
-          <origin xyz="0 0 -0.0377" />
+          <origin xyz="0 0 -0.0378" rpy="${M_PI/2} 0 ${M_PI}" />
           <geometry>
-            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_base_2.dae" />
+            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_base_2.dae" scale="0.001 0.001 0.001"/>
           </geometry>
         </visual>
         <visual>
-          <origin xyz="0 0 -0.0377" />
+          <origin xyz="0 0 -0.0378" rpy="${M_PI/2} 0 ${M_PI}" />
           <geometry>
-            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_scan.dae" />
+            <mesh filename="package://hector_sensors_description/meshes/vlp16/VLP16_scan.dae" scale="0.001 0.001 0.001"/>
           </geometry>
         </visual>
+        
         <collision>
-          <origin rpy="0 0 0" xyz="0 0 0.0018500"/>
+          <origin rpy="0 0 0" xyz="0 0 -0.00225"/>
           <geometry>
             <cylinder radius="0.0516" length="0.0717"/>
           </geometry>
         </collision>
+
       </link>
     </xacro:macro>
     

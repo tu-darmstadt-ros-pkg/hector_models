@@ -7,7 +7,7 @@
 
   <xacro:property name="M_PI" value="3.14159265359"/>
 
-  <xacro:macro name="spinning_sensor_mount_macro" params="parent name scaling *origin">
+  <xacro:macro name="spinning_sensor_mount_macro" params="parent name scaling has_geom:='true' *origin">
     <joint name="${name}_spin_joint_fixed" type="fixed">
       <xacro:insert_block name="origin"/>
       <parent link="${parent}" />
@@ -26,6 +26,19 @@
       <joint_properties damping="500.0" friction="200.0" />
     </joint>
     <link name="${name}_lidar_mount_link">
+        
+      <xacro:if value="${has_geom}">
+        <visual>
+          <origin rpy="0 0 ${M_PI}" xyz="0 0 -0.21803"/>
+          <geometry>
+            <mesh filename="package://hector_components_description/meshes/autonomy_box/visionbox_lidar_mount_only.stl" scale="0.001 0.001 0.001" />
+          </geometry>
+          <material name="Grey">
+            <color rgba="0.5 0.5 0.5 1"/>
+          </material> 
+        </visual>
+      </xacro:if>  
+      
       <xacro:inertial_sphere_with_pose mass="0.1" diameter="0.03">
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
       </xacro:inertial_sphere_with_pose>
@@ -49,7 +62,19 @@
         <joints>spin_lidar_spin_joint</joints>
       </plugin>
     </gazebo>
+    
+    <xacro:if value="${has_geom}">
+      <gazebo reference="${name}_lidar_mount_link">
+        <visual>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.48 0.48 0.48 1</diffuse>
+          <emissive>0.237 0.237 0.237 1</emissive>
+          <specular>0.8 0.8 0.8 1</specular>
+        </material>
+        </visual>
+      </gazebo>
+    </xacro:if>  
 
-    <!-- <gazebo reference="${name}_spinning_lidar_root_link"><material>Gazebo/Grey</material></gazebo><gazebo reference="${name}_spinning_lidar_spin_link"><material>Gazebo/Grey</material></gazebo> -->
   </xacro:macro>
 </robot>
