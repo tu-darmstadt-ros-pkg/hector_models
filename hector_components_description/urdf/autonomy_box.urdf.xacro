@@ -246,16 +246,10 @@
       <origin xyz="0.002862424041614364  -0.00013127655875068252 -0.03724378451297336" rpy="-3.1402707 0.0036289 -3.1175768"/> <!-- insta #3 -->
     </xacro:camera360>
     
-    <!-- Realsense T265 Tracking camera -->
-    <xacro:realsense_t265_tracking_camera name="tracking_camera" parent="${name}_link">
-      <origin xyz="${computer_box_width/2.0 - realsense_t265_depth/2.0} ${computer_box_width/2.0 - alu_profile_side_length - realsense_t265_width/2.0} ${top_protection_bottom - realsense_t265_height/2.0}" rpy="0 0 0"/>
-    </xacro:realsense_t265_tracking_camera>
-
     <!-- +++++ Cage Realsenses +++++ -->
     <xacro:property name="autonomy_box_realsense_x_offset" value="0.07187"/>
     <xacro:property name="autonomy_box_realsense_y_offset" value="0.03"/>
     <xacro:property name="autonomy_box_realsense_z_offset" value="0.00395"/>
-<!--     <xacro:property name="autonomy_box_realsense_z_offset" value="0.46895"/> -->
     <xacro:property name="autonomy_box_realsense_pitch" value="${25*M_PI/180.0}"/>
     
     <!-- Realsense D435 front -->
