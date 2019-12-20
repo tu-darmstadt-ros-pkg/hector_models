@@ -26,7 +26,7 @@
       <joint_properties damping="500.0" friction="200.0" />
     </joint>
     <link name="${name}_lidar_mount_link">
-        
+
       <xacro:if value="${has_geom}">
         <visual>
           <origin rpy="0 0 ${M_PI}" xyz="0 0 -0.21803"/>
@@ -35,26 +35,26 @@
           </geometry>
           <material name="Grey">
             <color rgba="0.5 0.5 0.5 1"/>
-          </material> 
+          </material>
         </visual>
-      </xacro:if>  
-      
+      </xacro:if>
+
       <xacro:inertial_sphere_with_pose mass="0.1" diameter="0.03">
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
       </xacro:inertial_sphere_with_pose>
 
     </link>
-    
-    <xacro:vlp16_advanced_parameters name="${name}_pitch_hokuyo_laser"  parent="${name}_lidar_mount_link" ros_topic="/spin_laser/vlp16" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.1" max_range="100">
+
+    <xacro:vlp16_advanced_parameters name="${name}_pitch_hokuyo_laser"  parent="${name}_lidar_mount_link" ros_topic="/spin_laser/vlp16" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.1" max_range="100" use_gpu="false">
       <xacro:insert_block name="vlp16_calibration" />
-    </xacro:vlp16_advanced_parameters>  
-    
+    </xacro:vlp16_advanced_parameters>
+
     <xacro:joint_standard_transmission name="${name}_spin_joint"/>
-  
+
     <gazebo reference="${name}_spin_joint">
       <implicitSpringDamper>1</implicitSpringDamper>
     </gazebo>
-    
+
     <gazebo>
       <!-- ros_control plugin -->
       <plugin name="gazebo_ros_control_select_joints" filename="libgazebo_ros_control_select_joints.so">
@@ -62,7 +62,7 @@
         <joints>spin_lidar_spin_joint</joints>
       </plugin>
     </gazebo>
-    
+
     <xacro:if value="${has_geom}">
       <gazebo reference="${name}_lidar_mount_link">
         <visual>
@@ -74,7 +74,7 @@
         </material>
         </visual>
       </gazebo>
-    </xacro:if>  
+    </xacro:if>
 
   </xacro:macro>
 </robot>
