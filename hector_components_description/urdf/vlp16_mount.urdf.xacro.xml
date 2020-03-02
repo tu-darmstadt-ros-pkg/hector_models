@@ -8,24 +8,24 @@
   <xacro:property name="M_PI" value="3.14159265359"/>
 
   <xacro:macro name="spinning_sensor_mount_macro" params="parent name scaling has_geom:='true' *origin">
-    <joint name="${name}_spin_joint_fixed" type="fixed">
+    <joint name="${name}_joint_fixed" type="fixed">
       <xacro:insert_block name="origin"/>
       <parent link="${parent}" />
-      <child link="${name}_lidar_mount_link_fixed"/>
+      <child link="${name}_mount_link_fixed"/>
     </joint>
 
-    <link name="${name}_lidar_mount_link_fixed">
+    <link name="${name}_mount_link_fixed">
     </link>
 
     <joint name="${name}_spin_joint" type="continuous">
       <xacro:insert_block name="origin"/>
       <parent link="${parent}" />
-      <child link="${name}_lidar_mount_link" />
+      <child link="${name}_mount_link" />
       <axis xyz=" 0 0 1" />
       <limit effort="1000" velocity="100" />
       <joint_properties damping="500.0" friction="200.0" />
     </joint>
-    <link name="${name}_lidar_mount_link">
+    <link name="${name}_mount_link">
 
       <xacro:if value="${has_geom}">
         <visual>
@@ -45,7 +45,7 @@
 
     </link>
 
-    <xacro:vlp16_advanced_parameters name="${name}_pitch_hokuyo_laser"  parent="${name}_lidar_mount_link" ros_topic="/spin_laser/vlp16" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.1" max_range="100" use_gpu="false">
+    <xacro:vlp16_advanced_parameters name="${name}_laser"  parent="${name}_mount_link" ros_topic="/${name}/vlp16" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.1" max_range="100" use_gpu="false">
       <xacro:insert_block name="vlp16_calibration" />
     </xacro:vlp16_advanced_parameters>
 
@@ -58,13 +58,13 @@
     <gazebo>
       <!-- ros_control plugin -->
       <plugin name="gazebo_ros_control_select_joints" filename="libgazebo_ros_control_select_joints.so">
-        <robotNamespace>spin_lidar_control</robotNamespace>
-        <joints>spin_lidar_spin_joint</joints>
+        <robotNamespace>${name}_control</robotNamespace>
+        <joints>${name}_spin_joint</joints>
       </plugin>
     </gazebo>
 
     <xacro:if value="${has_geom}">
-      <gazebo reference="${name}_lidar_mount_link">
+      <gazebo reference="${name}_mount_link">
         <visual>
         <material>
           <ambient>0.1 0.1 0.1 1</ambient>
