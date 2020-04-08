@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro" />
+  <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
+  
+  
+  <!-- Dimensions from https://s1-dl.theimagingsource.com/api/2.5/packages/documentation/factsheets-single/fsdfkz30gp031/5e87e13f-c891-50c8-93c1-7bffd94642a1/fsdfkz30gp031.de_DE.pdf -->
+  <xacro:property name="tis_zoom_cam_housing_width" value="0.0606" />
+  <xacro:property name="tis_zoom_cam_housing_height" value="0.0606" />
+  <xacro:property name="tis_zoom_cam_housing_length" value="0.117" />
+  
+  <xacro:macro name="tis_zoom_camera_model" params="name parent *origin">
+    <joint name="${name}_mount_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_housing_frame"/>
+    </joint>
+    
+    <link name="${name}_housing_frame">
+      <xacro:inertial_cuboid mass="0.02" x_length="0.0285" y_length="0.07" z_length="0.034"/>
+      <visual>
+        <geometry>
+          <box size="${tis_zoom_cam_housing_length} ${tis_zoom_cam_housing_width} ${tis_zoom_cam_housing_height}" />        
+        </geometry>
+        <material name="DarkGrey">
+          <color rgba="0.3 0.3 0.3 1"/>
+        </material>  
+      </visual>
+      <collision>
+        <geometry>
+          <box size="${tis_zoom_cam_housing_length} ${tis_zoom_cam_housing_width} ${tis_zoom_cam_housing_height}" />        
+        </geometry>
+      </collision>
+    </link>
+    
+<!--     <xacro:add_optical_frame name="${name}" /> -->
+    
+    <gazebo reference="${name}_housing_frame">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    
+  </xacro:macro>
+  
+  <xacro:macro name="tis_zoom_camera" params="name parent *origin">
+    
+    <xacro:tis_zoom_camera_model name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin" />
+    </xacro:tis_zoom_camera_model>
+      
+    <xacro:generic_camera name="${name}" parent="${name}_housing_frame" ros_topic="image_raw" cam_info_topic="camera_info" update_rate="5" res_x="1920" res_y="1080" image_format="R8G8B8" hfov="70">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:generic_camera>
+  </xacro:macro>
+  
+</robot>
+
