@@ -22,7 +22,7 @@
       <xacro:inertial_cuboid mass="0.02" x_length="0.0285" y_length="0.07" z_length="0.034"/>
       <visual>
         <geometry>
-          <box size="${tis_zoom_cam_housing_length} ${tis_zoom_cam_housing_width} ${tis_zoom_cam_housing_height}" />        
+          <mesh filename="package://hector_sensors_description/meshes/tis_zoom_cam/zoom_cam_housing.stl" scale="1.0 1.0 1.0"/>
         </geometry>
         <material name="DarkGrey">
           <color rgba="0.3 0.3 0.3 1"/>
