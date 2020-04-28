@@ -56,6 +56,14 @@
             <near>0.01</near>
             <far>100</far>
           </clip>
+          <distortion>
+            <k1>${k1}</k1>
+            <k2>${k2}</k2>
+            <p1>${t1}</p1>
+            <p2>${t2}</p2>
+            <k3>${k3}</k3>
+            <center>0.5 0.5</center>
+          </distortion>
         </camera>
 
         <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
