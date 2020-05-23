@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="vive_tracker" params="name parent *origin">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+    
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.089" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+      </inertial> 
+      <!-- inertia not measured yet -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://hector_sensors_description/meshes/vive_tracker/tracker.stl"/>
+        </geometry>
+        <material name="Blue">
+          <color rgba="0.0 0.0 0.8 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://hector_sensors_description/meshes/vive_tracker/tracker.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    
+    <!--gazebo reference="${name}_link">
+      <sensor type="tracker" name="${name}_position_sensor">
+        <update_rate>${update_rate}</update_rate>
+
+        <plugin name="{name}_odom" filename="libgazebo_ros_p3d.so">
+
+          <topicName>p3d_demo</topicName>
+          <bodyName>vive_tracker</bodyName>
+          <frameName>world</frameName>
+          <updateRate>{update_rate}</updateRate>
+          <gaussianNoise>0.01</gaussianNoise>
+      </sensor>
+    </gazebo-->
+  </xacro:macro>
+
+</robot>
+
