@@ -33,19 +33,16 @@
       </collision>
     </link>
     
-    <!--gazebo reference="${name}_link">
-      <sensor type="tracker" name="${name}_position_sensor">
-        <update_rate>${update_rate}</update_rate>
-
-        <plugin name="{name}_odom" filename="libgazebo_ros_p3d.so">
-
-          <topicName>p3d_demo</topicName>
-          <bodyName>vive_tracker</bodyName>
-          <frameName>world</frameName>
-          <updateRate>{update_rate}</updateRate>
-          <gaussianNoise>0.01</gaussianNoise>
-      </sensor>
-    </gazebo-->
+    <gazebo>
+      <plugin name="tracker_odom" filename="libgazebo_ros_p3d.so">
+        <frameName>world</frameName>
+        <bodyName>base_link</bodyName>
+        <topicName>/gazebo/$(arg robot_name)/tracker_odom</topicName>
+	<updateRate>100.0</updateRate>
+	<!--gaussianNoise>0.0001</gaussianNoise-->
+      </plugin>
+    </gazebo>
+    
   </xacro:macro>
 
 </robot>
