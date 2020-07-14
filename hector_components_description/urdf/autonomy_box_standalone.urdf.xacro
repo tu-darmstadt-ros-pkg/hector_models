@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autonomy_box_standalone">
+  
+  <xacro:include filename="$(find hector_components_description)/urdf/autonomy_box.urdf.xacro" />
+  <xacro:include filename="$(find hector_tracked_vehicles_description)/calibrations/spin_lidar_calibration.urdf.xacro"/>
+
+  <link name="base_link"/>
+
+  <xacro:autonomy_box_macro parent="base_link" alu_profile_collision_size_factor="1.0" name="autonomy_box" add_chilitags="false">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+  </xacro:autonomy_box_macro>
+
+</robot>
