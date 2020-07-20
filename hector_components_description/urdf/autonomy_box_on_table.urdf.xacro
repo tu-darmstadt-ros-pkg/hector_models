@@ -4,7 +4,15 @@
   <xacro:include filename="$(find hector_components_description)/urdf/autonomy_box.urdf.xacro"/>
   <xacro:include filename="$(find hector_tracked_vehicles_description)/calibrations/spin_lidar_calibration.urdf.xacro"/>
 
-  <link name="base_link">
+  <link name="base_link" />
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="table_link"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="table_link">
 
     <visual>
       <origin xyz="0.0 0.4 0.0" rpy="${0.5*pi} 0 0"/>
@@ -36,8 +44,9 @@
 
   </link>
 
-  <xacro:autonomy_box_macro parent="base_link" alu_profile_collision_size_factor="1.25" name="autonomy_box" add_chilitags="false">
-    <origin xyz="0.205 0.0 0.005" rpy="0 0 0"/>
+  <xacro:autonomy_box_macro parent="table_link" alu_profile_collision_size_factor="1.25" name="autonomy_box" add_chilitags="false">
+    <origin xyz="0.255 0.0 0.005" rpy="0 0 0"/>
   </xacro:autonomy_box_macro>
 
 </robot>
+
