@@ -42,6 +42,13 @@
       </geometry>
     </collision>
 
+    <collision>
+      <origin xyz="-0.9 0.0 0.2" rpy="0 0 0"/>
+      <geometry>
+        <box size="1.0 1.0 2.0"/>
+      </geometry>
+    </collision>
+
   </link>
 
   <xacro:autonomy_box_macro parent="table_link" alu_profile_collision_size_factor="1.25" name="autonomy_box" add_chilitags="false">
