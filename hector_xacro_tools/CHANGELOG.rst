@@ -2,6 +2,15 @@
 Changelog for package hector_xacro_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.0 (2018-06-29)
+------------------
+* Merge branch 'update_transmissions' into kinetic-devel
+  Fix xmlns for all xacro files
+* Update to transmissions, prepending "hardware_interface/"
+* fixed warning
+* Add macro for default setting joint properties
+* Contributors: Alexander Stumpf, Stefan Kohlbrecher
+
 0.4.2 (2016-06-24)
 ------------------
 * Add joint macros (contains transmission macro for the moment)

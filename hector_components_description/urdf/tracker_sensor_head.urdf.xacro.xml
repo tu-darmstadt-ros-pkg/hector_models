@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<robot
+  xmlns:xacro="http://www.ros.org/wiki/xacro" name="hector_tracker_sensor_head">
+  
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/joint_macros.urdf.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/hokuyo_utm30lx.urdf.xacro" />
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/joint_macros.urdf.xacro" />
+  <xacro:include filename="$(find hector_sensors_description)/urdf/flir_a35_camera.urdf.xacro"/>  
+  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_camera.urdf.xacro"/>
+  
+  <!--  
+  <xacro:include filename="$(find hector_components_description)/urdf/vision_box_common.gazebo.xacro" />
+  <xacro:include filename="$(find hector_components_description)/urdf/vision_box_common_dimensions.urdf.xacro" />
+  <xacro:include filename="$(find hector_components_description)/urdf/vision_box_dimensions_hector2.urdf.xacro" />
+  -->
+  
+  
+  <!--Properties below copied from vision box, should be renamed-->  
+  <xacro:property name="cameraYawServo_size_z" value="0.082" /> <!--between upper edge of top and camera pitch axis-->
+  <xacro:property name="cameraYawServo_x_position" value="-0.027" /> <!--between front edge of top and camera yaw axis-->
+  <xacro:property name="cameraYawServo_size_x" value="0.04" />
+  <xacro:property name="cameraYawServo_size_y" value="0.03" />
+
+  <xacro:property name="camera_size_x" value="0.05" />
+  <xacro:property name="camera_x_position" value="0.02" /> <!--between intersection point of yaw and pitch axis and center of camera lense-->
+  <xacro:property name="camera_z_position" value="0.001" />
+  
+  <xacro:property name="kinect_pitch_position" value="0" />
+  <xacro:property name="kinect_yaw_position" value="0.0" />
+  
+  <xacro:macro name="tracker_sensor_head_macro" params="parent *origin">  
+    
+    <xacro:arg name="add_raycast_self_filter_geom" default="false"/>  
+      
+    <joint name="sensor_head_yaw_joint" type="revolute">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}" />
+      <child link="sensor_head_yaw_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-M_PI*3/4}" upper="${M_PI*3/4}" effort="100" velocity="100"/>
+    </joint>
+    
+    <link name="sensor_head_yaw_link">      
+      <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
+      <visual>
+        <origin xyz="0.0 0.0 ${cameraYawServo_size_z/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${cameraYawServo_size_x} ${cameraYawServo_size_y} ${cameraYawServo_size_z}"/>
+        </geometry>
+        <material name="Blue"/>
+      </visual>
+      
+      <xacro:unless value="$(arg add_raycast_self_filter_geom)">
+        <collision>
+          <origin xyz="0.0 0.0 ${cameraYawServo_size_z/2}" rpy="0 0 0"/>
+          <geometry>
+            <box size="${cameraYawServo_size_x} ${cameraYawServo_size_y} ${cameraYawServo_size_z}"/>
+          </geometry>
+        </collision>
+      </xacro:unless> 
+      
+      <xacro:if value="$(arg add_raycast_self_filter_geom)">
+    
+        <!--Realsense-->
+        <collision>
+          <origin xyz="0.00 -0.00  ${cameraYawServo_size_z/2+0.04}" rpy="0 0 0"/>
+          <geometry>
+            <cylinder length="${cameraYawServo_size_z+0.03}" radius="${0.05}"/>  
+                  <!--<box size="${t_base_size_x*2+t_flipper_offset_x*2} ${t_track_width} ${t_wheel_radius_big*2}"/>-->
+          </geometry>
+        </collision>
+        
+      </xacro:if> 
+    </link>
+    
+    <joint name="sensor_head_pitch_joint" type="revolute">
+      <origin xyz="0 -0.0235 0.0921" rpy="${-M_PI/2} 0 0"/>
+      <parent link="sensor_head_yaw_link"/>
+      <child link="sensor_head_mount_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-M_PI/2}" upper="${M_PI/2}" effort="100" velocity="100"/>
+    </joint>
+    <link name="sensor_head_mount_link">
+      <xacro:inertial_sphere mass="0.05" diameter="0.07"/>
+      
+      <xacro:if value="$(arg add_raycast_self_filter_geom)">
+        
+        <!--Thermal cam-->  
+        <collision>
+          <origin xyz="0.01 0.0 -0.03106" rpy="0 ${M_PI*0.5} 0"/>
+          <geometry>
+            <cylinder length="${0.18}" radius="${0.04}"/>  
+                  <!--<box size="${t_base_size_x*2+t_flipper_offset_x*2} ${t_track_width} ${t_wheel_radius_big*2}"/>-->
+          </geometry>
+        </collision>
+        
+        <!--Realsense-->
+        <collision>
+          <origin xyz="0.01 -0.048  ${0.01373-0.01}" rpy="0 0 0"/>
+          <geometry>
+            <cylinder length="${0.17}" radius="${0.05}"/>  
+                  <!--<box size="${t_base_size_x*2+t_flipper_offset_x*2} ${t_track_width} ${t_wheel_radius_big*2}"/>-->
+          </geometry>
+        </collision>
+        
+        <collision>
+          <origin xyz="0.0 -0.018  ${+0.09}" rpy="${M_PI*0.5} 0 0"/>
+          <geometry>
+            <cylinder length="${0.14}" radius="${0.03}"/>  
+                  <!--<box size="${t_base_size_x*2+t_flipper_offset_x*2} ${t_track_width} ${t_wheel_radius_big*2}"/>-->
+          </geometry>
+        </collision>
+        
+      </xacro:if>    
+    </link>
+    
+    <gazebo reference="sensor_head_yaw_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>   
+    
+    <gazebo reference="sensor_head_mount_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    
+    
+    <xacro:joint_standard_transmission name="sensor_head_yaw_joint"/>
+    <xacro:joint_standard_transmission name="sensor_head_pitch_joint"/>
+    
+    
+    <gazebo>
+      <plugin name="gazebo_ros_control_select_joints" filename="libgazebo_ros_control_select_joints.so">
+        <robotNamespace>sensor_head_control</robotNamespace>
+        <joints>sensor_head_yaw_joint sensor_head_pitch_joint</joints>
+      </plugin>
+    </gazebo>
+    
+    <xacro:flir_a35_camera name="arm_thermal_cam" parent="sensor_head_mount_link">
+      <origin xyz="0.0345 0.0 -0.03106" rpy="${M_PI*0.5} 0 0"/>
+    </xacro:flir_a35_camera>
+  
+    <xacro:realsense_camera_comprehensive_params name="arm_rgbd_cam" parent="sensor_head_mount_link" image_topic="image_rect_color" depth_points_topic="depth/points" min_range="0.3" max_range="9.0" update_rate="20">
+      <origin xyz="0.01 -0.048  ${0.01373-0.051}" rpy="${M_PI*0.5} ${kinect_pitch_position} ${kinect_yaw_position}"/>
+    </xacro:realsense_camera_comprehensive_params>
+    
+  </xacro:macro>
+</robot>

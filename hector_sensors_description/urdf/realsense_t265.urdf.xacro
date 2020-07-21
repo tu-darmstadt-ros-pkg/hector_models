@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+    
+    <xacro:property name="realsense_t265_width"  value="0.108"/>
+    <xacro:property name="realsense_t265_height" value="0.0245"/>
+    <xacro:property name="realsense_t265_depth"  value="0.0125"/>
+    
+    
+    <xacro:macro name="realsense_t265_tracking_camera" params="name parent *origin">
+      <joint name="${name}_housing_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_housing_link"/>
+      </joint>
+      
+      <link name="${name}_housing_link">
+        <inertial>
+          <mass value="0.060" />
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4" />
+        </inertial>
+        
+        <!--Dimensions taken from https://www.intelrealsense.com/tracking-camera-t265/-->
+        <!-- Camera Body-->
+        <visual>
+          <geometry>
+            <box size="${realsense_t265_depth} ${realsense_t265_width} ${realsense_t265_height}" />
+          </geometry>
+          <material name="Black">
+            <color rgba="0 0 0 1"/>
+          </material>    
+        </visual>
+        <collision>
+          <geometry>
+            <box size="${realsense_t265_depth} ${realsense_t265_width} ${realsense_t265_height}" />
+          </geometry>
+        </collision>
+        
+        <!-- Left lense -->
+        <visual>
+          <origin xyz="${realsense_t265_depth/2.0} 0.0411 0" rpy="0 ${M_PI/2.0} 0" />
+          <geometry>
+            <cylinder radius="0.0085" length="0.001" />
+          </geometry>
+          <material name="Gray">
+            <color rgba="0.5 0.5 0.5 1"/>
+          </material>    
+        </visual>
+        
+        <!-- Right lense -->
+        <visual>
+          <origin xyz="${realsense_t265_depth/2.0} -0.0229 0" rpy="0 ${M_PI/2.0} 0" />
+          <geometry>
+            <cylinder radius="0.0085" length="0.001" />
+          </geometry>
+          <material name="Gray">
+            <color rgba="0.5 0.5 0.5 1"/>
+          </material>    
+        </visual>
+      </link>
+      
+      <xacro:realsense_t265_tracking_camera_no_geom name="${name}" parent="${name}_housing_link">
+        <origin xyz="-0.0003 0.0091 0" rpy="0 0 0" />  
+      </xacro:realsense_t265_tracking_camera_no_geom>
+    </xacro:macro>
+  
+    <xacro:macro name="realsense_t265_tracking_camera_no_geom" params="name parent *origin">
+      <joint name="${name}_pose_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_pose_frame"/>
+      </joint>
+      
+      <link name="${name}_pose_frame"/>
+      
+      <joint name="${name}_pose_joint2" type="fixed">
+        <origin rpy="${M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_pose_frame"/>
+        <child link="${name}_pose_frame_alt"/>
+      </joint>
+      
+      <link name="${name}_pose_frame_alt"/>
+    </xacro:macro>
+  </robot>
+  

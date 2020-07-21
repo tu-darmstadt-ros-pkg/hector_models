@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="headlight">
+
+  <xacro:macro name="headlight" params="parent headlight_prefix xyz rpy">
+
+    <gazebo>
+      <model name="${headlight_prefix}_headlight">
+        <pose>${xyz} ${rpy}</pose>
+        <link name="body">
+          <pose>0.0 0 0 0 0 0</pose>
+          <light name="light_source" type="spot">
+            <!--<pose>-0.025 0 0.0 0 1.573 0</pose>-->
+            <pose>0.0 0 0.0 0 -1.573 0</pose>
+            <attenuation>
+              <range>25</range>
+              <linear>0.3</linear>
+              <constant>0.1</constant>
+              <quadratic>0.04</quadratic>
+            </attenuation>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+            <spot>
+              <inner_angle>0.8</inner_angle>
+              <outer_angle>1.9</outer_angle>
+              <falloff>1</falloff>
+            </spot>
+            <direction>0 0 -1</direction>
+          </light>
+          
+          <inertial>
+            <mass>0.00001</mass>
+            <inertia>
+              <ixx>0.00000001</ixx>
+              <iyy>0.00000001</iyy>
+              <izz>0.00000001</izz>
+            </inertia>
+          </inertial>
+
+          <visual name="light_source_visual">
+            <geometry>
+              <!--<box size="10.001 0.001 0.001"/>-->
+              <sphere>
+                <radius>0.01</radius>
+              </sphere>
+            </geometry>
+            <transparency>1</transparency>
+            <material>
+              <ambient>1 1 1 1</ambient>
+              <diffuse>1 1 1 1</diffuse>
+              <specular>1 1 1 1</specular>
+              <emissive>0 0 0 1</emissive>
+            </material>
+            <plugin name='light_source_visualize' filename='libLightVisualPlugin.so'>
+              <light>
+                <id>light_source</id>
+                <visualize>false</visualize>
+              </light>
+            </plugin>
+
+          </visual>
+        </link>
+
+        <plugin name='light_control' filename='libRosFlashLightPlugin.so'>
+          <service_name>enable</service_name>
+          <light>
+            <id>body/light_source</id>
+            <enable>true</enable>
+            <duration>1</duration>
+            <interval>0</interval>
+            <color>1 1 1</color>
+          </light>
+        </plugin>
+      </model>
+    </gazebo>
+
+    <gazebo>
+      <joint name="${headlight_prefix}_headlight" type="fixed">
+        <parent>${parent}</parent>
+        <child>${headlight_prefix}_headlight::body</child>
+      </joint>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<robot name="april_50x50cm_A0_1024px" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  
+  <!--    <xacro:property name="z_translation" value="${scale/2.6042}" />-->
+  <!--    <xacro:property name="z_translation" value="${checkerbox_side_length}" />-->
+  
+  
+  <xacro:macro name="april_50x50cm_A0_1024px" params="parent name scaling *origin">
+    
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.5" />
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <inertia ixx="0.00265" ixy="0" ixz="0" iyy="0.00446" iyz="0" izz="0.00446" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://hector_components_description/meshes/kalibr_targets/april_50x50cm_A0_1024px.dae" scale="${scaling} ${scaling} ${scaling}" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://hector_components_description/meshes/kalibr_targets/april_50x50cm_A0_1024px.dae" scale="${scaling} ${scaling} ${scaling}" />
+        </geometry>
+      </collision>
+    </link>
+    
+    <joint name="${name}_checkerboard_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+      <xacro:insert_block name="origin"/>
+    </joint>
+    
+    <gazebo reference="${name}_link">
+      <static>true</static>
+      <turnGravityOff>true</turnGravityOff>
+    </gazebo>
+    
+  </xacro:macro>
+  
+  <link name="tag_base" />
+  
+  <xacro:april_50x50cm_A0_1024px name="calibration_target" parent="tag_base" scaling="1.0">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:april_50x50cm_A0_1024px>
+  
+  <gazebo reference="tag_base">
+    <static>true</static>
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+  
+</robot>

@@ -60,3 +60,4 @@
       <!-- <gazebo reference="${name}_spinning_lidar_root_link"><material>Gazebo/Grey</material></gazebo><gazebo reference="${name}_spinning_lidar_spin_link"><material>Gazebo/Grey</material></gazebo> -->
    </xacro:macro>
 </robot>
+
