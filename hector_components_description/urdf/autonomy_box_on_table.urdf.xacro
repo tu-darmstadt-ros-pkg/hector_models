@@ -51,7 +51,7 @@
 
   </link>
 
-  <xacro:autonomy_box_macro parent="table_link" alu_profile_collision_size_factor="1.25" name="autonomy_box" add_chilitags="false">
+  <xacro:autonomy_box_macro parent="table_link" alu_profile_collision_size_factor="1.05" name="autonomy_box" add_chilitags="false">
     <origin xyz="0.255 0.0 0.005" rpy="0 0 0"/>
   </xacro:autonomy_box_macro>
 
