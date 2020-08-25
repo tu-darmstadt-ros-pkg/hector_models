@@ -22,7 +22,7 @@
   
   <xacro:property name="M_PI" value="3.14159265359"/>
   
-  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true'">
+  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true' add_vivetracker:='false'">
     
     <xacro:arg name="add_containment_self_filter_geom" default="false"/>
     <xacro:arg name="add_manipulation_geom" default="false"/>
@@ -263,6 +263,15 @@
       <origin xyz="${-1 * autonomy_box_realsense_x_offset} ${autonomy_box_realsense_y_offset} ${top_protection_bottom + alu_profile_side_length + autonomy_box_realsense_z_offset}" rpy="0.0 ${autonomy_box_realsense_pitch} ${M_PI}"/>
     </xacro:realsense_d435_camera_with_mount_comprehensive_params>
     
+    <!-- Vive Tracker -->
+    <xacro:if value="${add_vivetracker}">
+      <xacro:include filename="$(find hector_sensors_description)/urdf/vive_tracker.urdf.xacro"/>
+
+      <xacro:vive_tracker name="tracker" parent="${name}_link">
+        <origin xyz="-0.07 -0.06 0.464  " rpy="${pi/2} 0 ${-pi/2}"/>
+      </xacro:vive_tracker>
+    </xacro:if>
+
     <gazebo reference="${name}_link">
       <visual>
       <material>
