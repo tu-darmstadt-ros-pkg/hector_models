@@ -21,8 +21,8 @@
         <geometry>
           <mesh filename="package://hector_sensors_description/meshes/vive_tracker/tracker.stl"/>
         </geometry>
-        <material name="Blue">
-          <color rgba="0.0 0.0 0.8 1"/>
+        <material name="LightGray">
+          <color rgba="0.2 0.2 0.2 1"/>
         </material>
       </visual>
       <collision>
@@ -37,7 +37,7 @@
       <plugin name="tracker_odom" filename="libgazebo_ros_p3d.so">
         <frameName>world</frameName>
         <bodyName>base_link</bodyName>
-        <topicName>/gazebo/$(arg robot_name)/tracker_odom</topicName>
+        <topicName>/tracker/odometry</topicName>
 	<updateRate>100.0</updateRate>
 	<!--gaussianNoise>0.0001</gaussianNoise-->
       </plugin>
