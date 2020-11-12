@@ -22,7 +22,7 @@
   
   <xacro:property name="M_PI" value="3.14159265359"/>
   
-  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true' add_vivetracker:='false'">
+  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true' add_vivetracker:='false' use_gpu_lidar:='false'">
     
     <xacro:arg name="add_containment_self_filter_geom" default="false"/>
     <xacro:arg name="add_manipulation_geom" default="false"/>
@@ -235,7 +235,7 @@
     </link>
     
     <!-- Spinning VLP16 -->
-    <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
+    <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001" use_gpu_lidar="${use_gpu_lidar}">
       <origin xyz="0 0 0.33865" rpy="0.0 0.0 0.0"/>
     </xacro:spinning_sensor_mount_macro>
       
