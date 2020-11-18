@@ -26,19 +26,23 @@
         </material>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0.021144 -0.003673" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://hector_sensors_description/meshes/vive_tracker/tracker.stl"/>
+          <box size="0.0944 0.0423 0.0921"/> <!-- Bounding box extracted from STL -->
         </geometry>
       </collision>
     </link>
+
+    <gazebo reference="${name}_link">
+      <material>Gazebo/DarkGrey</material>
+    </gazebo>
     
     <gazebo>
       <plugin name="tracker_odom" filename="libgazebo_ros_p3d.so">
         <frameName>world</frameName>
         <bodyName>base_link</bodyName>
         <topicName>/tracker/odometry</topicName>
-	<updateRate>100.0</updateRate>
+        <updateRate>100.0</updateRate>
 	<!--gaussianNoise>0.0001</gaussianNoise-->
       </plugin>
     </gazebo>
