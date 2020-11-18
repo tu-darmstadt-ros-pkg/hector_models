@@ -21,8 +21,8 @@
         <geometry>
           <mesh filename="package://hector_sensors_description/meshes/vive_tracker/tracker.stl"/>
         </geometry>
-        <material name="LightGray">
-          <color rgba="0.2 0.2 0.2 1"/>
+        <material name="DarkGrey">
+          <color rgba="0.175 0.175 0.175 1"/>
         </material>
       </visual>
       <collision>
