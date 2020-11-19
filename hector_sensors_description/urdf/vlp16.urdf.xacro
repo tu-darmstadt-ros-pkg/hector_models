@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:property name="M_PI" value="3.1415926535897931"/>
 
   <xacro:macro name="vlp16_model" params="name parent *origin">
