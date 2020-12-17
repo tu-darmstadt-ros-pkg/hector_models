@@ -2,6 +2,90 @@
 Changelog for package hector_components_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* added an option to use a gpu accelerated lidar simulation
+* Added tracker to vision box
+* reduced collision size factor
+* added collisoin geometry for table pushing person
+* introduced table_link
+* updated position on tbale & collision size
+* used textured table
+* added visionbox on table
+* added standalone visionbox urdf
+* added a consistent name scheme and xacro name usage
+* fixed the inconsistend naming of the xm430 sensor head
+* added missing include
+* changed file permissions
+* unified the GPU and non-GPU VLP16 xacro macro
+* added meshes for the XM430 based sensor head
+* cleanup
+* updated the URDF of the XM430 based sensor head
+* updated the URDF of the autonomy box and the VLP16
+* Added more missing run dependencies.
+* Added missing exec dependency.
+* Switched to www.ros.org for consistency with ros wiki tutorial and publicly available URDFs.
+* Merge branch 'kinetic-devel' of https://github.com/tu-darmstadt-ros-pkg/hector_models into melodic-devel
+* moved t265
+* Merge branch 'kinetic-devel' into realsense_t265
+* added collision geom to lidar for manipulation
+* added raycast geom
+* added sensor head collision geometry
+* added an URDF for the new XM430 based sensor head
+* fixed lidar position
+  realsense origin is now in mounting hole
+* corrected sizes of autonomy box
+* added front/back realsenses to autonomy box
+* corrected sizes of autonomy box
+* added front/back realsenses to autonomy box
+* removed containment filter box for jasmine arm from autonomy box macro
+* fixed insta360 and lidar mounting height
+* moved autonomy box properties outside of macro scope again
+* added parameter to add chilitags in autonomy box macro
+* updated realsense t265 macro in autonomy box
+* added realsense t265 tracking camera to autonomy box
+* Revert "Revert "switched back to new dynamixel controller (which reports positions with an offset of pi)""
+  This reverts commit c4d721c81aefe859335de7edfc01bae9bb119c27.
+* Revert "switched back to new dynamixel controller (which reports positions with an offset of pi)"
+  This reverts commit a9de57af00b22a533b5f1e452efc315a02ba4ca0.
+* switched back to new dynamixel controller (which reports positions with an offset of pi)
+* Tune mass properties of light links
+* Reduce mass of headlight elements
+* Modify headlight defaults
+* Remove obsolete, commented out code
+* Fix autonomy box material color
+* Add missing chilitag include (should be removed completely in the future)
+  Add imu_link as a param with default
+* Fix headlight geom properly. Uses SDF, not URDF syntax
+* Fix wrong box geom tag
+* Update headlight to remove visuals via plugins available in subt
+* Add headlight macro adapted from subt x1 model
+* insta 3 exstrinsic calibration
+* fixed chilitag position
+* rotate the spinning lidar 180° to be compatible to the legacy dynamixel driver
+* updated chilitag
+* Revert "add sensor head pitch offset"
+  This reverts commit 2d99e688ef22209f663ede4f6cfb81a7fc9529b3.
+* add sensor head pitch offset
+* Increase raycast geometry
+* Update kalibr target
+  Fix theta mid link to use name param
+* moved chilitag
+* added thickness of tags
+* significatly increased collision model size of insta360
+* added collision for insta360 cable
+* Add kalibr calibration target
+* fixed chilitag rotation
+* added chilitag to autonomy box
+* adjusted autonomy box sizes
+* added collision model to camera360 macro
+  added collision model to camera360 mount on autonomy box
+* rotated lidar
+* added autonomy box macro
+* removed unused parts
+* Add missing xacro include
+* Contributors: Hectorvision, Marius Schnaubelt, Martin Oehler, Stefan Fabian, Stefan Kohlbrecher, Stefan Kohlbrecher (Tracker)
+
 0.5.0 (2018-06-29)
 ------------------
 * Update raycast self filter config for head

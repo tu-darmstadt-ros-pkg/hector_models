@@ -2,6 +2,76 @@
 Changelog for package hector_sensors_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'kinetic-devel' of https://github.com/tu-darmstadt-ros-pkg/hector_models into melodic-devel
+* Added missing xacro include to vlp16 macro
+* Added missing xacro include to vlp16 macro
+* Matching vive tracker color to gazebo color
+* Replaced vive tracker collision with bounding box and added color
+* Changed tracker simulation topic and color
+* added 3d model
+* added gazebo params
+* added new urdf
+* Merge pull request `#8 <https://github.com/tu-darmstadt-ros-pkg/hector_models/issues/8>`_ from TheMangalex/kinetic-devel
+  Vive Tracker Urdf
+* added 3d model
+* added gazebo params
+* added new urdf
+* Set gazebo cam distortion params too
+* Added parametrized camera macro
+* zoom cam mesh
+* flir housing mesh
+* tis zoom cam
+* unified the GPU and non-GPU VLP16 xacro macro
+* updated the URDF of the autonomy box and the VLP16
+* cleanup
+* added the flir boson 640 thermal cam
+* Added more missing run dependencies.
+* Fixed dependencies and install rules.
+* Switched to www.ros.org for consistency with ros wiki tutorial and publicly available URDFs.
+* Merge branch 'kinetic-devel' of https://github.com/tu-darmstadt-ros-pkg/hector_models into melodic-devel
+* use a prettier D435 model
+* fixed insta360 cam size
+* added high res visuals for vlp16
+* added macro for realsense with mount
+* added a seek thermal macro without geometry
+* fixed missing arg tag
+* added second tracking frame with the convention of the datasheet
+* renamed camera link to camera pose frame to match rs driver names
+* Revert "added t265 pose frame". Pose frame is published by driver in tf.
+  This reverts commit e11f9f1f9932411b386e5cf1d749a6e92a17d46c.
+* added t265 pose frame
+* Merge branch 'kinetic-devel' into realsense_t265
+* removed collision size prop
+* added raycast geom
+* added sensor head collision geometry
+* added an URDF for the new XM430 based sensor head
+* Merge branch 'kinetic-devel' into autonomy_box_cage_realsenses
+* added new d435 macro with origin in mounting hole
+* Merge branch 'kinetic-devel' into autonomy_box_cage_realsenses
+* more refactoring and added option to use realsense d435 mesh
+* added static publisher launch for d435 frames
+* fixed visual and collision of d435
+* d435 macro refactoring
+* renamed realsense t265 macros
+* added realsense t265 description
+* fixed default topic
+* Comment out custom lens due to gazebo segfaults on some machines
+* Update camera360 to params we could calibrate with kalibr
+* Update kalibr target
+  Fix theta mid link to use name param
+* fixed cam frame orientation
+* Make resolution params and set defaults for thermal cam
+* fixed default collision radius
+* moved chilitag
+* added collision for insta360 cable
+* added collision model to camera360 macro
+  added collision model to camera360 mount on autonomy box
+* fix D435 macro
+* added parameter for dist between cams to camera360 macro
+* Contributors: Alberto Romay, Frederik, Frederik Bark, Marius Schnaubelt, Martin Oehler, Stefan Fabian, Stefan Kohlbrecher
+
 0.5.0 (2018-06-29)
 ------------------
 * added calibration parameter
