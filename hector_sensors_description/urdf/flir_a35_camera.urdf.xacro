@@ -3,6 +3,8 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find hector_xacro_tools)/urdf/sensor_macros.urdf.xacro" />
   
+  <!--Dimensions taken from http://www.flir.com/automation/display/?id=56341-->
+
   <xacro:macro name="flir_a35_camera_model" params="name parent *origin">
     <joint name="${name}_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -13,20 +15,19 @@
     <link name="${name}_frame">
       <xacro:inertial_sphere mass="0.01" diameter="0.07" />
       <visual>
-        <origin xyz="${0.106*-0.5} 0 0" rpy="0 0 0" />
+        <origin xyz="${0.072*-0.5 - 0.0184} 0 0" rpy="0 0 0" />
         <geometry>
-          <!--Dimensions taken from http://www.flir.com/automation/display/?id=56341-->
-          <box size="0.106 0.04 0.043" />        
+          <!-- Rear cap: 13.7mm, front cap: 18.4, body length: 72mm, body width: 40mm, body height: 43mm -->
+          <mesh filename="package://hector_sensors_description/meshes/flir_a35_camera/flir_a35_housing.stl" scale="1.0 1.0 1.0"/>
         </geometry>
         <material name="DarkGrey">
           <color rgba="0.3 0.3 0.3 1"/>
         </material>  
       </visual>
       <collision>
-        <origin xyz="${0.106*-0.5} 0 0" rpy="0 0 0" />
+        <origin xyz="${0.1041*-0.5} 0 0" rpy="0 0 0" />
         <geometry>
-          <!--Dimensions taken from http://www.flir.com/automation/display/?id=56341-->
-          <box size="0.106 0.04 0.043" />        
+          <box size="0.1041 0.04 0.043" />
         </geometry>
       </collision>
     </link>

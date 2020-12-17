@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="parametrized_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov cx cy k1 k2 k3 t1 t2">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+    
+    <link name="${name}_link">
+<!--      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+        <material name="Blue">
+          <color rgba="0.0 0.0 0.8 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+      </collision>-->
+    </link>
+    
+    <joint name="${name}_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+      <parent link="${name}_link" />
+      <child link="${name}_optical_frame"/>
+    </joint>
+  
+    <link name="${name}_optical_frame"/>
+    
+    <gazebo reference="${name}_link">
+      <sensor type="camera" name="${name}_camera_sensor">
+        <update_rate>${update_rate}</update_rate>
+        <camera>
+          <horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>
+          <image>
+            <format>${image_format}</format>
+            <width>${res_x}</width>
+            <height>${res_y}</height>
+          </image>
+          <clip>
+            <near>0.01</near>
+            <far>100</far>
+          </clip>
+          <distortion>
+            <k1>${k1}</k1>
+            <k2>${k2}</k2>
+            <p1>${t1}</p1>
+            <p2>${t2}</p2>
+            <k3>${k3}</k3>
+            <center>0.5 0.5</center>
+          </distortion>
+        </camera>
+
+        <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
+          <cameraName>${name}</cameraName>
+          <imageTopicName>${ros_topic}</imageTopicName>
+          <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
+          <frameName>${name}_optical_frame</frameName>
+          <Cx>${cx}</Cx>
+          <Cy>${cy}</Cy>
+          <distortionK1>${k1}</distortionK1>
+          <distortionK2>${k2}</distortionK2>
+          <distortionK3>${k3}</distortionK3>
+          <distortionT1>${t1}</distortionT1>
+          <distortionT2>${t2}</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+</robot>
+
