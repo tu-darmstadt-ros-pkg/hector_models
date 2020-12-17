@@ -2,8 +2,8 @@
 Changelog for package hector_xacro_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.5.1 (2020-12-17)
+------------------
 * Added velociy transmission
 * position interface macro
 * Switched to www.ros.org for consistency with ros wiki tutorial and publicly available URDFs.

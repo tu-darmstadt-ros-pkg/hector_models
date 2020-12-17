@@ -2,8 +2,8 @@
 Changelog for package hector_components_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.5.1 (2020-12-17)
+------------------
 * added an option to use a gpu accelerated lidar simulation
 * Added tracker to vision box
 * reduced collision size factor

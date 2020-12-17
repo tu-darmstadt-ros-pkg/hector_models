@@ -2,8 +2,8 @@
 Changelog for package hector_sensors_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.5.1 (2020-12-17)
+------------------
 * Merge branch 'kinetic-devel' of https://github.com/tu-darmstadt-ros-pkg/hector_models into melodic-devel
 * Added missing xacro include to vlp16 macro
 * Added missing xacro include to vlp16 macro
