@@ -2,6 +2,11 @@
 Changelog for package hector_xacro_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Updated package format version, maintainer and CMakeLists.txt to conform to CMP0048.
+* Contributors: Stefan Fabian
+
 0.5.1 (2020-12-17)
 ------------------
 * Added velociy transmission

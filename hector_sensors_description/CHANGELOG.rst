@@ -2,6 +2,11 @@
 Changelog for package hector_sensors_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Updated package format version, maintainer and CMakeLists.txt to conform to CMP0048.
+* Contributors: Stefan Fabian
+
 0.5.1 (2020-12-17)
 ------------------
 * Merge branch 'kinetic-devel' of https://github.com/tu-darmstadt-ros-pkg/hector_models into melodic-devel

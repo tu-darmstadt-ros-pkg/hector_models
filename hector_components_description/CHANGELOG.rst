@@ -2,6 +2,11 @@
 Changelog for package hector_components_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Updated package format version, maintainer and CMakeLists.txt to conform to CMP0048.
+* Contributors: Stefan Fabian
+
 0.5.1 (2020-12-17)
 ------------------
 * added an option to use a gpu accelerated lidar simulation
