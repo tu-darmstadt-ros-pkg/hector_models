@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>hector_components_description</name>
-  <version>0.5.1</version>
+  <version>0.5.2</version>
   <description>hector_components_description contains URDF xacro macros for robot components, so they are easily attachable to robot models.</description>
   <maintainer email="fabian@sim.tu-darmstadt.de">Stefan Fabian</maintainer>
 

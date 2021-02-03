@@ -2,8 +2,8 @@
 Changelog for package hector_sensors_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.5.2 (2021-02-03)
+------------------
 * Updated package format version, maintainer and CMakeLists.txt to conform to CMP0048.
 * Contributors: Stefan Fabian
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>hector_xacro_tools</name>
-  <version>0.5.1</version>
+  <version>0.5.2</version>
   <description>hector_xacro_tools</description>
   <maintainer email="fabian@sim.tu-darmstadt.de">Stefan Fabian</maintainer>
 
