@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(hector_xacro_tools)
+cmake_minimum_required(VERSION 3.5)
+project(hector_xacro_tools VERSION 0.5.1)
 
 find_package(catkin REQUIRED)
 

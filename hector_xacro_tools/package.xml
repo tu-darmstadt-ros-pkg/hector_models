@@ -1,8 +1,9 @@
-<package>
+<?xml version="1.0"?>
+<package format="2">
   <name>hector_xacro_tools</name>
   <version>0.5.1</version>
   <description>hector_xacro_tools</description>
-  <maintainer email="johannes@intermodalics.eu">Johannes Meyer</maintainer>
+  <maintainer email="fabian@sim.tu-darmstadt.de">Stefan Fabian</maintainer>
 
   <license>BSD</license>
 
@@ -17,7 +18,7 @@
   <!-- Dependencies needed to compile this package. -->
 
   <!-- Dependencies needed after this package is compiled. -->
-  <run_depend>xacro</run_depend>
+  <exec_depend>xacro</exec_depend>
 
   <!-- Dependencies needed only for running tests. -->
 

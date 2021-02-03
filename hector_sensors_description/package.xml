@@ -1,8 +1,9 @@
-<package>
+<?xml version="1.0"?>
+<package format="2">
   <name>hector_sensors_description</name>
   <version>0.5.1</version>
   <description>hector_sensors_description contains URDF xacro macros for sensors, so they are easily attachable to robot models and usable in gazebo.</description>
-  <maintainer email="johannes@intermodalics.eu">Johannes Meyer</maintainer>
+  <maintainer email="fabian@sim.tu-darmstadt.de">Stefan Fabian</maintainer>
 
   <license>BSD</license>
 
@@ -17,11 +18,11 @@
   <!-- Dependencies needed to compile this package. -->
 
   <!-- Dependencies needed after this package is compiled. -->
-  <run_depend>hector_gazebo_thermal_camera</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>tf2_ros</run_depend>
-  <run_depend>velodyne_gazebo_plugins</run_depend>
-  <run_depend>xacro</run_depend>
+  <exec_depend>hector_gazebo_thermal_camera</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>velodyne_gazebo_plugins</exec_depend>
+  <exec_depend>xacro</exec_depend>
 
   <!-- Dependencies needed only for running tests. -->
 
