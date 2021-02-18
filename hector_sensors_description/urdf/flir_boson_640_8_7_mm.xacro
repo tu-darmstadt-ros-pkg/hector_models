@@ -35,6 +35,25 @@
             <color rgba="0.3 0.3 0.3 1" />
             </material>
         </visual>
+
+        <collision>
+            <origin xyz="0 0.0 0.0" rpy="0 ${M_PI/2} 0" />
+            <geometry>
+            <cylinder length="0.029" radius="0.016" />
+            </geometry>
+            <material name="DarkGrey">
+            <color rgba="0.3 0.3 0.3 1" />
+            </material>
+        </collision>
+        <collision>
+            <origin xyz="-0.02875 -0.004 0.0" rpy="0 0 0" />
+            <geometry>
+            <box size="0.0285 0.0345 0.029 " />
+            </geometry>
+            <material name="DarkGrey">
+            <color rgba="0.3 0.3 0.3 1" />
+            </material>
+        </collision>
       </xacro:if>
 
     </link>
