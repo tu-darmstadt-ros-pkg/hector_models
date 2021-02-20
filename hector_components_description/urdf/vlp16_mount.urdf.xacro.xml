@@ -37,6 +37,28 @@
             <color rgba="0.5 0.5 0.5 1"/>
           </material>
         </visual>
+
+        <collision>
+          <origin rpy="0 0 0" xyz="0 0 -0.085"/>
+          <geometry>
+          <box size="0.1 0.075 0.06"/>
+          </geometry>
+        </collision>
+
+        <collision>
+          <origin rpy="${pi/4} 0 0" xyz="0 0.025 -0.035"/>
+          <geometry>
+          <box size="0.105 0.12 0.02"/>
+          </geometry>
+        </collision>
+
+        <collision>
+          <origin rpy="${pi/3} 0 0" xyz="0 0.035 -0.055"/>
+          <geometry>
+          <box size="0.09 0.12 0.03"/>
+          </geometry>
+        </collision>
+
       </xacro:if>
 
       <xacro:inertial_sphere_with_pose mass="0.1" diameter="0.03">
