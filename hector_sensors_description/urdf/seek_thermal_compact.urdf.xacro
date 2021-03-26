@@ -63,7 +63,7 @@
     <xacro:add_optical_frame name="${name}" />
     
     <gazebo reference="${name}_frame">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/DarkGrey</material>
     </gazebo>
     
   </xacro:macro>
