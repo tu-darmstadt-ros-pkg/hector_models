@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
+
+  <xacro:macro name="os0_128_model" params="name parent *origin">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${name}_frame"/>
+    </joint>
+
+    <link name="${name}_frame">
+      <xacro:inertial_sphere mass="0.992" diameter="0.08082"/>
+
+      <visual>
+        <origin xyz="0 0 -0.000825" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.04041" length="0.0735"/>
+        </geometry>
+      </visual>
+
+      <visual>
+        <origin xyz="0 0 -0.047825" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.11 0.11 0.0205"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 -0.000825" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.04041" length="0.0735"/>
+        </geometry>
+      </collision>
+
+      <collision>
+        <origin xyz="0 0 -0.047825" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.11 0.11 0.0205"/>
+        </geometry>
+      </collision>
+
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="os0_128" params="name parent *origin ros_topic">
+    <xacro:os0_128_advanced_parameters name="${name}" parent="${parent}" ros_topic="${ros_topic}" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.45" max_range="100">
+      <xacro:insert_block name="origin"/>
+    </xacro:os0_128_advanced_parameters>
+  </xacro:macro>
+
+  <xacro:macro name="os0_128_advanced_parameters" params="name parent *origin ros_topic update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false'">
+
+    <xacro:os0_128_model name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:os0_128_model>
+
+    <gazebo reference="${name}_frame">
+
+      <xacro:if value="${use_gpu}">
+        <xacro:property name="sensor_type" value="gpu_ray"/>
+        <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_gpu_laser.so"/>
+      </xacro:if >
+
+      <xacro:unless value="${use_gpu}">
+        <xacro:property name="sensor_type" value="ray"/>
+        <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_laser.so"/>
+      </xacro:unless>
+
+      <sensor type="${sensor_type}" name="${name}-OS0-128">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>${update_rate}</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${horizontal_samples}</samples>
+              <resolution>1</resolution>
+              <min_angle>-${pi}</min_angle>
+              <max_angle>${pi}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>${vertical_samples}</samples>
+              <resolution>1</resolution>
+              <min_angle>-${45.0*pi/180.0}</min_angle>
+              <max_angle>${45.0*pi/180.0}</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${min_range}</min>
+            <max>${max_range}</max>
+            <resolution>0.003</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.0</stddev>
+          </noise>
+        </ray>
+
+        <plugin name="gazebo_ros_laser_controller" filename="${gazebo_plugin_name}">
+          <topicName>${ros_topic}</topicName>
+          <frameName>${name}_frame</frameName>
+          <min_range>${min_range}</min_range>
+          <max_range>${max_range}</max_range>
+          <gaussianNoise>0.008</gaussianNoise>
+        </plugin>
+
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>
