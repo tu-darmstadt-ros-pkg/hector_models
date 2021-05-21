@@ -45,12 +45,12 @@
   </xacro:macro>
 
   <xacro:macro name="os0_128" params="name parent *origin ros_topic">
-    <xacro:os0_128_advanced_parameters name="${name}" parent="${parent}" ros_topic="${ros_topic}" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.45" max_range="100">
+    <xacro:os0_128_advanced_parameters name="${name}" parent="${parent}" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.45" max_range="100">
       <xacro:insert_block name="origin"/>
     </xacro:os0_128_advanced_parameters>
   </xacro:macro>
 
-  <xacro:macro name="os0_128_advanced_parameters" params="name parent *origin ros_topic update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false'">
+  <xacro:macro name="os0_128_advanced_parameters" params="name parent *origin update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false'">
 
     <xacro:os0_128_model name="${name}" parent="${parent}">
       <xacro:insert_block name="origin"/>
@@ -100,7 +100,7 @@
         </ray>
 
         <plugin name="gazebo_ros_laser_controller" filename="${gazebo_plugin_name}">
-          <topicName>${ros_topic}</topicName>
+          <topicName>${name}/points</topicName>
           <frameName>${name}_frame</frameName>
           <min_range>${min_range}</min_range>
           <max_range>${max_range}</max_range>
