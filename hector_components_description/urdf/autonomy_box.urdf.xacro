@@ -234,6 +234,16 @@
     <link name="${imu_link}">     
     </link>
     
+    <!-- Mocap -->
+    <joint name="mocap_joint" type="fixed">
+      <origin xyz="0.07 0.1 0.107" rpy="3.1416 0 -1.5708"/>
+      <parent link="${name}_link" />
+      <child link="mocap_link"/>      
+    </joint>
+    
+    <link name="mocap_link">     
+    </link>
+    
     <!-- Spinning VLP16 -->
     <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001" use_gpu_lidar="${use_gpu_lidar}">
       <origin xyz="0 0 0.33865" rpy="0.0 0.0 0.0"/>
