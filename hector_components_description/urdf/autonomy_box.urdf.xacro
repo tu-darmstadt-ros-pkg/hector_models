@@ -226,7 +226,7 @@
     
     <!-- IMU -->
     <joint name="imu_link_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0.05 0.12" rpy="0 0 0"/>
       <parent link="${name}_link" />
       <child link="${imu_link}"/>      
     </joint>
