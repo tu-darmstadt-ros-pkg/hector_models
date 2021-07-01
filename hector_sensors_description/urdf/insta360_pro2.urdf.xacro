@@ -9,7 +9,7 @@
     <color rgba="0.5 0.5 0.5 1" />
   </material>
 
-  <xacro:macro name="insta360_pro2" params="name parent *origin *calibration ros_topic update_rate res_x res_y image_format fov">
+  <xacro:macro name="insta360_pro2" params="name parent *origin ros_topic update_rate res_x res_y image_format fov">
 
     <joint name="${name}_center_joint" type="fixed">
       <xacro:insert_block name="origin" />
