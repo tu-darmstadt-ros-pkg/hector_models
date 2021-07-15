@@ -167,6 +167,11 @@ frame/topic names. Simulates both pointcloud and IMU data
       </sensor>
     </gazebo>
     
+    <gazebo reference="os_imu_joint">
+      <disableFixedJointLumping>true</disableFixedJointLumping> 
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+    
     <gazebo>
       <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
         <alwaysOn>true</alwaysOn>
