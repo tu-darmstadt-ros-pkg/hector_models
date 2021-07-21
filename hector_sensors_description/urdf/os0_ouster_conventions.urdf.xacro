@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+
+<!--
+Provides a OS0 model that follows ouster conventions wrt
+frame/topic names. Simulates both pointcloud and IMU data
+-->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
+
+  <xacro:macro name="os0_generic_model" params="name parent *origin">
+    <xacro:property name="os0_cylinder_height" value="0.0735" />  
+    <xacro:property name="os0_plate_height" value="0.0205" />  
+      
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="os_sensor"/>
+    </joint>
+
+    <link name="os_sensor">
+      <xacro:inertial_sphere mass="0.892" diameter="0.08082"/>
+
+      <visual>
+        <origin xyz="0 0 ${os0_cylinder_height*0.5}" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.04041" length="${os0_cylinder_height}"/>
+        </geometry>
+      </visual>
+
+      <visual>
+        <origin xyz="0 0 ${-os0_plate_height*0.5}" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.11 0.11 ${os0_plate_height}"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 ${os0_cylinder_height*0.5}" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.04041" length="${os0_cylinder_height}"/>
+        </geometry>
+      </collision>
+
+      <collision>
+        <origin xyz="0 0 ${-os0_plate_height*0.5}" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.11 0.11 ${os0_plate_height}"/>
+        </geometry>
+      </collision>
+
+    </link>
+    
+    <link name="os_imu">
+      <xacro:inertial_sphere mass="0.05" diameter="0.08082"/>
+      
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>      
+    </link>
+    
+    <link name="os_lidar">
+      <xacro:inertial_sphere mass="0.05" diameter="0.08082"/>
+      
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>      
+    </link>
+    
+    <joint name="os_imu_joint" type="fixed">
+      <origin xyz="0.006253 -0.011775 0.007645" rpy="0 0 0"/>
+      <parent link="os_sensor"/>
+      <child link="os_imu"/>
+    </joint>
+    
+    <joint name="os_lidar_joint" type="fixed">
+      <origin xyz="0 0 0.03618" rpy="0 0 ${M_PI}"/>
+      <parent link="os_sensor"/>
+      <child link="os_lidar"/>
+    </joint>    
+    
+  </xacro:macro>
+
+  <xacro:macro name="os0_generic" params="name parent *origin">
+    <xacro:os0_generic_advanced_parameters name="${name}" parent="${parent}" update_rate="10" horizontal_samples="512" vertical_samples="32" min_range="0.45" max_range="100">
+      <xacro:insert_block name="origin"/>
+    </xacro:os0_generic_advanced_parameters>
+  </xacro:macro>
+
+  <xacro:macro name="os0_generic_advanced_parameters" params="name parent *origin update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false'">
+
+    <xacro:os0_generic_model name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:os0_generic_model>
+
+    <gazebo reference="os_lidar">
+
+      <xacro:if value="${use_gpu}">
+        <xacro:property name="sensor_type" value="gpu_ray"/>
+        <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_gpu_laser.so"/>
+      </xacro:if >
+
+      <xacro:unless value="${use_gpu}">
+        <xacro:property name="sensor_type" value="ray"/>
+        <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_laser.so"/>
+      </xacro:unless>
+
+      <sensor type="${sensor_type}" name="${name}-OS0-generic">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>${update_rate}</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${horizontal_samples}</samples>
+              <resolution>1</resolution>
+              <min_angle>-${pi}</min_angle>
+              <max_angle>${pi}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>${vertical_samples}</samples>
+              <resolution>1</resolution>
+              <min_angle>-${45.0*pi/180.0}</min_angle>
+              <max_angle>${45.0*pi/180.0}</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${min_range}</min>
+            <max>${max_range}</max>
+            <resolution>0.003</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.0</stddev>
+          </noise>
+        </ray>
+
+        <plugin name="gazebo_ros_laser_controller" filename="${gazebo_plugin_name}">
+          <topicName>/os_cloud_node/points</topicName>
+          <frameName>os_lidar</frameName>
+          <min_range>${min_range}</min_range>
+          <max_range>${max_range}</max_range>
+          <gaussianNoise>0.008</gaussianNoise>
+        </plugin>
+
+      </sensor>
+    </gazebo>
+    
+    <gazebo reference="os_imu_joint">
+      <disableFixedJointLumping>true</disableFixedJointLumping> 
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+    
+    <gazebo>
+      <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>100.0</updateRate>
+        <bodyName>os_imu</bodyName>
+        <topicName>/os_cloud_node/imu</topicName>
+        <accelDrift>0.0 0.0 0.0</accelDrift>
+        <accelGaussianNoise>0.1 0.1 0.1</accelGaussianNoise>
+        <rateDrift>0.0 0.0 0.0</rateDrift>
+        <rateGaussianNoise>0.05 0.05 0.05</rateGaussianNoise>
+        <yawDrift>0.0</yawDrift>
+        <yawGaussianNoise>0.05</yawGaussianNoise>
+      </plugin>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>
