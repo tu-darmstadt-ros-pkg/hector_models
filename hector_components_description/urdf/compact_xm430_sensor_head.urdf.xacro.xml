@@ -23,11 +23,13 @@
         <geometry>
           <mesh filename="package://hector_components_description/meshes/compact_xm430_sensor_head/sensor_head_link_0.stl" scale="0.001 0.001 0.001" />
         </geometry>
-        <material name="DarkGrey" />
+        <material name="DarkGrey">
+          <color rgba="0.3 0.3 0.3 1" />
+        </material>      
       </visual>
       
       <collision>
-        <origin xyz="0.0 -0.01 0.017" rpy="0 0 0" />
+        <origin xyz="0.0 -0.0225 0.017" rpy="0 0 0" />
         <geometry>
           <box size="0.0285 0.07 0.034" />
         </geometry>
@@ -63,9 +65,9 @@
       </visual>
       
       <collision>
-        <origin xyz="0.0 0.0 0.0625" rpy="0 0 0" />
+        <origin xyz="0.0125 0.0 0.052" rpy="0 0 0" />
         <geometry>
-          <box size="0.0285 0.034 0.055" />
+          <box size="0.05 0.045 0.036" />
         </geometry>
       </collision>
       
@@ -126,9 +128,9 @@
         </geometry>
       </collision>
       <collision>
-        <origin xyz="-0.01 -0.055 0.0" rpy="0 0 0" />
+        <origin xyz="-0.0 -0.03 0.004" rpy="0 0 0" />
         <geometry>
-          <box size="0.02 0.07 0.04" />
+          <box size="0.02 0.05 0.1" />
         </geometry>
       </collision>
 
