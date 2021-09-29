@@ -86,7 +86,7 @@
       <parent link="${name}_yaw_link" />
       <child link="${name}_pitch_link" />
       <axis xyz="0 0 1" />
-      <limit lower="${-M_PI/2}" upper="${M_PI/2}" effort="4" velocity="4.81710873" />
+      <limit lower="-1.274" upper="$0.733" effort="4" velocity="4.81710873" />
     </joint>
     
     <link name="${name}_pitch_link">
