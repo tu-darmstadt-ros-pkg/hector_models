@@ -85,7 +85,7 @@
       <origin xyz="0.024 0.0 0.05525" rpy="${-M_PI/2} 0 0" />
       <parent link="${name}_yaw_link" />
       <child link="${name}_pitch_link" />
-      <axis xyz="0 0 1" />
+      <axis xyz="0 0 -1" />
       <limit lower="-1.274" upper="0.733" effort="4" velocity="4.81710873" />
     </joint>
     
