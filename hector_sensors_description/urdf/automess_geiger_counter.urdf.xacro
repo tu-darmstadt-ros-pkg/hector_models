@@ -13,10 +13,10 @@
     <joint name="${name}_joint" type="fixed">
       <xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
-      <child link="${name}_frame"/>
+      <child link="${name}_link"/>
     </joint>
 
-    <link name="${name}_frame">
+    <link name="${name}_link">
       <visual>
         <xacro:insert_block name="automess_geometry"/>
         <material name="DarkGrey">
