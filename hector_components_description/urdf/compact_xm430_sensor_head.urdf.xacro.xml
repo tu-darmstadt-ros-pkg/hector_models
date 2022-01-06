@@ -7,8 +7,6 @@
   <xacro:include filename="$(find hector_sensors_description)/urdf/seek_thermal_compact.urdf.xacro" />
   
   <xacro:macro name="compact_xm430_sensor_head_macro" params="parent *origin name">
-    <xacro:arg name="add_raycast_self_filter_geom" default="false" />
-    
     <joint name="${name}_mount_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}" />
@@ -34,15 +32,6 @@
           <box size="0.0285 0.07 0.034" />
         </geometry>
       </collision>
-      
-      <xacro:if value="$(arg add_raycast_self_filter_geom)">
-        <collision>
-          <origin xyz="0.0 -0.01 0.017" rpy="${M_PI*0.5} 0 0" />
-          <geometry>
-            <cylinder length="0.07" radius="0.022"/>
-          </geometry>
-        </collision>
-      </xacro:if>
     </link>
     
     <joint name="${name}_yaw_joint" type="revolute">
@@ -70,15 +59,6 @@
           <box size="0.05 0.045 0.036" />
         </geometry>
       </collision>
-      
-      <xacro:if value="$(arg add_raycast_self_filter_geom)">
-        <collision>
-          <origin xyz="0.0 0.0 0.0625" rpy="0 0 0" />
-          <geometry>
-            <cylinder length="0.055" radius="0.022"/>
-          </geometry>
-        </collision>
-      </xacro:if>
     </link>
     
     <joint name="${name}_pitch_joint" type="revolute">
@@ -133,16 +113,6 @@
           <box size="0.02 0.05 0.1" />
         </geometry>
       </collision>
-
-      
-      <xacro:if value="$(arg add_raycast_self_filter_geom)">
-        <collision>
-          <origin xyz="0.0 -0.0075 0.0" rpy="0 0 0" />
-          <geometry>
-            <cylinder length="0.045" radius="0.022"/>
-          </geometry>
-        </collision>
-      </xacro:if>
     </link>
 
     <gazebo reference="${name}_yaw_link">
