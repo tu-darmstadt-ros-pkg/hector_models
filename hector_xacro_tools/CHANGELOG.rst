@@ -2,6 +2,25 @@
 Changelog for package hector_xacro_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.2 (2021-02-03)
+------------------
+* Updated package format version, maintainer and CMakeLists.txt to conform to CMP0048.
+* Contributors: Stefan Fabian
+
+0.5.1 (2020-12-17)
+------------------
+* Added velociy transmission
+* position interface macro
+* Switched to www.ros.org for consistency with ros wiki tutorial and publicly available URDFs.
+* Merge pull request `#6 <https://github.com/tu-darmstadt-ros-pkg/hector_models/issues/6>`_ from mipo57/patch-1
+  Fix inconsistent namespace warning
+* Fix inconsistent namespace warning
+  inconsistent namespace redefinitions for xmlns:xacro:
+  old: http://www.ros.org/wiki/xacro
+  new: http://ros.org/wiki/xacro
+  Most of files define url with perciding www. Lack of it results in warning
+* Contributors: Martin Oehler, Michał Pogoda, Stefan Fabian
+
 0.5.0 (2018-06-29)
 ------------------
 * Merge branch 'update_transmissions' into kinetic-devel

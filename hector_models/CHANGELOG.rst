@@ -2,6 +2,15 @@
 Changelog for package hector_models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.2 (2021-02-03)
+------------------
+* Apparently metapackages can't have a version set.
+* Updated package format version, maintainer and CMakeLists.txt to conform to CMP0048.
+* Contributors: Stefan Fabian
+
+0.5.1 (2020-12-17)
+------------------
+
 0.5.0 (2018-06-29)
 ------------------
 

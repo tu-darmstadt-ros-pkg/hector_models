@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <xacro:property name="camera_frame_center_distance" value="0.06" />
+
+  <material name="Grey">
+    <color rgba="0.5 0.5 0.5 1" />
+  </material>
+
+  <xacro:macro name="insta360_pro2" params="name parent *origin ros_topic update_rate res_x res_y image_format fov">
+
+    <joint name="${name}_center_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${name}_center_link" />
+    </joint>
+
+    <link name="${name}_center_link">
+      <!-- Sphere body -->
+      <visual>
+        <geometry>
+          <mesh filename="package://hector_sensors_description/meshes/insta360_pro2/insta_pro2.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <sphere radius="0.075" />
+        </geometry>
+        <material name="Grey" />
+      </collision>
+
+      <collision>
+        <origin xyz="0 0 -0.0875" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="0.05" radius="0.04" />
+        </geometry>
+      </collision>
+
+    </link>
+
+    <xacro:insta360_pro2_camera parent="${name}_center_link" camera_number="1" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <origin xyz="${camera_frame_center_distance} 0 0" rpy="${-pi/2} 0 ${-pi/2}" /> <!-- extrinsic calibration -->
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin1_optical_frame" camera_number="2" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <origin xyz="${camera_frame_center_distance * cos(radians(210))} 0 ${-camera_frame_center_distance * sin(radians(210))-camera_frame_center_distance} " rpy="0 ${radians(-60)} 0" /> <!-- extrinsic calibration -->
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin1_optical_frame" camera_number="3" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <origin xyz="${camera_frame_center_distance * cos(radians(150))} 0 ${-camera_frame_center_distance * sin(radians(150))-camera_frame_center_distance} " rpy="0 ${radians(-120)} 0" /> <!-- extrinsic calibration -->
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin1_optical_frame" camera_number="4" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <origin xyz="${camera_frame_center_distance * cos(radians(90))} 0 ${-camera_frame_center_distance * sin(radians(90))-camera_frame_center_distance} " rpy="0 ${radians(-180)} 0" /> <!-- extrinsic calibration -->
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin1_optical_frame" camera_number="5" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <origin xyz="${camera_frame_center_distance * cos(radians(30))} 0 ${-camera_frame_center_distance * sin(radians(30))-camera_frame_center_distance} " rpy="0 ${radians(-240)} 0" /> <!-- extrinsic calibration -->
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin1_optical_frame" camera_number="6" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <origin xyz="${camera_frame_center_distance * cos(radians(-30))} 0 ${-camera_frame_center_distance * sin(radians(-30))-camera_frame_center_distance} " rpy="0 ${radians(-300)} 0" /> <!-- extrinsic calibration -->
+    </xacro:insta360_pro2_camera>
+
+  </xacro:macro>
+  
+  <xacro:macro name="insta360_pro2_with_calibration" params="name parent *origin *calibration1 *calibration2 *calibration3 *calibration4 *calibration5 *calibration6 ros_topic update_rate res_x res_y image_format fov">
+
+    <joint name="${name}_center_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${name}_center_link" />
+    </joint>
+
+    <link name="${name}_center_link">
+      <!-- Sphere body -->
+      <visual>
+        <geometry>
+          <mesh filename="package://hector_sensors_description/meshes/insta360_pro2/insta_pro2.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <sphere radius="0.075" />
+        </geometry>
+        <material name="Grey" />
+      </collision>
+
+      <collision>
+        <origin xyz="0 0 -0.0875" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="0.05" radius="0.04" />
+        </geometry>
+      </collision>
+
+    </link>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin2_optical_frame" camera_number="1" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <xacro:insert_block name="calibration1" />
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin3_optical_frame" camera_number="2" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <xacro:insert_block name="calibration2" />
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin4_optical_frame" camera_number="3" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <xacro:insert_block name="calibration3" />
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin5_optical_frame" camera_number="4" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <xacro:insert_block name="calibration4" />
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_origin6_optical_frame" camera_number="5" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <xacro:insert_block name="calibration5" />
+    </xacro:insta360_pro2_camera>
+
+    <xacro:insta360_pro2_camera parent="${name}_center_link" camera_number="6" ros_topic="${ros_topic}" update_rate="${update_rate}" res_x="${res_x}" res_y="${res_y}" image_format="${image_format}" fov="${fov}">
+      <xacro:insert_block name="calibration6" />
+    </xacro:insta360_pro2_camera>
+
+  </xacro:macro>
+
+  <xacro:macro name="insta360_pro2_camera" params="camera_number parent *calibration ros_topic update_rate res_x res_y image_format fov">
+
+    <xacro:property name="camera_name" value="${name}_origin${camera_number}" />
+
+    <joint name="${camera_name}_optical_joint" type="fixed">
+      <xacro:insert_block name="calibration" />
+      <parent link="${parent}" />
+      <child link="${camera_name}_optical_frame" />
+    </joint>
+
+    <joint name="${camera_name}_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 ${-pi/2} ${pi/2}" />
+      <parent link="${camera_name}_optical_frame" />
+      <child link="${camera_name}_link" />
+    </joint>
+
+    <link name="${camera_name}_link" />
+    <link name="${camera_name}_optical_frame" />
+
+    <gazebo reference="${camera_name}_link">
+      <sensor type="wideanglecamera" name="${camera_name}_camera_sensor">
+        <update_rate>${update_rate}</update_rate>
+        <camera>
+          <!--<horizontal_fov>${hfov * pi/180.0}</horizontal_fov>-->
+          <horizontal_fov>${fov}</horizontal_fov>
+          <image>
+            <format>${image_format}</format>
+            <width>${res_x}</width>
+            <height>${res_y}</height>
+          </image>
+          <clip>
+            <near>0.01</near>
+            <far>100</far>
+          </clip>
+          <lens>
+            <type>stereographic</type>
+            <scale_to_hfov>true</scale_to_hfov>
+            <cutoff_angle>1.5707</cutoff_angle>
+            <env_texture_size>512</env_texture_size>
+          </lens>
+        </camera>
+
+        <plugin name="${camera_name}_camera_controller" filename="libgazebo_ros_camera.so">
+          <cameraName>${name}/origin${camera_number}</cameraName>
+          <imageTopicName>${ros_topic}</imageTopicName>
+          <cameraInfoTopicName>not_used</cameraInfoTopicName>
+          <frameName>${camera_name}_optical_frame</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+</robot>

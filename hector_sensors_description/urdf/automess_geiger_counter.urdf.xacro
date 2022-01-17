@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="automess_geometry">
+    <geometry>
+      <box size="0.1385 0.0885 0.037"/>
+    </geometry>
+  </xacro:property>
+
+  <xacro:macro name="automess_geiger_counter" params="name parent *origin">
+
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+
+    <link name="${name}_link">
+      <visual>
+        <xacro:insert_block name="automess_geometry"/>
+        <material name="DarkGrey">
+          <color rgba="0.3 0.3 0.3 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <xacro:insert_block name="automess_geometry"/>
+      </collision>
+    </link>
+
+  </xacro:macro>
+</robot>

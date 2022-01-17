@@ -1,8 +1,9 @@
-<package>
+<?xml version="1.0"?>
+<package format="2">
   <name>hector_models</name>
-  <version>0.5.0</version>
+  <version>0.5.2</version>
   <description>hector_models contains (urdf) models of robots, sensors etc.</description>
-  <maintainer email="johannes@intermodalics.eu">Johannes Meyer</maintainer>
+  <maintainer email="fabian@sim.tu-darmstadt.de">Stefan Fabian</maintainer>
 
   <license>BSD</license>
 
@@ -15,8 +16,8 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <!-- Dependencies needed after this package is compiled. -->
-  <run_depend>hector_sensors_description</run_depend>
-  <run_depend>hector_xacro_tools</run_depend>
+  <exec_depend>hector_sensors_description</exec_depend>
+  <exec_depend>hector_xacro_tools</exec_depend>
 
   <export>
     <metapackage/>

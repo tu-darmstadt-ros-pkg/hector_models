@@ -1,8 +1,9 @@
-<package>
+<?xml version="1.0"?>
+<package format="2">
   <name>hector_components_description</name>
-  <version>0.5.0</version>
+  <version>0.5.2</version>
   <description>hector_components_description contains URDF xacro macros for robot components, so they are easily attachable to robot models.</description>
-  <maintainer email="kohlbrecher@sim.tu-darmstadt.de">Stefan Kohlbrecher</maintainer>
+  <maintainer email="fabian@sim.tu-darmstadt.de">Stefan Fabian</maintainer>
 
   <license>BSD</license>
 
@@ -17,9 +18,11 @@
   <!-- Dependencies needed to compile this package. -->
   
   <!-- Dependencies needed after this package is compiled. -->
-  <run_depend>xacro</run_depend>
-  <run_depend>hector_sensors_description</run_depend>
-  <run_depend>hector_xacro_tools</run_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>gazebo_ros_control_select_joints</exec_depend>
+  <exec_depend>hector_gazebo_thermal_camera</exec_depend>
+  <exec_depend>hector_sensors_description</exec_depend>
+  <exec_depend>hector_xacro_tools</exec_depend>
 
   <!-- Dependencies needed only for running tests. -->
 

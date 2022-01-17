@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="argo_tracker_structure_addons">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autonomy_box">
   
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vlp16_mount.urdf.xacro.xml"/>
-  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
-  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_t265.urdf.xacro"/>
-  
-  
+  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>  
+  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_d435_camera.urdf.xacro"/>  
+
 <!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
   <!--<xacro:property name="add_self_filter_geom" value="${arg add_self_filter_geom}"/>-->
   
@@ -23,7 +22,7 @@
   
   <xacro:property name="M_PI" value="3.14159265359"/>
   
-  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true'">
+  <xacro:macro name="autonomy_box_macro" params="parent *origin alu_profile_collision_size_factor name:='autonomy_box' imu_link='imu_link' add_chilitags:='true' add_vivetracker:='false' use_gpu_lidar:='false'">
     
     <xacro:arg name="add_containment_self_filter_geom" default="false"/>
     <xacro:arg name="add_manipulation_geom" default="false"/>
@@ -48,108 +47,14 @@
     <link name="${name}_link">
       <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
       
-      <!-- Computer box-->
       <visual>
-        <origin xyz="0 0 ${computer_box_height/2}" rpy="0 0 0"/>
+        <origin rpy="0 0 0" xyz="-0.095 -0.095 0"/>
         <geometry>
-          <box size="${computer_box_length} ${computer_box_width} ${computer_box_height}"/>
+          <mesh filename="package://hector_components_description/meshes/autonomy_box/visionbox_no_lidar.stl" scale="0.001 0.001 0.001" />
         </geometry>
         <material name="Grey">
           <color rgba="0.5 0.5 0.5 1"/>
         </material> 
-      </visual>
-
-      <!--Protection vertical profiles-->
-      <visual>
-        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>  
-      </visual>
-
-      <visual>
-        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${ (computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>  
-      </visual>
-      
-      <visual>
-        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <visual>
-        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} ${-(computer_box_width/2-alu_profile_side_length/2)} ${computer_box_height/2 + top_protection_bottom/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${top_protection_bottom-computer_box_height}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <!--Top geom-->      
-      <visual>
-        <origin xyz="0 ${ (computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <visual>
-        <origin xyz="0 ${-(computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-
-      <visual>
-        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>
-      
-      <visual>
-        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </visual>      
-      
-      <!-- 360 cam mount -->
-      <visual>
-        <origin xyz="0 0 ${0.5 * (top_protection_bottom + alu_profile_side_length + insta360_mounting_height - insta360_radius)}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${alu_profile_side_length} ${alu_profile_side_length} ${insta360_mounting_height - top_protection_bottom - alu_profile_side_length - insta360_radius}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>  
       </visual>
       
       <!-- Chilitags visual -->
@@ -321,7 +226,7 @@
     
     <!-- IMU -->
     <joint name="imu_link_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0.05 0.12" rpy="0 0 0"/>
       <parent link="${name}_link" />
       <child link="${imu_link}"/>      
     </joint>
@@ -329,9 +234,19 @@
     <link name="${imu_link}">     
     </link>
     
+    <!-- Mocap -->
+    <joint name="mocap_joint" type="fixed">
+      <origin xyz="0.07 0.1 0.107" rpy="3.1416 0 -1.5708"/>
+      <parent link="${name}_link" />
+      <child link="mocap_link"/>      
+    </joint>
+    
+    <link name="mocap_link">     
+    </link>
+    
     <!-- Spinning VLP16 -->
-    <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001">
-      <origin xyz="0 0 0.34708" rpy="0.0 0.0 0.0"/>
+    <xacro:spinning_sensor_mount_macro parent="${name}_link"  name="spin_lidar" scaling="0.001" use_gpu_lidar="${use_gpu_lidar}">
+      <origin xyz="0 0 0.33865" rpy="0.0 0.0 0.0"/>
     </xacro:spinning_sensor_mount_macro>
       
     <!-- 360 camera -->
@@ -342,28 +257,25 @@
       <origin xyz="0.002862424041614364  -0.00013127655875068252 -0.03724378451297336" rpy="-3.1402707 0.0036289 -3.1175768"/> <!-- insta #3 -->
     </xacro:camera360>
     
-    <!-- Realsense T265 Tracking camera -->
-    <xacro:realsense_t265_tracking_camera name="tracking_camera" parent="${name}_link">
-      <origin xyz="${computer_box_width/2.0 - realsense_t265_depth/2.0} ${computer_box_width/2.0 - alu_profile_side_length - realsense_t265_width/2.0} ${top_protection_bottom - realsense_t265_height/2.0}" rpy="0 0 0"/>
-    </xacro:realsense_t265_tracking_camera>
+    <!-- Realsense D455 front -->
+    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
+      <origin xyz="0.12 0.0 ${top_protection_bottom + alu_profile_side_length + 0.02}" rpy="${M_PI} ${radians(50)} 0"/>
+    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
+    
+    <!-- Realsense D455 back -->
+    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="back_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
+      <origin xyz="-0.105 0.0 ${top_protection_bottom + alu_profile_side_length + 0.025}" rpy="${M_PI} ${radians(30)} ${M_PI}"/>
+    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
+    
+    <!-- Vive Tracker -->
+    <xacro:if value="${add_vivetracker}">
+      <xacro:include filename="$(find hector_sensors_description)/urdf/vive_tracker.urdf.xacro"/>
 
-    <!-- +++++ Cage Realsenses +++++ -->
-    <xacro:property name="autonomy_box_realsense_x_offset" value="0.07187"/>
-    <xacro:property name="autonomy_box_realsense_y_offset" value="0.03"/>
-    <xacro:property name="autonomy_box_realsense_z_offset" value="0.00395"/>
-<!--     <xacro:property name="autonomy_box_realsense_z_offset" value="0.46895"/> -->
-    <xacro:property name="autonomy_box_realsense_pitch" value="${25*M_PI/180.0}"/>
-    
-    <!-- Realsense D435 front -->
-    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_points_topic="depth/color/points" min_range="0.3" max_range="9.0" update_rate="20">
-      <origin xyz="${autonomy_box_realsense_x_offset} ${-1 * autonomy_box_realsense_y_offset} ${top_protection_bottom + alu_profile_side_length + autonomy_box_realsense_z_offset}" rpy="0.0 ${autonomy_box_realsense_pitch} 0"/>
-    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
-    
-    <!-- Realsense D435 back -->
-    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="back_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_points_topic="depth/color/points" min_range="0.3" max_range="9.0" update_rate="20">
-      <origin xyz="${-1 * autonomy_box_realsense_x_offset} ${autonomy_box_realsense_y_offset} ${top_protection_bottom + alu_profile_side_length + autonomy_box_realsense_z_offset}" rpy="0.0 ${autonomy_box_realsense_pitch} ${M_PI}"/>
-    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
-    
+      <xacro:vive_tracker name="tracker" parent="${name}_link">
+        <origin xyz="-0.07 -0.06 0.464  " rpy="${pi/2} 0 ${-pi/2}"/>
+      </xacro:vive_tracker>
+    </xacro:if>
+
     <gazebo reference="${name}_link">
       <visual>
       <material>
