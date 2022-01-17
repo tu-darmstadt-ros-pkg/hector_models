@@ -48,7 +48,7 @@
     </xacro:vlp16_advanced_parameters>
   </xacro:macro>
 
-  <xacro:macro name="vlp16_advanced_parameters" params="name parent *origin ros_topic update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false'">
+  <xacro:macro name="vlp16_advanced_parameters" params="name parent *origin ros_topic update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false' organize_cloud:=false">
 
     <xacro:vlp16_model name="${name}" parent="${parent}">
       <xacro:insert_block name="origin"/>
@@ -100,6 +100,7 @@
         <plugin name="gazebo_ros_laser_controller" filename="${gazebo_plugin_name}">
           <topicName>${ros_topic}</topicName>
           <frameName>${name}_frame</frameName>
+          <organize_cloud>${organize_cloud}</organize_cloud>
           <min_range>${min_range}</min_range>
           <max_range>${max_range}</max_range>
           <gaussianNoise>0.008</gaussianNoise>
