@@ -80,7 +80,7 @@
     <gazebo>
       <!-- ros_control plugin -->
       <plugin name="gazebo_ros_control_select_joints" filename="libgazebo_ros_control_select_joints.so">
-        <robotNamespace>${name}_control</robotNamespace>
+        <robotNamespace>$(arg ns)/${name}_control</robotNamespace>
         <joints>${name}_spin_joint</joints>
       </plugin>
     </gazebo>
