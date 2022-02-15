@@ -15,7 +15,7 @@
     <link name="${name}_frame">
       <xacro:inertial_sphere mass="0.01" diameter="0.07" />
       <visual>
-        <origin xyz="${0.072*-0.5 - 0.0184} 0 0" rpy="0 0 0" />
+        <origin xyz="${0.072*-0.5 - 0.0184 + 0.025} 0 0" rpy="0 0 0" />
         <geometry>
           <!-- Rear cap: 13.7mm, front cap: 18.4, body length: 72mm, body width: 40mm, body height: 43mm -->
           <mesh filename="package://hector_sensors_description/meshes/flir_a35_camera/flir_a35_housing.stl" scale="1.0 1.0 1.0"/>
@@ -25,7 +25,7 @@
         </material>  
       </visual>
       <collision>
-        <origin xyz="${0.1041*-0.5} 0 0" rpy="0 0 0" />
+        <origin xyz="${0.1041*-0.5 + 0.025} 0 0" rpy="0 0 0" />
         <geometry>
           <box size="0.1041 0.04 0.043" />
         </geometry>

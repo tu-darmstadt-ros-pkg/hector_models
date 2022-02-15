@@ -7,9 +7,9 @@
   
   
   <!-- Dimensions from https://s1-dl.theimagingsource.com/api/2.5/packages/documentation/factsheets-single/fsdfkz30gp031/5e87e13f-c891-50c8-93c1-7bffd94642a1/fsdfkz30gp031.de_DE.pdf -->
-  <xacro:property name="tis_zoom_cam_housing_width" value="0.0606" />
-  <xacro:property name="tis_zoom_cam_housing_height" value="0.0606" />
-  <xacro:property name="tis_zoom_cam_housing_length" value="0.117" />
+  <xacro:property name="tis_zoom_cam_housing_width" value="0.071" />
+  <xacro:property name="tis_zoom_cam_housing_height" value="0.071" />
+  <xacro:property name="tis_zoom_cam_housing_length" value="0.147" />
   
   <xacro:macro name="tis_zoom_camera_model" params="name parent *origin">
     <joint name="${name}_mount_joint" type="fixed">
@@ -21,14 +21,16 @@
     <link name="${name}_housing_frame">
       <xacro:inertial_cuboid mass="0.02" x_length="0.0285" y_length="0.07" z_length="0.034"/>
       <visual>
+        <origin xyz="-0.06 0 0.0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://hector_sensors_description/meshes/tis_zoom_cam/zoom_cam_housing.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://hector_sensors_description/meshes/tis_zoom_cam/zoom_cam_housing.stl" scale="1.1716 1.1716 1.2564"/>
         </geometry>
         <material name="DarkGrey">
           <color rgba="0.3 0.3 0.3 1"/>
         </material>  
       </visual>
       <collision>
+        <origin xyz="-0.06 0 0.0" rpy="0 0 0" />
         <geometry>
           <box size="${tis_zoom_cam_housing_length} ${tis_zoom_cam_housing_width} ${tis_zoom_cam_housing_height}" />        
         </geometry>
