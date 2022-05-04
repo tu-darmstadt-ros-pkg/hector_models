@@ -46,7 +46,7 @@
       <sensor type="camera" name="${name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
-          <horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>
+	  <horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>
           <image>
             <format>${image_format}</format>
             <width>${res_x}</width>
@@ -57,13 +57,14 @@
             <far>100</far>
           </clip>
         </camera>
-
-        <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
+	<topic>${ros_topic}</topic>
+		
+	<!--plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}</cameraName>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
           <frameName>${name}_optical_frame</frameName>
-        </plugin>
+        </plugin-->
       </sensor>
     </gazebo>
   </xacro:macro>

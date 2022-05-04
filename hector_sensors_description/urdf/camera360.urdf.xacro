@@ -113,12 +113,12 @@
           </lens>
         </camera>
 
-        <plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
+        <!--plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}/${right_cam_name}</cameraName>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>not_used</cameraInfoTopicName>
           <frameName>${name}_${right_cam_name}_optical_frame</frameName>
-        </plugin>
+	</plugin-->
       </sensor>
     </gazebo>
        
