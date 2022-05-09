@@ -57,12 +57,12 @@
     <gazebo reference="${name}_frame">
 
       <xacro:if value="${use_gpu}">
-        <xacro:property name="sensor_type" value="gpu_ray"/>
+        <xacro:property name="sensor_type" value="gpu_lidar"/>
         <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_gpu_laser.so"/>
       </xacro:if >
 
       <xacro:unless value="${use_gpu}">
-        <xacro:property name="sensor_type" value="ray"/>
+	      <xacro:property name="sensor_type" value="gpu_lidar"/><!--currently only gpu possible -->
         <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_laser.so"/>
       </xacro:unless>
 
@@ -70,7 +70,8 @@
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
         <update_rate>${update_rate}</update_rate>
-        <ray>
+        <topic>${ros_topic}</topic>	  
+        <lidar>
           <scan>
             <horizontal>
               <samples>${horizontal_samples}</samples>
@@ -93,18 +94,18 @@
           <noise>
             <type>gaussian</type>
             <mean>0.0</mean>
-            <stddev>0.0</stddev>
+            <stddev>0.008</stddev>
           </noise>
-        </ray>
+        </lidar>
 
-        <plugin name="gazebo_ros_laser_controller" filename="${gazebo_plugin_name}">
+        <!--plugin name="gazebo_ros_laser_controller" filename="${gazebo_plugin_name}">
           <topicName>${ros_topic}</topicName>
           <frameName>${name}_frame</frameName>
           <organize_cloud>${organize_cloud}</organize_cloud>
           <min_range>${min_range}</min_range>
           <max_range>${max_range}</max_range>
           <gaussianNoise>0.008</gaussianNoise>
-        </plugin>
+        </plugin-->
 
       </sensor>
     </gazebo>

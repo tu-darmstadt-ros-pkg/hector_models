@@ -103,7 +103,7 @@ Note:
     
     <xacro:macro name="realsense_d435_camera_gazebo_plugin_macro" params="name parent image_topic depth_topic:=image_raw depth_points_topic frame_name:=color min_range max_range update_rate">
       <gazebo reference="${name}_link">
-        <sensor type="depth" name="${name}">
+        <sensor type="rgbd" name="${name}">
           <update_rate>${update_rate}</update_rate>
           <camera>
             <horizontal_fov>${69.4 * M_PI/180.0}</horizontal_fov>
@@ -117,19 +117,20 @@ Note:
               <far>${max_range}</far>
             </clip>
           </camera>
-          <plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+	  <topic>${name}</topic>
+          <!--plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
             <cameraName>${name}</cameraName>  
             <imageTopicName>color/${image_topic}</imageTopicName>
             <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
             <depthImageTopicName>depth/${depth_topic}</depthImageTopicName>
             <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
             <pointCloudTopicName>${depth_points_topic}</pointCloudTopicName>
-            <frameName>${name}_${frame_name}_optical_frame</frameName>
+            <frameName>${name}_${frame_name}_optical_frame</frameName-->
             <!-- Important information about frames: Currently, this plugin only supports simulation of color image and depth image/cloud from a single frame.
             This frame is given in the <gazebo reference=""> tag above and is set to the ${name}_link which coincides with the depth camera frame. The camera axis is the X-axis. ROS requires an optical frame 
             with the Z-axis as camera axis. It is advised to use the depth_optical_frame for this purpose (frame_name="depth"), even though camera images will have the same frame.
             The color_optical_frame does not coincide with the depth_optical_frame, so depth image/cloud will be misaligned! -->
-          </plugin>
+          <!--/plugin-->
         </sensor>
       </gazebo>
     </xacro:macro>
