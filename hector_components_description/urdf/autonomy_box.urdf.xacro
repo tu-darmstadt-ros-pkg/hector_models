@@ -235,7 +235,7 @@
       
       <inertial>
         <origin xyz='0.0 0.0 0.0' rpy='0.0 0.0 0.0'/>
-        <mass value='0.0165'/>
+        <mass value='0.1'/>
         <inertia ixx='1.0' ixy='0.0' ixz='0.0'
                  iyy='1.0' iyz='0.0' izz='1.0'/>
       </inertial>     
@@ -298,66 +298,20 @@
       <preserveFixedJoint>true</preserveFixedJoint>
     </gazebo>
 
-    <gazebo reference="${imu_link}">
-      <sensor name="imu" type="imu">
-        <pose>0 0 0 0 0 0</pose>
+    <gazebo>
+      <!-- IMU plugin -->
+      <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>50.0</updateRate>
-        <topic>imu/data</topic>
-        <angular_velocity>
-          <x>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </x>
-          <y>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </y>
-          <z>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </z>
-        </angular_velocity>
-        <linear_acceleration>
-         <x>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </x>
-          <y>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </y>
-          <z>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </z>
-        </linear_acceleration>
-        <enable_orientation>true</enable_orientation>
-      </sensor>
+        <bodyName>${imu_link}</bodyName>
+        <topicName>imu/data</topicName>
+        <accelDrift>0.0 0.0 0.0</accelDrift>
+        <accelGaussianNoise>0.1 0.1 0.1</accelGaussianNoise>
+        <rateDrift>0.0 0.0 0.0</rateDrift>
+        <rateGaussianNoise>0.05 0.05 0.05</rateGaussianNoise>
+        <headingDrift>0.0</headingDrift>
+        <headingGaussianNoise>0.05</headingGaussianNoise>
+      </plugin>
     </gazebo>
     
   </xacro:macro>
