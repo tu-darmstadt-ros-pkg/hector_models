@@ -228,10 +228,17 @@
     <joint name="imu_link_joint" type="fixed">
       <origin xyz="0 0.05 0.12" rpy="0 0 0"/>
       <parent link="${name}_link" />
-      <child link="${imu_link}"/>      
+      <child link="${imu_link}"/>
     </joint>
     
-    <link name="${imu_link}">     
+    <link name="${imu_link}">
+      
+      <inertial>
+        <origin xyz='0.0 0.0 0.0' rpy='0.0 0.0 0.0'/>
+        <mass value='0.1'/>
+        <inertia ixx='1.0' ixy='0.0' ixz='0.0'
+                 iyy='1.0' iyz='0.0' izz='1.0'/>
+      </inertial>     
     </link>
     
     <!-- Mocap -->
@@ -285,6 +292,26 @@
         <specular>0.8 0.8 0.8 1</specular>
       </material>
     </visual>
+    </gazebo>
+
+    <gazebo reference="imu_link_joint">
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+    <gazebo>
+      <!-- IMU plugin -->
+      <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50.0</updateRate>
+        <bodyName>${imu_link}</bodyName>
+        <topicName>imu/data</topicName>
+        <accelDrift>0.0 0.0 0.0</accelDrift>
+        <accelGaussianNoise>0.1 0.1 0.1</accelGaussianNoise>
+        <rateDrift>0.0 0.0 0.0</rateDrift>
+        <rateGaussianNoise>0.05 0.05 0.05</rateGaussianNoise>
+        <headingDrift>0.0</headingDrift>
+        <headingGaussianNoise>0.05</headingGaussianNoise>
+      </plugin>
     </gazebo>
     
   </xacro:macro>
