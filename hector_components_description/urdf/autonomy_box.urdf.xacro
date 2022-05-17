@@ -300,64 +300,64 @@
 
     <gazebo reference="${imu_link}">
       <sensor name="imu" type="imu">
-        <pose>0 0 0 0 0 0</pose>
         <alwaysOn>true</alwaysOn>
         <updateRate>50.0</updateRate>
-        
         <topic>imu/data</topic>
-        <angular_velocity>
-          <x>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </x>
-          <y>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </y>
-          <z>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </z>
-        </angular_velocity>
-        <linear_acceleration>
-         <x>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </x>
-          <y>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </y>
-          <z>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-              <bias_mean>0.0</bias_mean>
-              <bias_stdev>0.0</bias_stdev>
-            </noise>
-          </z>
-        </linear_acceleration>
-        <enable_orientation>true</enable_orientation>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.05</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stdev>0.0</bias_stdev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.05</stddev>
+                <bias_mean>0.0</bias_mean>
+               <bias_stdev>0.0</bias_stdev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.05</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stdev>0.0</bias_stdev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+           <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.05</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stdev>0.0</bias_stdev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.05</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stdev>0.0</bias_stdev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.05</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stdev>0.0</bias_stdev>
+              </noise>
+            </z>
+          </linear_acceleration>
+          <enable_orientation>true</enable_orientation>
+        </imu>
       </sensor>
     </gazebo>
     
