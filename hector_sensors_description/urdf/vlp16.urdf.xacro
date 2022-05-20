@@ -62,7 +62,7 @@
       </xacro:if >
 
       <xacro:unless value="${use_gpu}">
-	      <xacro:property name="sensor_type" value="gpu_lidar"/><!--currently only gpu possible -->
+	      <xacro:property name="sensor_type" value="lidar"/><!--currently only gpu possible -->
         <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_laser.so"/>
       </xacro:unless>
 
