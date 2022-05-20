@@ -99,7 +99,8 @@
       <!-- ros_control plugin -->
       <plugin name="gazebo_ros_control_select_joints" filename="libgazebo_ros_control_select_joints.so">
         <robotNamespace>spin_lidar_control</robotNamespace>
-        <joints>spin_lidar_spin_joint</joints>
+        <!--joints>spin_lidar_spin_joint</joints-->
+        <updateRate>1000</updateRate>
       </plugin>
     </gazebo>
 
