@@ -79,7 +79,8 @@
     <link name="${name}_${right_cam_name}_optical_frame"/>
     
     <gazebo reference="${name}_${right_cam_name}_link">
-      <sensor type="wideanglecamera" name="${name}_${right_cam_name}_camera_sensor">
+      <!-- TODO replace with wideangle once available-->
+      <sensor type="camera" name="${name}_${right_cam_name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
           <!--<horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>-->
@@ -112,6 +113,7 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
+        <topic>${ros_topic}</topic>
 
         <!--plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}/${right_cam_name}</cameraName>
@@ -140,7 +142,8 @@
     
     
     <gazebo reference="${name}_${left_cam_name}_link">
-      <sensor type="wideanglecamera" name="${name}_${left_cam_name}_camera_sensor">
+      <!-- TODO replace with wideangle once available-->
+      <sensor type="camera" name="${name}_${left_cam_name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
           <!--<horizontal_fov>${hfov * M_PI/180.0}</horizontal_fov>-->
@@ -173,16 +176,16 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
+        <topic>${ros_topic}</topic>
 
-        <plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
+        <!--plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}/${left_cam_name}</cameraName>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>not_used</cameraInfoTopicName>
           <frameName>${name}_${left_cam_name}_optical_frame</frameName>
-        </plugin>
+        </plugin-->
       </sensor>
     </gazebo>
   </xacro:macro>
 
 </robot>
-
