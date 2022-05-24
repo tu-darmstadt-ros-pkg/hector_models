@@ -83,10 +83,11 @@
         <robotNamespace>${name}_control</robotNamespace>
         <joints>${name}_spin_joint</joints>
       </plugin-->
-      <!--plugin filename="ign_ros_control_plugin" name="ign_ros_control::IgnitionROSControlPlugin">
+      <plugin filename="ign_ros_control_plugin" name="ign_ros_control::IgnitionROSControlPlugin">
         <robotNamespace>${name}_control</robotNamespace>
         <updateRate>1000</updateRate>
-      </plugin-->
+        <joints>${name}_spin_joint</joints>
+      </plugin>
     </gazebo>
 
     <xacro:if value="${has_geom}">

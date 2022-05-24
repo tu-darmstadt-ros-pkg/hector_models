@@ -360,6 +360,13 @@
         </imu>
       </sensor>
     </gazebo>
+
+    <gazebo>
+      <plugin
+      filename="ignition-gazebo-imu-system"
+      name="ignition::gazebo::systems::Imu">
+    </plugin>
+    </gazebo>
     
   </xacro:macro>
 </robot>

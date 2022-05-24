@@ -135,9 +135,11 @@
         <robotNamespace>${name}_control</robotNamespace>
         <joints>${name}_yaw_joint ${name}_pitch_joint</joints>
       </plugin-->
-      <!--plugin filename="ign_ros_control_plugin" name="ign_ros_control::IgnitionROSControlPlugin">
+      <plugin filename="ign_ros_control_plugin" name="ign_ros_control::IgnitionROSControlPlugin">
         <robotNamespace>${name}_control</robotNamespace>
-      </plugin-->
+        <updateRate>1000</updateRate>
+        <joints>${name}_yaw_joint ${name}_pitch_joint</joints>
+      </plugin>
     </gazebo>
     
     <xacro:seek_thermal_compact_camera name="${name}_thermal_cam" parent="${name}_pitch_link">
