@@ -18,8 +18,8 @@
   
   <!-- Dependencies needed after this package is compiled. -->
   <run_depend>xacro</run_depend>
-  <run_depend>gazebo_ros_control_select_joints</run_depend>
-  <run_depend>hector_gazebo_thermal_camera</run_depend>
+  <!--run_depend>gazebo_ros_control_select_joints</run_depend-->
+  <!--run_depend>hector_gazebo_thermal_camera</run_depend-->
   <run_depend>hector_sensors_description</run_depend>
   <run_depend>hector_xacro_tools</run_depend>
 
