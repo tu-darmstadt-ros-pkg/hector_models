@@ -7,5 +7,15 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_cam_color_optical_frame_pub" args="0 0 0 -1.57 0 -1.57  /$(arg camera_name)_color_frame /$(arg camera_name)_color_optical_frame" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_depth_frame_pub" args="0 0 0 0 0 0 /$(arg camera_name)_link /$(arg camera_name)_depth_frame" /> 
   <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_depth_optical_frame_pub" args="0 0 0 -1.57 0 -1.57  /$(arg camera_name)_depth_frame /$(arg camera_name)_depth_optical_frame" /> 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_infra1_frame_pub" args="0 0 0 0 0 0 /$(arg camera_name)_link /$(arg camera_name)_infra1_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_infra1_optical_frame_pub" args="0 0 0 -1.57 0 -1.57 /$(arg camera_name)_infra1_frame /$(arg camera_name)_infra1_optical_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_infra2_frame_pub" args="0 -0.095 0 0 0 0 /$(arg camera_name)_link /$(arg camera_name)_infra2_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_infra2_optical_frame_pub" args="0 0 0 -1.57 0 -1.57 /$(arg camera_name)_infra2_frame /$(arg camera_name)_infra2_optical_frame" />
   
+  <!-- Internal IMU links according to D455 datasheet Revision 009, page 114 -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_accel_frame_pub" args="-0.01602 -0.03022 0.0074 0 0 0 /$(arg camera_name)_link /$(arg camera_name)_accel_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_accel_optical_frame_pub" args="0 0 0 -1.57 0 -1.57 /$(arg camera_name)_accel_frame /$(arg camera_name)_accel_optical_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_gyro_frame_pub" args="-0.01602 -0.03022 0.0074 0 0 0 /$(arg camera_name)_link /$(arg camera_name)_gyro_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_gyro_optical_frame_pub" args="0 0 0 -1.57 0 -1.57 /$(arg camera_name)_gyro_frame /$(arg camera_name)_gyro_optical_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg camera_name)_imu_optical_frame_pub" args="0 0 0 0 0 0 /$(arg camera_name)_gyro_optical_frame /$(arg camera_name)_imu_optical_frame" />
 </launch>
