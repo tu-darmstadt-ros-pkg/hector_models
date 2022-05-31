@@ -113,7 +113,7 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
-        <topic>${ros_topic}</topic>
+        <topic>${name}_${right_cam_name}/${ros_topic}</topic>
 
         <!--plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}/${right_cam_name}</cameraName>
@@ -176,7 +176,7 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
-        <topic>${ros_topic}</topic>
+        <topic>${name}_${left_cam_name}/${ros_topic}</topic>
 
         <!--plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}/${left_cam_name}</cameraName>

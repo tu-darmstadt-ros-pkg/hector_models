@@ -85,7 +85,7 @@
             <far>10</far>
           </clip>
         </camera>
-	<topic>${name}/image_raw</topic>
+	      <topic>${name}/image_raw</topic>
         <!--plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera.so">
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
