@@ -78,7 +78,7 @@
     
     <link name="${name}_${right_cam_name}_optical_frame"/>
     
-    <gazebo reference="${name}_${right_cam_name}_link">
+    <webots reference="${name}_${right_cam_name}_link">
       <sensor type="wideanglecamera" name="${name}_${right_cam_name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
@@ -113,14 +113,14 @@
           </lens>
         </camera>
 
-        <plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
+        <!--plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}/${right_cam_name}</cameraName>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>not_used</cameraInfoTopicName>
           <frameName>${name}_${right_cam_name}_optical_frame</frameName>
-        </plugin>
+        </plugin-->
       </sensor>
-    </gazebo>
+    </webots>
        
     <joint name="${name}_${left_cam_name}_optical_joint" type="fixed">
       <xacro:insert_block name="calibration" />
@@ -139,7 +139,7 @@
     <link name="${name}_${left_cam_name}_link"/>
     
     
-    <gazebo reference="${name}_${left_cam_name}_link">
+    <webots reference="${name}_${left_cam_name}_link">
       <sensor type="wideanglecamera" name="${name}_${left_cam_name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
@@ -174,15 +174,14 @@
           </lens>
         </camera>
 
-        <plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
+        <!--plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
           <cameraName>${name}/${left_cam_name}</cameraName>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>not_used</cameraInfoTopicName>
           <frameName>${name}_${left_cam_name}_optical_frame</frameName>
-        </plugin>
+        </plugin-->
       </sensor>
-    </gazebo>
+    </webots>
   </xacro:macro>
 
 </robot>
-

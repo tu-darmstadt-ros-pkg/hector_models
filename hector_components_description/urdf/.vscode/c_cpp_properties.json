@@ -1,0 +1,31 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/opt/hector/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/frederik/hector/devel/include/**",
+        "/home/frederik/workspace/install/include/**",
+        "/home/frederik/hector/src/hector_gazebo/hector_gazebo_plugins/include/**",
+        "/home/frederik/hector/src/hector_gazebo/hector_gazebo_thermal_camera/include/**",
+        "/home/frederik/hector/src/hector_worldmodel/hector_object_tracker/include/**",
+        "/home/frederik/hector/src/hector_worldmodel/hector_worldmodel_msgs/include/**",
+        "/home/frederik/hector/src/ign_ros_control/ign_ros_control/include/**",
+        "/home/frederik/hector/src/librealsense/include/**",
+        "/home/frederik/hector/src/realsense-ros/realsense2_camera/include/**",
+        "/home/frederik/hector/src/ros_ign/ros_ign_bridge/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

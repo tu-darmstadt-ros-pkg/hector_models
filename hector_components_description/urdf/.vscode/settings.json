@@ -1,0 +1,8 @@
+{
+    "ros.distro": "noetic",
+    "python.autoComplete.extraPaths": [
+        "/home/frederik/hector/devel/lib/python3/dist-packages",
+        "/opt/hector/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}
