@@ -30,7 +30,6 @@ Note:
      The origin is the left infrared (depth) camera, which is also the origin of the depth image
     -->
     <xacro:macro name="realsense_d435_camera_model" params="name parent *origin">
-      <xacro:arg name="add_raycast_self_filter_geom" default="false"/>
       
       <joint name="${name}_joint" type="fixed">
         <xacro:insert_block name="origin" />
@@ -57,15 +56,6 @@ Note:
             <box size="${realsense_d435_depth} ${realsense_d435_width} ${realsense_d435_height}" />
           </geometry>
         </collision>
-        
-      <xacro:if value="$(arg add_raycast_self_filter_geom)">
-        <collision>
-          <origin xyz="${realsense_d435_case_offset_x} ${realsense_d435_case_offset_y} ${realsense_d435_case_offset_z}" rpy="${M_PI*0.5} 0 0" />
-          <geometry>
-            <cylinder length="0.09" radius="0.0177"/>
-          </geometry>
-        </collision>
-      </xacro:if>
       </link>
       
       <gazebo reference="${name}_link">

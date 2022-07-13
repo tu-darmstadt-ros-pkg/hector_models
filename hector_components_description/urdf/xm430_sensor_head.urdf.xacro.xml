@@ -32,15 +32,6 @@
           <box size="0.0285 0.07 0.034" />
         </geometry>
       </collision>
-      
-      <xacro:if value="$(arg add_raycast_self_filter_geom)">
-        <collision>
-          <origin xyz="0.0 -0.01 0.017" rpy="${M_PI*0.5} 0 0" />
-          <geometry>
-            <cylinder length="0.07" radius="0.022"/>
-          </geometry>
-        </collision>
-      </xacro:if>
     </link>
     
     <joint name="${name}_yaw_joint" type="revolute">
