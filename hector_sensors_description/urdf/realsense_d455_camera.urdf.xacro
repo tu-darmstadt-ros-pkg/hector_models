@@ -55,13 +55,13 @@ Note:
     <joint name="${name}_joint" type="fixed">
       <parent link="${name}_mount_link"/>
       <child link="${name}_link"/>
-      <origin xyz="${d455_mount_hole_to_front - d455_front_to_depth} ${d455_mount_hole_to_color_cam} ${d455_cam_height/2}" rpy="0 0 0"/>
+      <origin xyz="${d455_mount_hole_to_front - d455_front_to_depth} ${d455_cam_depth_py} ${d455_cam_height/2}" rpy="0 0 0"/>
     </joint>
 
     <link name="${name}_link">
       <visual>
         <!-- the mesh origin is at front plate in between the two infrared camera axes -->
-        <origin xyz="${d455_front_to_depth} ${-d455_mount_hole_to_color_cam} 0" rpy="0 0 ${M_PI/2}"/>
+        <origin xyz="${d455_front_to_depth} ${-d455_cam_depth_py} 0" rpy="0 0 ${M_PI/2}"/>
         <geometry>
           <!-- <box size="${d455_cam_depth} ${d455_cam_width} ${d455_cam_height}"/> -->
           <mesh filename="package://hector_sensors_description/meshes/intel_realsense_d455/D455.dae"
@@ -69,7 +69,7 @@ Note:
         </geometry>
       </visual>
       <collision>
-        <origin xyz="${-d455_cam_depth/2 + d455_front_to_depth} ${-d455_mount_hole_to_color_cam} 0" rpy="0 0 0"/>
+        <origin xyz="${-d455_cam_depth/2 + d455_front_to_depth} ${-d455_cam_depth_py} 0" rpy="0 0 0"/>
         <geometry>
           <box size="${d455_cam_depth} ${d455_cam_width} ${d455_cam_height}"/>
         </geometry>
