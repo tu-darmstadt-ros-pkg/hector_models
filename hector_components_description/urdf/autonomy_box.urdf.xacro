@@ -4,8 +4,8 @@
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
   <xacro:include filename="$(find hector_components_description)/urdf/vlp16_mount.urdf.xacro.xml"/>
-  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>  
-  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_d435_camera.urdf.xacro"/>  
+  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_d455_camera.urdf.xacro"/>
 
 <!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
   <!--<xacro:property name="add_self_filter_geom" value="${arg add_self_filter_geom}"/>-->
@@ -265,14 +265,14 @@
     </xacro:camera360>
     
     <!-- Realsense D455 front -->
-    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
-      <origin xyz="0.12 0.0 ${top_protection_bottom + alu_profile_side_length + 0.02}" rpy="${M_PI} ${radians(50)} 0"/>
-    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
-    
+    <xacro:realsense_d455_camera_with_mount_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
+      <origin xyz="0.12 -0.034 ${top_protection_bottom + alu_profile_side_length + 0.02}" rpy="${M_PI + radians(2)} ${radians(50)} 0"/>
+    </xacro:realsense_d455_camera_with_mount_comprehensive_params>
+
     <!-- Realsense D455 back -->
-    <xacro:realsense_d435_camera_with_mount_comprehensive_params name="back_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
-      <origin xyz="-0.105 0.0 ${top_protection_bottom + alu_profile_side_length + 0.025}" rpy="${M_PI} ${radians(30)} ${M_PI}"/>
-    </xacro:realsense_d435_camera_with_mount_comprehensive_params>
+    <xacro:realsense_d455_camera_with_mount_comprehensive_params name="back_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
+      <origin xyz="-0.105 0.014 ${top_protection_bottom + alu_profile_side_length + 0.025}" rpy="${M_PI} ${radians(27)} ${M_PI - radians(1)}"/>
+    </xacro:realsense_d455_camera_with_mount_comprehensive_params>
     
     <!-- Vive Tracker -->
     <xacro:if value="${add_vivetracker}">
