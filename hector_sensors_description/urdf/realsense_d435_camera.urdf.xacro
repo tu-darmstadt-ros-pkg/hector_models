@@ -167,7 +167,7 @@ Note:
       <xacro:realsense_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_topic="${depth_topic}" depth_points_topic="${depth_points_topic}" frame_name="${frame_name}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
     </xacro:macro>
     
-    <xacro:macro name="realsense_d435_camera_comprehensive_params" params="name parent *origin image_topic depth_topic:=image_raw depth_points_topic frame_name:=color min_range max_range update_rate">
+    <xacro:macro name="realsense_d435_camera_comprehensive_params" params="name parent *origin image_topic:=image_raw depth_topic:=image_raw depth_points_topic:=depth/color/points frame_name:=color min_range:=0.3 max_range:=9.0 update_rate:=20">
       <xacro:realsense_d435_camera_model name="${name}" parent="${parent}">
         <xacro:insert_block name="origin" />
       </xacro:realsense_d435_camera_model>
@@ -175,7 +175,7 @@ Note:
       <xacro:realsense_d435_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}" depth_topic="${depth_topic}" depth_points_topic="${depth_points_topic}" frame_name="${frame_name}" min_range="${min_range}" max_range="${max_range}" update_rate="${update_rate}"/>
     </xacro:macro>
     
-    <xacro:macro name="realsense_d435_camera_with_mount_comprehensive_params" params="name parent *origin image_topic depth_topic:=image_raw depth_points_topic frame_name:=color min_range max_range update_rate">
+    <xacro:macro name="realsense_d435_camera_with_mount_comprehensive_params" params="name parent *origin image_topic:=image_raw depth_topic:=image_raw depth_points_topic:=depth/color/points frame_name:=color min_range:=0.3 max_range:=9.0 update_rate:=20">
       <xacro:realsense_d435_camera_model_with_mount name="${name}" parent="${parent}">
         <xacro:insert_block name="origin" />
       </xacro:realsense_d435_camera_model_with_mount>
