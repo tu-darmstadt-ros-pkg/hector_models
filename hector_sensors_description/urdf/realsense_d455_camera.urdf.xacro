@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+
+<!--
+License: Apache 2.0. See LICENSE file in root directory.
+Copyright(c) 2017 Intel Corporation. All Rights Reserved
+
+This is the URDF model for the Intel RealSense 455 camera, in its aluminum peripherial evaluation case.
+
+Note:
+ The real sensor publishes tf data based on internally stored intrinsics. To support this, only the mounting link is
+ used in this macro. The corresponding frames can be added by running static_transform_publishers like so in the
+ Gazebo startup somewhere:
+ 
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link" args="0 0 0 0 0 0  /arm_rgbd_cam_link /arm_rgbd_cam_depth_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link2" args="0 0 0 -1.57 0 -1.57 /arm_rgbd_cam_depth_frame /arm_rgbd_cam_depth_optical_frame  100" />
+
+-->
+
+<robot name="sensor_d455" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <!-- The following values are approximate, and the camera node
+   publishing TF values with actual calibrated camera extrinsic values -->
+  <xacro:property name="d455_cam_depth_to_infra1_offset" value="0.0"/>
+  <xacro:property name="d455_cam_depth_to_infra2_offset" value="-0.095"/>
+  <xacro:property name="d455_cam_depth_to_color_offset" value="-0.059"/>
+  <xacro:property name="d455_front_to_depth"
+                  value="0.00455"/> <!-- Intel-RealSense-D400-Series-Datasheet-June-2020.pdf, page 68 -->
+  <xacro:property name="d455_mount_hole_to_front" value="0.015695"/> <!-- Measured from CAD file-->
+  <xacro:property name="d455_mount_hole_to_color_cam" value="-0.0115"/>
+
+
+  <!-- The following values model the aluminum peripherial case for the
+  d455 camera, with the camera joint represented by the actual
+  peripherial camera tripod mount -->
+  <xacro:property name="d455_cam_width" value="0.124"/>
+  <xacro:property name="d455_cam_height" value="0.029"/>
+  <xacro:property name="d455_cam_depth" value="0.026"/>
+  <xacro:property name="d455_cam_mount_from_center_offset" value="0.0158"/>
+  <!-- glass cover is 0.1 mm inwards from front aluminium plate -->
+  <xacro:property name="d455_glass_to_front" value="0.1e-3"/>
+  <!-- convenience precomputation to avoid clutter-->
+  <xacro:property name="d455_mesh_x_offset"
+                  value="${d455_cam_mount_from_center_offset-d455_glass_to_front-d455_front_to_depth}"/>
+
+  <!-- The following offset is relative to the physical d455 camera peripherial
+  camera tripod mount -->
+  <xacro:property name="d455_cam_depth_px" value="${d455_cam_mount_from_center_offset}"/>
+  <xacro:property name="d455_cam_depth_py" value="0.0475"/>
+  <xacro:property name="d455_cam_depth_pz" value="${d455_cam_height/2}"/>
+
+  <xacro:macro name="sensor_d455" params="parent *origin name:=camera use_nominal_extrinsics:=false">
+
+    <!-- camera body, with origin at bottom screw mount -->
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${name}_mount_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${d455_mount_hole_to_front - d455_front_to_depth} ${d455_cam_depth_py} ${d455_cam_height/2}" rpy="0 0 0"/>
+    </joint>
+
+    <link name="${name}_link">
+      <visual>
+        <!-- the mesh origin is at front plate in between the two infrared camera axes -->
+        <origin xyz="${d455_front_to_depth} ${-d455_cam_depth_py} 0" rpy="0 0 ${M_PI/2}"/>
+        <geometry>
+          <!-- <box size="${d455_cam_depth} ${d455_cam_width} ${d455_cam_height}"/> -->
+          <mesh filename="package://hector_sensors_description/meshes/intel_realsense_d455/D455.dae"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${-d455_cam_depth/2 + d455_front_to_depth} ${-d455_cam_depth_py} 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${d455_cam_depth} ${d455_cam_width} ${d455_cam_height}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <!-- The following are not reliable values, and should not be used for modeling -->
+        <mass value="0.072"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257"/>
+      </inertial>
+    </link>
+
+    <!-- Use the nominal extrinsics between camera frames if the calibrated extrinsics aren't being published. e.g. running the device in simulation  -->
+    <xacro:if value="${use_nominal_extrinsics}">
+      <!-- camera depth joints and links -->
+      <joint name="${name}_depth_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="${name}_link"/>
+        <child link="${name}_depth_frame"/>
+      </joint>
+      <link name="${name}_depth_frame"/>
+
+      <joint name="${name}_depth_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_depth_frame"/>
+        <child link="${name}_depth_optical_frame"/>
+      </joint>
+      <link name="${name}_depth_optical_frame"/>
+
+      <!-- camera left IR joints and links -->
+      <joint name="${name}_infra1_joint" type="fixed">
+        <origin xyz="0 ${d455_cam_depth_to_infra1_offset} 0" rpy="0 0 0"/>
+        <parent link="${name}_link"/>
+        <child link="${name}_infra1_frame"/>
+      </joint>
+      <link name="${name}_infra1_frame"/>
+
+      <joint name="${name}_infra1_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_infra1_frame"/>
+        <child link="${name}_infra1_optical_frame"/>
+      </joint>
+      <link name="${name}_infra1_optical_frame"/>
+
+      <!-- camera right IR joints and links -->
+      <joint name="${name}_infra2_joint" type="fixed">
+        <origin xyz="0 ${d455_cam_depth_to_infra2_offset} 0" rpy="0 0 0"/>
+        <parent link="${name}_link"/>
+        <child link="${name}_infra2_frame"/>
+      </joint>
+      <link name="${name}_infra2_frame"/>
+
+      <joint name="${name}_infra2_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_infra2_frame"/>
+        <child link="${name}_infra2_optical_frame"/>
+      </joint>
+      <link name="${name}_infra2_optical_frame"/>
+
+      <!-- camera color joints and links -->
+      <joint name="${name}_color_joint" type="fixed">
+        <origin xyz="0 ${d455_cam_depth_to_color_offset} 0" rpy="0 0 0"/>
+        <parent link="${name}_link"/>
+        <child link="${name}_color_frame"/>
+      </joint>
+      <link name="${name}_color_frame"/>
+
+      <joint name="${name}_color_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_color_frame"/>
+        <child link="${name}_color_optical_frame"/>
+      </joint>
+      <link name="${name}_color_optical_frame"/>
+
+      <!-- IMU -->
+      <!-- see datasheet Revision 009, page 114 -->
+      <xacro:property name="d455_imu_px" value="-0.01602"/>
+      <xacro:property name="d455_imu_py" value="-0.03022"/>
+      <xacro:property name="d455_imu_pz" value="+0.0074"/>
+
+      <link name="${name}_accel_frame"/>
+      <link name="${name}_accel_optical_frame"/>
+      <link name="${name}_gyro_frame"/>
+      <link name="${name}_gyro_optical_frame"/>
+      <link name="${name}_imu_optical_frame"/>
+
+      <joint name="${name}_accel_joint" type="fixed">
+        <origin xyz="${d455_imu_px} ${d455_imu_py} ${d455_imu_pz}" rpy="0 0 0"/>
+        <parent link="${name}_link"/>
+        <child link="${name}_accel_frame"/>
+      </joint>
+
+      <joint name="${name}_accel_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_accel_frame"/>
+        <child link="${name}_accel_optical_frame"/>
+      </joint>
+
+      <joint name="${name}_gyro_joint" type="fixed">
+        <origin xyz="${d455_imu_px} ${d455_imu_py} ${d455_imu_pz}" rpy="0 0 0"/>
+        <parent link="${name}_link"/>
+        <child link="${name}_gyro_frame"/>
+      </joint>
+
+      <joint name="${name}_gyro_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${name}_gyro_frame"/>
+        <child link="${name}_gyro_optical_frame"/>
+      </joint>
+
+      <joint name="${name}_imu_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="${name}_gyro_optical_frame"/>
+        <child link="${name}_imu_optical_frame"/>
+      </joint>
+    </xacro:if>
+
+  </xacro:macro>
+
+  <xacro:macro name="realsense_d455_camera_gazebo_plugin_macro"
+               params="name parent image_topic depth_topic:=image_raw depth_points_topic frame_name:=color min_range max_range update_rate">
+    <gazebo reference="${name}_link">
+      <sensor type="depth" name="${name}">
+        <update_rate>${update_rate}</update_rate>
+        <camera>
+          <horizontal_fov>${87.0 * M_PI/180.0}</horizontal_fov>
+          <image>
+            <format>B8G8R8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>${min_range}</near>
+            <far>${max_range}</far>
+          </clip>
+        </camera>
+        <plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+          <cameraName>${name}</cameraName>
+          <imageTopicName>color/${image_topic}</imageTopicName>
+          <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth/${depth_topic}</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>${depth_points_topic}</pointCloudTopicName>
+          <frameName>${name}_${frame_name}_optical_frame</frameName>
+          <!-- Important information about frames: Currently, this plugin only supports simulation of color image and depth image/cloud from a single frame.
+          This frame is given in the <gazebo reference=""> tag above and is set to the ${name}_link which coincides with the depth camera frame. The camera axis is the X-axis. ROS requires an optical frame
+          with the Z-axis as camera axis. It is advised to use the depth_optical_frame for this purpose (frame_name="depth"), even though camera images will have the same frame.
+          The color_optical_frame does not coincide with the depth_optical_frame, so depth image/cloud will be misaligned! -->
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="realsense_d455_camera_model_with_mount" params="name parent *origin">
+    <joint name="${name}_mount_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${name}_mount_link"/>
+    </joint>
+
+    <link name="${name}_mount_link">
+    </link>
+
+    <xacro:sensor_d455 name="${name}" parent="${name}_mount_link">
+      <origin
+          xyz="${d455_mesh_x_offset} ${d455_cam_depth_py} ${d455_cam_depth_pz}"
+          rpy="0 0 0"/>
+    </xacro:sensor_d455>
+  </xacro:macro>
+
+  <xacro:macro name="realsense_d455_camera_with_mount_comprehensive_params"
+               params="name parent *origin image_topic depth_topic:=image_raw depth_points_topic frame_name:=color min_range max_range update_rate">
+    <xacro:realsense_d455_camera_model_with_mount name="${name}" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:realsense_d455_camera_model_with_mount>
+
+    <xacro:realsense_d455_camera_gazebo_plugin_macro name="${name}" parent="${parent}" image_topic="${image_topic}"
+                                                     depth_topic="${depth_topic}"
+                                                     depth_points_topic="${depth_points_topic}"
+                                                     frame_name="${frame_name}" min_range="${min_range}"
+                                                     max_range="${max_range}" update_rate="${update_rate}"/>
+  </xacro:macro>
+</robot>
