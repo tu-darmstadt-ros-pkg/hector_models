@@ -114,7 +114,7 @@
         </ray>
 
         <xacro:if value="${simulator == 'gazebo'}">
-          <plugin name="ros_laser_controller" type="${gazebo_plugin_name}">
+          <plugin filename="libgazebo_ros_velodyne_gpu_laser.so" name="gazebo_ros_laser_controller">
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>
             <organize_cloud>${organize_cloud}</organize_cloud>
