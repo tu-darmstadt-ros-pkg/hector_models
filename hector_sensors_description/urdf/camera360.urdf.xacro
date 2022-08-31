@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-
+  <xacro:arg name="simulator" default="gazebo"/>
   <xacro:property name="M_PI" value="3.1415926535897931" />
   
   <xacro:property name="default_collision_radius" value="0.025" />
@@ -78,7 +78,7 @@
     
     <link name="${name}_${right_cam_name}_optical_frame"/>
     
-    <webots reference="${name}_${right_cam_name}_link">
+    <gazebo reference="${name}_${right_cam_name}_link">
       <sensor type="wideanglecamera" name="${name}_${right_cam_name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
@@ -112,15 +112,16 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
-
-        <!--plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
-          <cameraName>${name}/${right_cam_name}</cameraName>
-          <imageTopicName>${ros_topic}</imageTopicName>
-          <cameraInfoTopicName>not_used</cameraInfoTopicName>
-          <frameName>${name}_${right_cam_name}_optical_frame</frameName>
-        </plugin-->
+        <xacro:if value="${simulator == 'gazebo'}">
+          <plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
+            <cameraName>${name}/${right_cam_name}</cameraName>
+            <imageTopicName>${ros_topic}</imageTopicName>
+            <cameraInfoTopicName>not_used</cameraInfoTopicName>
+            <frameName>${name}_${right_cam_name}_optical_frame</frameName>
+          </plugin>
+        </xacro:if>
       </sensor>
-    </webots>
+    </gazebo>
        
     <joint name="${name}_${left_cam_name}_optical_joint" type="fixed">
       <xacro:insert_block name="calibration" />
@@ -138,8 +139,7 @@
     
     <link name="${name}_${left_cam_name}_link"/>
     
-    
-    <webots reference="${name}_${left_cam_name}_link">
+    <gazebo reference="${name}_${left_cam_name}_link">
       <sensor type="wideanglecamera" name="${name}_${left_cam_name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
@@ -173,15 +173,16 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
-
-        <!--plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
-          <cameraName>${name}/${left_cam_name}</cameraName>
-          <imageTopicName>${ros_topic}</imageTopicName>
-          <cameraInfoTopicName>not_used</cameraInfoTopicName>
-          <frameName>${name}_${left_cam_name}_optical_frame</frameName>
-        </plugin-->
+        <xacro:if value="${simulator == 'gazebo'}">
+          <plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
+            <cameraName>${name}/${left_cam_name}</cameraName>
+            <imageTopicName>${ros_topic}</imageTopicName>
+            <cameraInfoTopicName>not_used</cameraInfoTopicName>
+            <frameName>${name}_${left_cam_name}_optical_frame</frameName>
+          </plugin>
+        </xacro:if>
       </sensor>
-    </webots>
+    </gazebo>
   </xacro:macro>
 
 </robot>

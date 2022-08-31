@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="simulator" default="gazebo"/>
+  <xacro:property name="simulator" value="$(arg simulator)"/>
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:property name="M_PI" value="3.1415926535897931"/>
 
@@ -54,17 +56,31 @@
       <xacro:insert_block name="origin"/>
     </xacro:vlp16_model>
 
-    <webots reference="${name}_frame">
+    <gazebo reference="${name}_frame">
+      <xacro:if value="${simulator == 'webots'}">
 
-      <xacro:if value="${use_gpu}">
-        <xacro:property name="sensor_type" value="gpu_lidar"/>
-        <xacro:property name="plugin_type" value="lidar"/>
-      </xacro:if >
+        <xacro:if value="${use_gpu}">
+          <xacro:property name="sensor_type" value="gpu_lidar"/>
+          <!--xacro:property name="plugin_type" value="lidar"/-->
+        </xacro:if >
 
-      <xacro:unless value="${use_gpu}">
-        <xacro:property name="sensor_type" value="lidar"/>
-        <xacro:property name="plugin_type" value="lidar"/>
-      </xacro:unless>
+        <xacro:unless value="${use_gpu}">
+          <xacro:property name="sensor_type" value="lidar"/>
+          <!--xacro:property name="plugin_type" value="lidar"/-->
+        </xacro:unless>
+      </xacro:if>
+
+      <xacro:if value="${simulator == 'gazebo'}">
+        <xacro:if value="${use_gpu}">
+          <xacro:property name="sensor_type" value="gpu_ray"/>
+          <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_gpu_laser.so"/>
+        </xacro:if >
+
+        <xacro:unless value="${use_gpu}">
+          <xacro:property name="sensor_type" value="ray"/>
+          <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_laser.so"/>
+        </xacro:unless>
+      </xacro:if>
 
       <sensor type="${sensor_type}" name="${name}-VLP16">
         <pose>0 0 0 0 0 0</pose>
@@ -97,18 +113,19 @@
           </noise>
         </ray>
 
-        <plugin name="ros_laser_controller" type="${plugin_type}">
-          <topicName>${ros_topic}</topicName>
-          <frameName>${name}_frame</frameName>
-          <organize_cloud>${organize_cloud}</organize_cloud>
-          <min_range>${min_range}</min_range>
-          <max_range>${max_range}</max_range>
-          <gaussianNoise>0.008</gaussianNoise>
-        </plugin>
+        <xacro:if value="${simulator == 'gazebo'}">
+          <plugin name="ros_laser_controller" type="${gazebo_plugin_name}">
+            <topicName>${ros_topic}</topicName>
+            <frameName>${name}_frame</frameName>
+            <organize_cloud>${organize_cloud}</organize_cloud>
+            <min_range>${min_range}</min_range>
+            <max_range>${max_range}</max_range>
+            <gaussianNoise>0.008</gaussianNoise>
+          </plugin>
+        </xacro:if>
 
       </sensor>
-    </webots>
-
+    </gazebo>
   </xacro:macro>
 
 </robot>

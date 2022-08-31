@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-
+  <xacro:arg name="simulator" default="gazebo"/>
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:macro name="generic_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov">
@@ -41,8 +41,7 @@
     </joint>
   
     <link name="${name}_optical_frame"/>
-    
-    <webots reference="${name}_link">
+    <gazebo reference="${name}_link">
       <sensor type="camera" name="${name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
@@ -57,8 +56,17 @@
             <far>100</far>
           </clip>
         </camera>
+
+        <xacro:if value="${simulator == 'gazebo'}">
+          <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
+            <cameraName>${name}</cameraName>
+            <imageTopicName>${ros_topic}</imageTopicName>
+            <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
+            <frameName>${name}_optical_frame</frameName>
+          </plugin>
+        </xacro:if>
       </sensor>
-    </webots>
+    </gazebo>
   </xacro:macro>
 
 </robot>
