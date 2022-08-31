@@ -14,16 +14,16 @@
       <xacro:inertial_sphere mass="0.992" diameter="0.08082"/>
 
       <visual>
-        <origin xyz="0 0 -0.000825" rpy="0 0 0" />
+        <origin xyz="0 0 -0.062825" rpy="0 0 0" /> 
         <geometry>
-          <cylinder radius="0.04041" length="0.0735"/>
+          <mesh filename="package://hector_sensors_description/meshes/ouster_os0/os0_baseplate.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </visual>
 
       <visual>
-        <origin xyz="0 0 -0.047825" rpy="0 0 0"/>
+        <origin xyz="0 0 -0.040825" rpy="0 0 0" />
         <geometry>
-          <box size="0.11 0.11 0.0205"/>
+          <mesh filename="package://hector_sensors_description/meshes/ouster_os0/os0.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </visual>
 
