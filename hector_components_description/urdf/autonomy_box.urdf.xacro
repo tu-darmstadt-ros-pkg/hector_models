@@ -122,50 +122,16 @@
         </material> 
       </collision>
       
-      <!--Top geom-->      
+      <!--Top geom-->
       <collision>
-        <origin xyz="0 ${ (computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 ${M_PI*0.5} 0"/>
+        <origin xyz="0 0 ${top_protection_bottom + alu_profile_side_length/2}" />
         <geometry>
-          <!--<box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>-->
-          <cylinder length="${computer_box_length}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>             
+          <box size="${computer_box_length} ${computer_box_length} ${alu_profile_side_length}"/>
         </geometry>
         <material name="Grey">
           <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
+        </material>
       </collision>
-      
-      <collision>
-        <origin xyz="0 ${-(computer_box_width/2-alu_profile_side_length/2)} ${top_protection_bottom + alu_profile_side_length/2}" rpy="0 ${M_PI*0.5} 0"/>
-        <geometry>
-          <!--<box size="${computer_box_length} ${alu_profile_side_length} ${alu_profile_side_length}"/>-->
-          <cylinder length="${computer_box_length}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </collision>
-
-      <collision>
-        <origin xyz="${ (computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="${M_PI*0.5} ${M_PI*0.5} 0"/>
-        <geometry>
-          <!--<box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>-->
-          <cylinder length="${computer_box_width}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>  
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </collision>
-      
-      <collision>
-        <origin xyz="${-(computer_box_length/2-alu_profile_side_length/2)} 0 ${top_protection_bottom + alu_profile_side_length/2}" rpy="${M_PI*0.5} ${M_PI*0.5} 0"/>
-        <geometry>
-          <!--<box size="${alu_profile_side_length} ${computer_box_width}  ${alu_profile_side_length}"/>-->
-          <cylinder length="${computer_box_width}" radius="${alu_profile_side_length*0.5*alu_profile_collision_size_factor}"/>
-        </geometry>
-        <material name="Grey">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material> 
-      </collision>    
       
       <!-- 360 cam mount -->      
       <collision>
