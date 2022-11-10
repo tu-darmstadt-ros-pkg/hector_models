@@ -45,7 +45,9 @@
     
     <!-- Computer box and cage -->
     <link name="${name}_link">
-      <xacro:inertial_sphere mass="0.1" diameter="0.07"/>
+      <xacro:inertial_sphere_with_pose mass="5.6" diameter="0.07">
+        <origin xyz="0.0 0.0 0.30" rpy="0 0 0" />
+      </xacro:inertial_sphere_with_pose>
       
       <visual>
         <origin rpy="0 0 0" xyz="-0.095 -0.095 0"/>
