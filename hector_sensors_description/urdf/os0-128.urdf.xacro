@@ -45,7 +45,7 @@
   </xacro:macro>
 
   <xacro:macro name="os0_128" params="name parent *origin ros_topic">
-    <xacro:os0_128_advanced_parameters name="${name}" parent="${parent}" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.45" max_range="100">
+    <xacro:os0_128_advanced_parameters name="${name}" parent="${parent}" update_rate="10" horizontal_samples="512" vertical_samples="128" min_range="0.45" max_range="100">
       <xacro:insert_block name="origin"/>
     </xacro:os0_128_advanced_parameters>
   </xacro:macro>
@@ -61,7 +61,7 @@
       <xacro:if value="${use_gpu}">
         <xacro:property name="sensor_type" value="gpu_ray"/>
         <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_gpu_laser.so"/>
-      </xacro:if >
+      </xacro:if>
 
       <xacro:unless value="${use_gpu}">
         <xacro:property name="sensor_type" value="ray"/>
