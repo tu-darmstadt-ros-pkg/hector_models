@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="imu_um7_macro" params="name parent topic:=imu/data *origin">
+    <joint name="${name}_link_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <origin xyz='0.0 0.0 0.0' rpy='0.0 0.0 0.0'/>
+        <mass value='0.011'/>
+        <inertia ixx='1.0' ixy='0.0' ixz='0.0'
+                  iyy='1.0' iyz='0.0' izz='1.0'/>
+      </inertial>
+    </link>
+
+    <gazebo reference="${name}_link_joint">
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+    <gazebo>
+      <!-- IMU plugin -->
+      <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50.0</updateRate>
+        <bodyName>${name}_link</bodyName>
+        <topicName>${topic}</topicName>
+        <accelDrift>0.0 0.0 0.0</accelDrift>
+        <accelGaussianNoise>0.1 0.1 0.1</accelGaussianNoise>
+        <rateDrift>0.0 0.0 0.0</rateDrift>
+        <rateGaussianNoise>0.05 0.05 0.05</rateGaussianNoise>
+        <headingDrift>0.0</headingDrift>
+        <headingGaussianNoise>0.05</headingGaussianNoise>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>
+  
