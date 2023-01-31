@@ -4,7 +4,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="generic_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov">
+  <xacro:macro name="generic_camera" params="name parent *origin ros_topic cam_info_topic update_rate res_x res_y image_format hfov near_clip:=0.1 far_clip:=100.0">
     <joint name="${name}_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
@@ -53,8 +53,8 @@
             <height>${res_y}</height>
           </image>
           <clip>
-            <near>0.01</near>
-            <far>100</far>
+            <near>${near_clip}</near>
+            <far>${far_clip}</far>
           </clip>
         </camera>
 
