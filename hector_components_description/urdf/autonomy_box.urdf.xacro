@@ -50,7 +50,7 @@
       </xacro:inertial_sphere_with_pose>
       
       <visual>
-        <origin rpy="0 0 0" xyz="-0.095 -0.095 0"/>
+	<origin rpy="0 0 ${M_PI}" xyz="-0.095 -0.095 0"/>
         <geometry>
           <mesh filename="package://hector_components_description/meshes/autonomy_box/visionbox_no_lidar.stl" scale="0.001 0.001 0.001" />
         </geometry>
