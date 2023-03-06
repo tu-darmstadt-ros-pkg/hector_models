@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autonomy_box">
+  
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
+  <xacro:include filename="$(find hector_sensors_description)/urdf/os0-128.urdf.xacro" />
+  <xacro:include filename="$(find hector_sensors_description)/urdf/camera360.urdf.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_d455_camera.urdf.xacro"/>
+
+<!--  <xacro:arg name="add_self_filter_geom" default="0"/>-->
+  <!--<xacro:property name="add_self_filter_geom" value="${arg add_self_filter_geom}"/>-->
+  
+  <xacro:property name="alu_profile_side_length" value="0.02"/>
+  <xacro:property name="computer_box_height" value="0.119"/>
+  <xacro:property name="computer_box_width" value="0.19"/>
+  <xacro:property name="computer_box_length" value="0.19"/>
+  <xacro:property name="top_protection_bottom" value="${computer_box_height + 0.32}"/>
+  
+  <xacro:property name="insta360_mounting_height" value="${top_protection_bottom + alu_profile_side_length + 0.12}"/>
+  <xacro:property name="insta360_radius" value="0.011"/>
+  <xacro:property name="insta360_collision_radius" value="0.04"/>
+  
+  <xacro:property name="M_PI" value="3.14159265359"/>
+  
+  <xacro:macro name="autonomy_box2_macro" params="parent *origin name:='autonomy_box' imu_link='imu_link' use_gpu_lidar:='false' lidar_horizontal_samples:='512' lidar_vertical_samples:='8'">
+    
+    <xacro:arg name="add_containment_self_filter_geom" default="false"/>
+    <xacro:arg name="add_manipulation_geom" default="false"/>
+        
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}" />
+      <child link="${name}_link"/>      
+    </joint>
+    
+    <!-- Computer box and cage -->
+    <link name="${name}_link">
+      <xacro:inertial_sphere_with_pose mass="5.6" diameter="0.07">
+        <origin xyz="0.0 0.0 0.30" rpy="0 0 0" />
+      </xacro:inertial_sphere_with_pose>
+      
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://hector_components_description/meshes/autonomy_box/autonomy_box2.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material> 
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://hector_components_description/meshes/autonomy_box/autonomy_box2.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </collision>
+    </link>
+
+    <!-- IMU -->
+    <joint name="imu_link_joint" type="fixed">
+      <origin xyz="0 0.05 0.12" rpy="0 0 0"/>
+      <parent link="${name}_link" />
+      <child link="${imu_link}"/>
+    </joint>
+    
+    <link name="${imu_link}">
+      <inertial>
+        <origin xyz='0.0 0.0 0.0' rpy='0.0 0.0 0.0'/>
+        <mass value='0.0165'/>
+        <inertia ixx='1.0' ixy='0.0' ixz='0.0'
+                 iyy='1.0' iyz='0.0' izz='1.0'/>
+      </inertial>     
+    </link>
+
+    <!-- OS0-128 Lidar -->
+    <xacro:os0_128_advanced_parameters name="${name}_lidar" parent="${name}_link" update_rate="10" horizontal_samples="${lidar_horizontal_samples}" vertical_samples="${lidar_vertical_samples}" min_range="0.1" max_range="50" use_gpu="${use_gpu_lidar}">
+      <origin xyz="-0.038416 0.017165 0.29872" rpy="0 0 0" />
+    </xacro:os0_128_advanced_parameters>
+      
+    <!-- 360 camera -->
+    <xacro:camera360 name="camera360" right_cam_name="right" left_cam_name="left" parent="${name}_link" collision_radius="${insta360_collision_radius}" dist_between_cameras="-0.03850784" ros_topic="image_raw" update_rate="10" res_x="1504" res_y="1504" image_format="R8G8B8" fov="${M_PI}">
+      <origin xyz="-0.039650 0.020027 0.425320" rpy="0.0 0 0"/> <!-- base_link to camera mount transform -->
+      <!-- cam to cam transform (calibration by kalibr) -->
+      <!--<origin xyz="0.00009742  0.00061696 -0.03850784" rpy="3.1373499 -0.0021358 -3.1279404"/>--> <!-- insta #1 -->
+      <origin xyz="0.002862424041614364  -0.00013127655875068252 -0.03724378451297336" rpy="-3.1402707 0.0036289 -3.1175768"/> <!-- insta #3 -->
+    </xacro:camera360>
+    
+    <!-- Realsense D455 front -->
+    <xacro:realsense_d455_camera_with_mount_comprehensive_params name="front_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
+      <origin xyz="0.033112 0.020036 0.354318" rpy="${radians(0)} ${radians(35)} 0"/>
+    </xacro:realsense_d455_camera_with_mount_comprehensive_params>
+
+    <!-- Realsense D455 back -->
+    <xacro:realsense_d455_camera_with_mount_comprehensive_params name="back_rgbd_cam" parent="${name}_link" image_topic="image_rect_color" depth_topic="image_rect_raw" depth_points_topic="depth/color/points" frame_name="depth" min_range="0.3" max_range="9.0" update_rate="15">
+      <origin xyz="-0.112785 0.020036 0.356735" rpy="${radians(0)} ${radians(22)} ${M_PI - radians(0)}"/>
+    </xacro:realsense_d455_camera_with_mount_comprehensive_params>
+
+    <gazebo reference="${name}_link">
+      <visual>
+      <material>
+        <ambient>0.1 0.1 0.1 1</ambient>
+        <diffuse>0.48 0.48 0.48 1</diffuse>
+        <emissive>0.237 0.237 0.237 1</emissive>
+        <specular>0.8 0.8 0.8 1</specular>
+      </material>
+    </visual>
+    </gazebo>
+
+    <gazebo reference="imu_link_joint">
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+    <gazebo>
+      <!-- IMU plugin -->
+      <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50.0</updateRate>
+        <bodyName>${imu_link}</bodyName>
+        <topicName>imu/data</topicName>
+        <accelDrift>0.0 0.0 0.0</accelDrift>
+        <accelGaussianNoise>0.1 0.1 0.1</accelGaussianNoise>
+        <rateDrift>0.0 0.0 0.0</rateDrift>
+        <rateGaussianNoise>0.05 0.05 0.05</rateGaussianNoise>
+        <headingDrift>0.0</headingDrift>
+        <headingGaussianNoise>0.05</headingGaussianNoise>
+      </plugin>
+    </gazebo>
+    
+  </xacro:macro>
+</robot>
