@@ -105,6 +105,7 @@
           <min_range>${min_range}</min_range>
           <max_range>${max_range}</max_range>
           <gaussianNoise>0.008</gaussianNoise>
+          <organize_cloud>true</organize_cloud>
         </plugin>
 
       </sensor>
