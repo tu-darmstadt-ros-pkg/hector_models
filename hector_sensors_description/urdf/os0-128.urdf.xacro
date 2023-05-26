@@ -107,7 +107,7 @@
           <gaussianNoise>0.008</gaussianNoise>
           <organize_cloud>true</organize_cloud>
           <row_major>true</row_major>
-          <reverse_ring_order>true</reverse_ring_order>
+          <reverse_idx_order>true</reverse_idx_order>
         </plugin>
 
       </sensor>
