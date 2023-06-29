@@ -112,7 +112,7 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
-        <xacro:if value="${simulator == 'gazebo'}">
+        <xacro:if value="${'$(arg simulator)' == 'gazebo'}">
           <plugin name="${name}_${right_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
             <cameraName>${name}/${right_cam_name}</cameraName>
             <imageTopicName>${ros_topic}</imageTopicName>
@@ -173,7 +173,7 @@
             <env_texture_size>512</env_texture_size>
           </lens>
         </camera>
-        <xacro:if value="${simulator == 'gazebo'}">
+        <xacro:if value="${'$(arg simulator)' == 'gazebo'}">
           <plugin name="${name}_${left_cam_name}_camera_controller" filename="libgazebo_ros_camera.so">
             <cameraName>${name}/${left_cam_name}</cameraName>
             <imageTopicName>${ros_topic}</imageTopicName>

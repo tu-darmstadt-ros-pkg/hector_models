@@ -2,7 +2,6 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:arg name="simulator" default="gazebo"/>
-  <xacro:property name="simulator" value="$(arg simulator)"/>
   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
   <xacro:property name="M_PI" value="3.1415926535897931"/>
 
@@ -57,7 +56,7 @@
     </xacro:vlp16_model>
 
     <gazebo reference="${name}_frame">
-      <xacro:if value="${simulator == 'webots'}">
+      <xacro:if value="${'$(arg simulator)' == 'webots'}">
 
         <xacro:if value="${use_gpu}">
           <xacro:property name="sensor_type" value="gpu_lidar"/>
@@ -70,7 +69,7 @@
         </xacro:unless>
       </xacro:if>
 
-      <xacro:if value="${simulator == 'gazebo'}">
+      <xacro:if value="${'$(arg simulator)' == 'gazebo'}">
         <xacro:if value="${use_gpu}">
           <xacro:property name="sensor_type" value="gpu_ray"/>
           <xacro:property name="gazebo_plugin_name" value="libgazebo_ros_velodyne_gpu_laser.so"/>
@@ -113,7 +112,7 @@
           </noise>
         </ray>
 
-        <xacro:if value="${simulator == 'gazebo'}">
+        <xacro:if value="${'$(arg simulator)' == 'gazebo'}">
           <plugin filename="libgazebo_ros_velodyne_gpu_laser.so" name="gazebo_ros_laser_controller">
             <topicName>${ros_topic}</topicName>
             <frameName>${name}_frame</frameName>

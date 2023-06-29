@@ -12,7 +12,6 @@ Note:
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:arg name="simulator" default="gazebo"/>
-  <xacro:property name="simulator" value="$(arg simulator)"/>
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:property name="realsense_d435_width" value="0.09"/>
@@ -109,7 +108,7 @@ Note:
             </clip>
           </camera>
 
-          <xacro:if value="${simulator == 'gazebo'}">
+          <xacro:if value="${'$(arg simulator)' == 'gazebo'}">
             <plugin name="${name}_camera_controller" filename="libgazebo_ros_openni_kinect.so">
               <cameraName>${name}</cameraName>  
               <imageTopicName>color/${image_topic}</imageTopicName>

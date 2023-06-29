@@ -83,7 +83,7 @@
             <far>10</far>
           </clip>
         </camera>
-        <xacro:if value="${simulator == 'gazebo'}">
+        <xacro:if value="${'$(arg simulator)' == 'gazebo'}">
           <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>9</updateRate>

@@ -57,7 +57,7 @@
           </clip>
         </camera>
 
-        <xacro:if value="${simulator == 'gazebo'}">
+        <xacro:if value="${'$(arg simulator)' == 'gazebo'}">
           <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
             <cameraName>${name}</cameraName>
             <imageTopicName>${ros_topic}</imageTopicName>
