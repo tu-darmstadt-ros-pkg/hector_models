@@ -106,8 +106,10 @@
           <max_range>${max_range}</max_range>
           <gaussianNoise>0.008</gaussianNoise>
           <organize_cloud>true</organize_cloud>
-          <row_major>true</row_major>
-          <reverse_idx_order>true</reverse_idx_order>
+          <row_major>false</row_major>
+          <rings_top_bottom>true</rings_top_bottom>
+          <columns_left_right>false</columns_left_right>
+          <zeros_instead_of_nans>false</zeros_instead_of_nans>
         </plugin>
 
       </sensor>
