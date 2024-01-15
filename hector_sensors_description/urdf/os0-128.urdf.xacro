@@ -50,7 +50,8 @@
     </xacro:os0_128_advanced_parameters>
   </xacro:macro>
 
-  <xacro:macro name="os0_128_advanced_parameters" params="name parent *origin update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false'">
+  <xacro:macro name="os0_128_advanced_parameters" params="name parent *origin update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false' 
+  organize_cloud:='true' row_major:='false' rings_top_bottom:='false' columns_left_right='false' zeros_instead_of_nans:='false'">
 
     <xacro:os0_128_model name="${name}" parent="${parent}">
       <xacro:insert_block name="origin"/>
@@ -105,6 +106,11 @@
           <min_range>${min_range}</min_range>
           <max_range>${max_range}</max_range>
           <gaussianNoise>0.008</gaussianNoise>
+          <organize_cloud>${organize_cloud}</organize_cloud>
+          <row_major>${row_major}</row_major>
+          <rings_top_bottom>${rings_top_bottom}</rings_top_bottom>
+          <columns_left_right>${columns_left_right}</columns_left_right>
+          <zeros_instead_of_nans>${zeros_instead_of_nans}</zeros_instead_of_nans>
         </plugin>
 
       </sensor>
