@@ -101,13 +101,13 @@ frame/topic names. Simulates both pointcloud and IMU data
     
   </xacro:macro>
 
-  <xacro:macro name="os0_generic" params="name parent *origin">
-    <xacro:os0_generic_advanced_parameters name="${name}" parent="${parent}" update_rate="10" horizontal_samples="512" vertical_samples="32" min_range="0.45" max_range="100">
+  <xacro:macro name="os0_generic" params="name parent use_gpu *origin">
+    <xacro:os0_generic_advanced_parameters name="${name}" parent="${parent}" update_rate="10" horizontal_samples="512" vertical_samples="32" min_range="0.45" max_range="100" use_gpu="${use_gpu}">
       <xacro:insert_block name="origin"/>
     </xacro:os0_generic_advanced_parameters>
   </xacro:macro>
 
-  <xacro:macro name="os0_generic_advanced_parameters" params="name parent *origin update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='false'">
+  <xacro:macro name="os0_generic_advanced_parameters" params="name parent *origin update_rate horizontal_samples vertical_samples min_range max_range use_gpu:='true' organize_cloud:='true'">
 
     <xacro:os0_generic_model name="${name}" parent="${parent}">
       <xacro:insert_block name="origin"/>
@@ -159,6 +159,7 @@ frame/topic names. Simulates both pointcloud and IMU data
         <plugin name="gazebo_ros_laser_controller" filename="${gazebo_plugin_name}">
           <topicName>/os_cloud_node/points</topicName>
           <frameName>os_lidar</frameName>
+          <organize_cloud>${organize_cloud}</organize_cloud>
           <min_range>${min_range}</min_range>
           <max_range>${max_range}</max_range>
           <gaussianNoise>0.008</gaussianNoise>
