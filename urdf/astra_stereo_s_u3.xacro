@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="orbbec_astra_stereo_s_u3" params="name:=default">
+        <!-- Camera base -->
+        <link name="astra_stereo_s_${name}_base_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://hector_models/meshes/orbbec_astra_stereo_s_u3/orbbec_astra_stereo_s_u3.dae"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0.006 0 0.001" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.021 0.07 0.025"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- Camera RGB sensor -->
+        <link name="astra_stereo_s_${name}_link"/>
+        <joint name="astra_stereo_s_${name}_sensor_joint" type="fixed">
+            <origin xyz="0.014 0.01 0" rpy="0 0 0" />
+            <parent link="astra_stereo_s_${name}_base_link" />
+            <child link="astra_stereo_s_${name}_link" />
+        </joint>
+    </xacro:macro>
+</robot>

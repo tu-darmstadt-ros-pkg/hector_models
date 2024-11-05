@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>hector_models</name>
+  <version>0.0.0</version>
+  <description>hector_models contains URDF xacro macros for sensors, so they are easily attachable to robot models and usable in gazebo.</description>
+  <maintainer email="fabian@sim.tu-darmstadt.de">Stefan Fabian</maintainer>
+
+  <license>BSD</license>
+
+  <author email="kohlbrecher@sim.tu-darmstadt.de">Stefan Kohlbrecher</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>urdf</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="insta360_air_gazebo" params="name:=default">
+
+    </xacro:macro>
+</robot>

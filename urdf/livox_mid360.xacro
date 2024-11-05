@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+	<xacro:property name="M_PI" value="3.14159"/>
+
+	<xacro:macro name="livox_mid360" params="name:=default">
+		<link name="livox_mid360_${name}_link">
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<mesh filename="package://hector_models/meshes/livox_mid360/livox_mid360.dae">
+					</mesh>
+				</geometry>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0.012" rpy="0 0 0" />
+				<geometry>
+					<box size="0.065 0.073 0.061"/>
+				</geometry>
+			</collision>
+		</link>
+	</xacro:macro>
+</robot>

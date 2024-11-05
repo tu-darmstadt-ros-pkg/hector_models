@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+	<xacro:property name="M_PI" value="3.14159"/>
+
+	<xacro:macro name="orbbec_astra2_gazebo" params="name:=default semantic_segmentation:=false">
+		<gazebo reference="astra2_${name}_link">
+			<sensor type="camera" name="astra2_${name}">
+				<always_on>true</always_on>
+				<visualize>true</visualize>
+				<update_rate>15</update_rate>
+				<topic>/$(arg robot_name)/astra2_${name}/rgb/image_raw</topic>
+				<gz_frame_id>astra2_${name}_link</gz_frame_id>
+
+				<camera name="astra2_${name}_camera">
+					<camera_info_topic>/$(arg robot_name)/astra2_${name}/rgb/camera_info</camera_info_topic>
+					<optical_frame_id>astra2_${name}_optical_frame</optical_frame_id>
+					<horizontal_fov>${90.0 * M_PI/180.0}</horizontal_fov>
+					<image>
+						<format>R8G8B8</format>
+						<width>720</width>
+						<height>480</height>
+					</image>
+					<clip>
+						<near>0.05</near>
+						<far>10</far>
+					</clip>
+				</camera>
+			</sensor>
+
+			<sensor type="depth_camera" name="astra2_${name}_depth">
+				<always_on>true</always_on>
+				<visualize>true</visualize>
+				<update_rate>15</update_rate>
+				<topic>/$(arg robot_name)/astra2_${name}/depth/image_raw</topic>
+				<gz_frame_id>astra2_${name}_link</gz_frame_id>
+
+				<camera>
+					<camera_info_topic>/$(arg robot_name)/astra2_${name}/depth/camera_info</camera_info_topic>
+					<optical_frame_id>astra2_${name}_optical_frame</optical_frame_id>
+					<horizontal_fov>1.047</horizontal_fov>
+					<image>
+						<format>R_FLOAT32</format>
+						<width>640</width>
+						<height>480</height>
+					</image>
+					<depth_camera>
+						<clip>
+							<near>0.1</near>
+							<far>10.0</far>
+						</clip>
+					</depth_camera>
+					<noise>
+						<type>gaussian</type>
+						<mean>0.0</mean>
+						<stddev>0.01</stddev>
+					</noise>
+				</camera>
+			</sensor>
+
+			<xacro:if value="$(arg semantic_segmentation)">
+				<sensor name="astra2_${name}_segmentation_camera" type="segmentation">
+					<topic>/$(arg robot_name)/astra2_${name}/segmentation</topic>
+					<gz_frame_id>astra2_${name}_link</gz_frame_id>
+					<camera>
+						<optical_frame_id>astra2_${name}_optical_frame</optical_frame_id>
+						<segmentation_type>instance</segmentation_type>
+						<horizontal_fov>${90.0 * M_PI/180.0}</horizontal_fov>
+						<image>
+							<width>720</width>
+							<height>480</height>
+						</image>
+						<clip>
+							<near>0.1</near>
+							<far>10</far>
+						</clip>
+					</camera>
+					<update_rate>5</update_rate>
+				</sensor>
+			</xacro:if>
+		</gazebo>
+	</xacro:macro>
+</robot>

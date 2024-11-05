@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="seek_thermal_xr" params="name:=default">
+        <!-- Camera base -->
+        <link name="seek_thermal_${name}_base_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://hector_models/meshes/seek_thermal_xr/seek_thermal_xr.dae"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0.013 0 -0.011" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.027 0.04 0.055"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- Camera sensor -->
+        <link name="seek_thermal_${name}_link"/>
+        <joint name="seek_thermal_${name}_sensor_joint" type="fixed">
+            <origin xyz="0.025 0 0" rpy="0 0 0" />
+            <parent link="seek_thermal_${name}_base_link" />
+            <child link="seek_thermal_${name}_link" />
+        </joint>
+    </xacro:macro>
+</robot>

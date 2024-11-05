@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="insta360_air" params="name:=default">
+        <!-- Camera base -->
+        <link name="insta360_air_${name}_base_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.021 0.07 0.025"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.021 0.07 0.025"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- Camera RGB sensor -->
+        <link name="insta360_air_${name}_left_optical_link"/>
+        <joint name="insta360_air_${name}_left_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <parent link="insta360_air_${name}_base_link" />
+            <child link="insta360_air_${name}_left_optical_link" />
+        </joint>
+
+        <link name="insta360_air_${name}_right_optical_link"/>
+        <joint name="insta360_air_${name}_right_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 ${M_PI}" />
+            <parent link="insta360_air_${name}_base_link" />
+            <child link="insta360_air_${name}_right_optical_link" />
+        </joint>
+    </xacro:macro>
+</robot>

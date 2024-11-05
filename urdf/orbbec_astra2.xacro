@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:property name="M_PI" value="3.14159"/> 
+
+    <xacro:macro name="orbbec_astra2" params="name:=default">
+        <!-- Camera base -->
+        <link name="astra2_${name}_base_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 ${M_PI}" />
+                <geometry>
+                    <mesh filename="package://hector_models/meshes/orbbec_astra2/orbbec_astra2.dae"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0.018 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.037 0.147 0.035"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- Camera RGB sensor - Frame for gazebo (in x direction) -->
+        <link name="astra2_${name}_link"/>
+        <joint name="astra2_${name}_sensor_joint" type="fixed">
+            <origin xyz="0.033 0.022 0" rpy="0 0 0" />
+            <parent link="astra2_${name}_base_link" />
+            <child link="astra2_${name}_link" />
+        </joint>
+
+        <!-- Optical Frame for ros (in z direction) -->
+        <link name="astra2_${name}_optical_frame"/>
+        <joint name="astra2_${name}_sensor_joint_optical_frame" type="fixed">
+            <origin xyz="0 0 0" rpy="-${M_PI/2.0} 0 -${M_PI/2.0}" />
+            <parent link="astra2_${name}_link" />
+            <child link="astra2_${name}_optical_frame" />
+        </joint>
+    </xacro:macro>
+</robot>
