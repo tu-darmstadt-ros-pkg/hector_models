@@ -1,8 +1,15 @@
 <?xml version="1.0"?>
+
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 	<xacro:property name="M_PI" value="3.14159"/>
 
-	<xacro:macro name="livox_mid360" params="name:=default">
+	<xacro:macro name="livox_mid360" params="name:=default *origin *parent">
+		<joint name="livox_mid360_${name}_joint" type="fixed">
+			<child link="livox_mid360_${name}_link"/>
+			<xacro:insert_block name="origin"/>
+			<xacro:insert_block name="parent"/>
+		</joint>
+
 		<link name="livox_mid360_${name}_link">
 			<visual>
 				<origin xyz="0 0 0" rpy="0 0 0"/>

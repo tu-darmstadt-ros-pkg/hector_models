@@ -1,7 +1,68 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-    <xacro:macro name="insta360_air_gazebo" params="name:=default">
+    <xacro:property name="M_PI" value="3.14159"/>
 
+    <xacro:macro name="insta360_air_gazebo" params="name:=default">
+        <gazebo reference="insta360_air_${name}_left_optical_frame">
+            <sensor type="wideanglecamera" name="insta360_air_${name}_left">
+                <always_on>true</always_on>
+                <visualize>true</visualize>
+                <update_rate>15</update_rate>
+                <topic>/$(arg robot_name)/insta360_air_${name}_left/rgb/image_raw</topic>
+                <gz_frame_id>insta360_air_${name}_left_optical_frame</gz_frame_id>
+
+                <camera>
+                    <camera_info_topic>/$(arg robot_name)/insta360_air_${name}_left/rgb/camera_info</camera_info_topic>
+                    <horizontal_fov>${M_PI}</horizontal_fov>
+                    <image>
+                        <format>R8G8B8</format>
+                        <width>720</width>
+                        <height>480</height>
+                    </image>
+                    <clip>
+                        <near>0.05</near>
+                        <far>10</far>
+                    </clip>
+                    <lens>
+                        <type>stereographic</type>
+                        <scale_to_hfov>true</scale_to_hfov>
+                        <cutoff_angle>1.5707</cutoff_angle>
+                        <env_texture_size>512</env_texture_size>
+                    </lens>
+                </camera>
+            </sensor>
+        </gazebo>
+
+        <gazebo reference="insta360_air_${name}_right_optical_frame">
+            <sensor type="wideanglecamera" name="insta360_air_${name}_right">
+                <always_on>true</always_on>
+                <visualize>true</visualize>
+                <update_rate>15</update_rate>
+                <topic>/$(arg robot_name)/insta360_air_${name}_right/rgb/image_raw</topic>
+                <gz_frame_id>insta360_air_${name}_right_optical_frame</gz_frame_id>
+
+                <camera>
+                    <camera_info_topic>/$(arg robot_name)/insta360_air_${name}_right/rgb/camera_info</camera_info_topic>
+                    <optical_frame_id>insta360_air_${name}_right_optical_frame</optical_frame_id>
+                    <horizontal_fov>${M_PI}</horizontal_fov>
+                    <image>
+                        <format>R8G8B8</format>
+                        <width>720</width>
+                        <height>480</height>
+                    </image>
+                    <clip>
+                        <near>0.05</near>
+                        <far>10</far>
+                    </clip>
+                    <lens>
+                        <type>stereographic</type>
+                        <scale_to_hfov>true</scale_to_hfov>
+                        <cutoff_angle>1.5707</cutoff_angle>
+                        <env_texture_size>512</env_texture_size>
+                    </lens>
+                </camera>
+            </sensor>
+        </gazebo>
     </xacro:macro>
 </robot>

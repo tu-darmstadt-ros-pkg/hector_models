@@ -1,9 +1,17 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-    <xacro:macro name="seek_thermal_xr" params="name:=default">
+    <xacro:property name="M_PI" value="3.14159"/>
+
+    <xacro:macro name="seek_thermal_xr" params="name:=default *origin *parent">
+        <joint name="seek_thermal_xr_${name}_base_joint" type="fixed">
+            <child link="seek_thermal_xr_${name}_base_link"/>
+            <xacro:insert_block name="origin"/>
+            <xacro:insert_block name="parent"/>
+        </joint>
+
         <!-- Camera base -->
-        <link name="seek_thermal_${name}_base_link">
+        <link name="seek_thermal_xr_${name}_base_link">
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
@@ -19,11 +27,11 @@
         </link>
 
         <!-- Camera sensor -->
-        <link name="seek_thermal_${name}_link"/>
-        <joint name="seek_thermal_${name}_sensor_joint" type="fixed">
+        <link name="seek_thermal_xr_${name}_link"/>
+        <joint name="seek_thermal_xr_${name}_sensor_joint" type="fixed">
             <origin xyz="0.025 0 0" rpy="0 0 0" />
-            <parent link="seek_thermal_${name}_base_link" />
-            <child link="seek_thermal_${name}_link" />
+            <parent link="seek_thermal_xr_${name}_base_link" />
+            <child link="seek_thermal_xr_${name}_link" />
         </joint>
     </xacro:macro>
 </robot>
