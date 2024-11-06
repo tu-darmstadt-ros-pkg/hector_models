@@ -5,7 +5,7 @@ project(hector_models VERSION 0.5.1)
 find_package(ament_cmake REQUIRED)
 
 install(DIRECTORY
-  launch
+  # launch
   meshes
   urdf
   gazebo
